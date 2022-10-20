@@ -1,70 +1,37 @@
-# Getting Started with Create React App
+# Secret Santa App
+An app for all the family! Christmas present budget getting out of control? Sick of pulling names out of a hat and having to redraw when you pick yourself? Try our app!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The app will allow you to:
+- Sign up,
+- Log in,
+- Assign a gift exchange date and budget,
+- Countdown with you to Christmas,
+- Generate a group invite link to the draw,
+- Automatically assign a name to you, excluding yourself,
+- Allow you to add your likes and dislikes, or a wishlist of your own,
+- Let other gift-givers send you tips and links to present ideas for the person you have drawn, anonymously!
 
-## Available Scripts
+----------------
+ ### Installation Instructions
+1. Run `git clone https://github.com/SuzBarnes/secret-santa-app` into the console.
+2. `cd` into the new directory
+3. Run `npm install`
+----------------
+### Useful Commands:
+|How to...| Command  | Further Details|
+|---------|----------|----------------|
+|Start the app|`npm start`|it will load on localhost:3000|
+|Test| `npm test`| the tests will take place and any errors will be displayed in your console|
+|Format| `npx prettier --write .`| Prettier is the ESLint tool used to help with formatting of the App
+----------------
+### How to use:
 
-In the project directory, you can run:
+----------------
+### Technologies
+- Created by bootstrapping the Create React App (https://github.com/facebook/create-react-app).
+- Uses React, JavaScript, JSX, CSS, Sequelize.
+----------------
+### Further time
+If we had further time we would...
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Created by Lisa Hefferman, Alex Bradley and Suzannah  Barnes 2022
