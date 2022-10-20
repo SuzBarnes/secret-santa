@@ -13,7 +13,7 @@ The app will allow you to:
 
 ----------------
  ### Installation Instructions
-1. Run `git clone https://github.com/SuzBarnes/secret-santa-app` into the console.
+1. Run `git clone https://github.com/SuzBarnes/secret-santa` into the console.
 2. `cd` into the new directory
 3. Run `npm install`
 ----------------
