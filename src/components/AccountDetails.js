@@ -4,7 +4,7 @@ import "../styles/accountdetails.scss";
 const AccountDetails = () => {
   return (
     <div>
-      <h1>Account Details</h1>
+      <h1>Account Details.</h1>
     </div>
   );
 };
