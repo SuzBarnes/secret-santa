@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/app.css";
+import "../styles/app.scss";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./NavBar";
 import MyEvents from "./MyEvents";

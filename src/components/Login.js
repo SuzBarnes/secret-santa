@@ -1,11 +1,11 @@
 import React from "react";
-import "../styles/login.css";
+import "../styles/login.scss";
 
 const Login = () => {
-    return (
-        <div>
-            <h1>Login</h1>
-        </div>
-    );
+  return (
+    <div>
+      <h1>Login</h1>
+    </div>
+  );
 };
 export default Login;

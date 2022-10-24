@@ -21,23 +21,14 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": [
-    "react"
-  ],
+  "plugins": ["react"],
   "rules": {
-    "quotes": [
-      0
-    ],
-    "react/jsx-props-no-spreading": [
-      0
-    ],
+    "quotes": [0],
+    "react/jsx-props-no-spreading": [0],
     "react/jsx-filename-extension": [
       1,
       {
-        "extensions": [
-          ".js",
-          ".jsx"
-        ]
+        "extensions": [".js", ".jsx"]
       }
     ],
     "react/function-component-definition": [
