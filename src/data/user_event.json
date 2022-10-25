@@ -1,0 +1,52 @@
+{
+    "userEvents": [
+         {
+            "userEventId": 1,
+            "userId": 1,
+            "eventId": 1,
+            "buyForId": 2
+        },
+        {
+            "userEventId": 2,
+            "userId": 2,
+            "eventId": 1,
+            "buyForId": 3
+        },
+        {
+            "userEventId": 3,
+            "userId": 3,
+            "eventId": 1,
+            "buyForId": 4
+        },
+        {
+            "userEventId": 4,
+            "userId": 4,
+            "eventId": 1,
+            "buyForId": 1
+        },
+        {
+            "userEventId": 5,
+            "userId": 1,
+            "eventId": 2,
+            "buyForId": 5
+        },
+        {
+            "userEventId": 6,
+            "userId": 5,
+            "eventId": 2,
+            "buyForId": 6
+        },
+        {
+            "userEventId": 7,
+            "userId": 6,
+            "eventId": 2,
+            "buyForId": 7
+        },
+        {
+            "userEventId": 8,
+            "userId": 7,
+            "eventId": 2,
+            "buyForId": 1
+        }
+    ]
+}
