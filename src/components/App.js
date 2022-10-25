@@ -11,14 +11,13 @@ const App = () => {
   return (
     <div className="App">
       <h1>Secret Santa App</h1>
-      <NavBar>
-        <Routes>
-          <Route path="/" element={<MyEvents />} />
-          <Route path="create-event" element={<CreateEvent />} />
-          <Route path="login" element={<Login />} />
-          <Route path="account-details" element={<AccountDetails />} />
-        </Routes>
-      </NavBar>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<MyEvents />} />
+        <Route path="create-event" element={<CreateEvent />} />
+        <Route path="login" element={<Login />} />
+        <Route path="account-details" element={<AccountDetails />} />
+      </Routes>
     </div>
   );
 };
