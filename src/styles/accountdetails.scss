@@ -1,0 +1,35 @@
+@import "config";
+
+* {
+    box-sizing: border-box;
+}
+
+.account-details-container {
+    background-color: $main-color;
+    .account-details-title {
+        text-align: center;
+        button {
+            background-color: white;
+            border-radius: $border-radius;
+        }
+    }
+    .fields-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        .field-card {
+            margin: 10px auto;
+            justify-content: center;
+            .field-tag {
+                width: 100px;
+            }
+            .field-value {
+                background-color: white;
+                border: 1px solid black;
+                width: 100px;
+                border-radius: $border-radius;
+            }
+        }
+    }
+
+}
