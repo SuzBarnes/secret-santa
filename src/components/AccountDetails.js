@@ -57,13 +57,29 @@ const AccountDetails = () => {
     setNewDislike("");
   };
 
+  const handlePasswordChange = () => {
+    console.log("password change");
+  };
+
   return (
     <div className="account-details-container">
       <div className="account-details-title">
         Account Details.{" "}
-        <button type="submit" onClick={() => setNotEditable(false)}>
-          edit
-        </button>
+        {notEditable ? (
+          <button type="submit" onClick={() => setNotEditable(false)}>
+            edit
+          </button>
+        ) : (
+          <button
+            type="submit"
+            onClick={() => {
+              console.log("saved");
+              setNotEditable(true);
+            }}
+          >
+            save
+          </button>
+        )}
       </div>
       <div className="fields-container">
         <div className="field-card">
@@ -96,6 +112,43 @@ const AccountDetails = () => {
             />
           </label>
         </div>
+        {!notEditable && (
+          <div className="field-card">
+            <label className="field-tag" htmlFor="password">
+              Current password
+              <input
+                className="field-value"
+                id="password"
+                name="password"
+                type="text"
+                value=""
+                onChange={handlePasswordChange}
+              />
+            </label>
+            <label className="field-tag" htmlFor="password">
+              New password
+              <input
+                className="field-value"
+                id="password"
+                name="password"
+                type="text"
+                value=""
+                onChange={handlePasswordChange}
+              />
+            </label>
+            <label className="field-tag" htmlFor="password">
+              Retype new password
+              <input
+                className="field-value"
+                id="password"
+                name="password"
+                type="text"
+                value=""
+                onChange={handlePasswordChange}
+              />
+            </label>
+          </div>
+        )}
         <div className="field-card">
           <div className="field-tag">likes</div>
           {likes.split(", ").map((item) => (
@@ -106,7 +159,6 @@ const AccountDetails = () => {
                 name="likes"
                 placeholder={item}
                 type="text"
-                readOnly={true}
               />
               {!notEditable && (
                 <button
@@ -153,7 +205,6 @@ const AccountDetails = () => {
                 name="dislikes"
                 placeholder={item}
                 type="text"
-                readOnly={true}
               />
               {!notEditable && (
                 <button
