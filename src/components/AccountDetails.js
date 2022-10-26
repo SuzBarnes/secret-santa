@@ -132,6 +132,9 @@ const AccountDetails = () => {
         {!notEditable && (
           <div className="field-card">
             <label className="field-tag" htmlFor="password">
+              <button type="submit" onClick={togglePassword}>
+                <FontAwesomeIcon icon={faEye} className="font-awesome" />
+              </button>
               Current password
               <input
                 className="field-value"
@@ -141,9 +144,7 @@ const AccountDetails = () => {
                 onChange={(event) => setCheckPassword(event.target.value)}
               />
             </label>
-            <button type="submit" onClick={togglePassword}>
-              <FontAwesomeIcon icon={faEye} className="font-awesome" />
-            </button>
+
             <label className="field-tag" htmlFor="password">
               New password
               <input
