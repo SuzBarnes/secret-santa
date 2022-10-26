@@ -22,6 +22,11 @@ const NavBar = () => {
             Account Details
           </Link>
         </li>
+        <li>
+          <Link className="navbar-link-item" to="login">
+            Login
+          </Link>
+        </li>
       </ul>
     </div>
   );
