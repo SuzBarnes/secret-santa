@@ -6,13 +6,55 @@ import likesDislikes from "../data/likesDislikes.json";
 const AccountDetails = () => {
   const [notEditable, setNotEditable] = useState(true);
   const [fields, setFields] = useState(user.users[0]);
-
-  // const handleFieldChange = (event) => {
-  //   setFields({ ...fields, [event.target.name]: event.target.value });
-  // };
+  const [likes, setLikes] = useState(likesDislikes.likesDislikes.likes);
+  const [dislikes, setDislikes] = useState(
+    likesDislikes.likesDislikes.dislikes
+  );
+  const [newLike, setNewLike] = useState("");
+  const [newDislike, setNewDislike] = useState("");
 
   const handleChange = (event) => {
     setFields({ ...user.users[0], [event.target.name]: event.target.value });
+  };
+
+  const handleLikeChange = (event) => {
+    setNewLike(event.target.value);
+  };
+
+  const handleDislikeChange = (event) => {
+    setNewDislike(event.target.value);
+  };
+
+  const handleLikeDelete = (item) => {
+    setLikes(
+      likes
+        .split(", ")
+        .filter((like) => like !== item)
+        .join(", ")
+    );
+  };
+
+  const handleDislikeDelete = (item) => {
+    setDislikes(
+      dislikes
+        .split(", ")
+        .filter((dislike) => dislike !== item)
+        .join(", ")
+    );
+  };
+
+  const handleLikeAdd = () => {
+    const array = likes.split(", ");
+    array.push(newLike);
+    setLikes(array.join(", "));
+    setNewLike("");
+  };
+
+  const handleDislikeAdd = () => {
+    const array = dislikes.split(", ");
+    array.push(newDislike);
+    setDislikes(array.join(", "));
+    setNewDislike("");
   };
 
   return (
@@ -56,29 +98,96 @@ const AccountDetails = () => {
         </div>
         <div className="field-card">
           <div className="field-tag">likes</div>
-          {likesDislikes.likesDislikes.likes.split(", ").map((item) => (
+          {likes.split(", ").map((item) => (
             <div className="like-container" key={item}>
-              <div className="field-value">{item}</div>
+              <input
+                className="field-value"
+                id="likes"
+                name="likes"
+                placeholder={item}
+                type="text"
+                readOnly={true}
+              />
               {!notEditable && (
-                <button className="like-button" type="submit">
+                <button
+                  className="like-button"
+                  type="submit"
+                  onClick={() => handleLikeDelete(item)}
+                >
                   -
                 </button>
               )}
             </div>
           ))}
+          {!notEditable && (
+            <div className="like-container">
+              <input
+                className="field-value"
+                id="likes"
+                name="likes"
+                placeholder=""
+                type="text"
+                value={newLike}
+                onChange={handleLikeChange}
+              />
+              {!notEditable && (
+                <button
+                  className="like-button"
+                  type="submit"
+                  onClick={handleLikeAdd}
+                >
+                  +
+                </button>
+              )}
+            </div>
+          )}
         </div>
+
         <div className="field-card">
-          <div className="field-tag">dislikes </div>
-          {likesDislikes.likesDislikes.dislikes.split(", ").map((item) => (
+          <div className="field-tag">dislikes</div>
+          {dislikes.split(", ").map((item) => (
             <div className="like-container" key={item}>
-              <div className="field-value">{item}</div>
+              <input
+                className="field-value"
+                id="dislikes"
+                name="dislikes"
+                placeholder={item}
+                type="text"
+                readOnly={true}
+              />
               {!notEditable && (
-                <button className="like-button" type="submit">
+                <button
+                  className="like-button"
+                  type="submit"
+                  onClick={() => handleDislikeDelete(item)}
+                >
                   -
                 </button>
               )}
             </div>
           ))}
+          {!notEditable && (
+            <div className="like-container">
+              <input
+                className="field-value"
+                id="dislikes"
+                name="dislikes"
+                placeholder=""
+                type="text"
+                value={newDislike}
+                onChange={handleDislikeChange}
+              />
+              {!notEditable && (
+                <button
+                  className="like-button"
+                  type="submit"
+                  onClick={handleDislikeAdd}
+                >
+                  +
+                </button>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
