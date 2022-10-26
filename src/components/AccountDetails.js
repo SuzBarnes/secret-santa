@@ -133,7 +133,11 @@ const AccountDetails = () => {
           <div className="field-card">
             <label className="field-tag" htmlFor="password">
               <button type="submit" onClick={togglePassword}>
-                <FontAwesomeIcon icon={faEye} className="font-awesome" />
+                <FontAwesomeIcon
+                  icon={faEye}
+                  className="eyeIcon"
+                  data-testid="eye-icon"
+                />
               </button>
               Current password
               <input
@@ -172,10 +176,11 @@ const AccountDetails = () => {
         )}
         <div className="field-card">
           <div className="field-tag">likes</div>
-          {likes.split(", ").map((item) => (
+          {likes.split(", ").map((item, index) => (
             <div className="like-container" key={item}>
               <input
                 className="field-value"
+                data-testid="likes"
                 name="likes"
                 placeholder={item}
                 type="text"
@@ -183,6 +188,7 @@ const AccountDetails = () => {
               {!notEditable && (
                 <button
                   className="like-button"
+                  data-testid={`like-delete-button-${index}`}
                   type="submit"
                   onClick={() => handleLikeDelete(item)}
                 >
@@ -204,6 +210,7 @@ const AccountDetails = () => {
               {!notEditable && (
                 <button
                   className="like-button"
+                  data-testid="like-add-button"
                   type="submit"
                   onClick={handleLikeAdd}
                 >
@@ -216,10 +223,11 @@ const AccountDetails = () => {
 
         <div className="field-card">
           <div className="field-tag">dislikes</div>
-          {dislikes.split(", ").map((item) => (
+          {dislikes.split(", ").map((item, index) => (
             <div className="like-container" key={item}>
               <input
                 className="field-value"
+                data-testid="dislikes"
                 name="dislikes"
                 placeholder={item}
                 type="text"
@@ -227,6 +235,7 @@ const AccountDetails = () => {
               {!notEditable && (
                 <button
                   className="like-button"
+                  data-testid={`dislike-delete-button-${index}`}
                   type="submit"
                   onClick={() => handleDislikeDelete(item)}
                 >
@@ -248,6 +257,7 @@ const AccountDetails = () => {
               {!notEditable && (
                 <button
                   className="like-button"
+                  data-testid="dislike-add-button"
                   type="submit"
                   onClick={handleDislikeAdd}
                 >
