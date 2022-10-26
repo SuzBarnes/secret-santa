@@ -12,6 +12,9 @@ const AccountDetails = () => {
   );
   const [newLike, setNewLike] = useState("");
   const [newDislike, setNewDislike] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [retypeNewPassword, setRetypeNewPassword] = useState("");
 
   const handleChange = (event) => {
     setFields({ ...user.users[0], [event.target.name]: event.target.value });
@@ -57,8 +60,27 @@ const AccountDetails = () => {
     setNewDislike("");
   };
 
+  // const handlePasswordChange = (event) => {
+  //   setCheckPassword(event.target.value);
+  // };
+
+  // const handleNewPassword = (event) => {
+  //   setNewPassword(event.target.value);
+  // }
+
+  // const handleRetypeNewPassword = (event) => {
+  //   setRetypeNewPassword(event.target.value);
+  // };
+
   const handlePasswordChange = () => {
-    console.log("password change");
+    if (
+      checkPassword === user.users[0].password &&
+      newPassword === retypeNewPassword
+    ) {
+      console.log("password changed");
+    } else {
+      console.log("password mismatch");
+    }
   };
 
   return (
@@ -121,8 +143,8 @@ const AccountDetails = () => {
                 id="password"
                 name="password"
                 type="text"
-                value=""
-                onChange={handlePasswordChange}
+                value={checkPassword}
+                onChange={(event) => setCheckPassword(event.target.value)}
               />
             </label>
             <label className="field-tag" htmlFor="password">
@@ -132,8 +154,8 @@ const AccountDetails = () => {
                 id="password"
                 name="password"
                 type="text"
-                value=""
-                onChange={handlePasswordChange}
+                value={newPassword}
+                onChange={(event) => setNewPassword(event.target.value)}
               />
             </label>
             <label className="field-tag" htmlFor="password">
@@ -143,10 +165,13 @@ const AccountDetails = () => {
                 id="password"
                 name="password"
                 type="text"
-                value=""
-                onChange={handlePasswordChange}
+                value={retypeNewPassword}
+                onChange={(event) => setRetypeNewPassword(event.target.value)}
               />
             </label>
+            <button type="submit" onClick={handlePasswordChange}>
+              change password
+            </button>
           </div>
         )}
         <div className="field-card">
