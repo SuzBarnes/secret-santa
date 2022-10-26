@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-// import axios from "../api/axios";
 import "../styles/login.scss";
 // import AuthContext from "../context/AuthProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import axios from "../api/axios";
 
-// const LOGIN_URL = "/login";
+const LOGIN_URL = "/posts";
 
 const Login = () => {
   // const { setAuth } = useContext(AuthContext);
@@ -39,31 +39,50 @@ const Login = () => {
     event.preventDefault();
     setAlert({ message: "", isSuccess: false });
 
-    // axios
-    //     .post(LOGIN_URL, JSON.stringify(login), {
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             withCredentials: true,
-    //         },
-    //     })
-    //     .then(() => {
-    //         setAlert({
-    //             message: `Welcome ${login.email}`,
-    //             // want it ideally to be welcome register.first name, but not sure how it will access the firstname from the original registration//
-    //             isSuccess: true,
-    //         });
-    //     })
-    //     .catch(() => {
-    //         setAlert({
-    //             message: "Server error, please try again later",
-    //             isSuccess: false,
-    //         });
-    //     });
+    axios
+      .post(LOGIN_URL, JSON.stringify(login), {
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: true,
+        },
+      })
+      .then(() => {
+        setAlert({
+          message: `Welcome ${login.email}`,
+          // want it ideally to be welcome register.first name, but not sure how it will access the firstname from the original registration//
+          isSuccess: true,
+        });
+      })
+      .catch(() => {
+        setAlert({
+          message: "Server error, please try again later",
+          isSuccess: false,
+        });
+      });
   };
   const handleRegister = (event) => {
     event.preventDefault();
     setAlert({ message: "", isSuccess: false });
     console.log(register);
+    axios
+      .post(LOGIN_URL, JSON.stringify(register), {
+        headers: {
+          "Content-Type": "application/json",
+          withCredentials: true,
+        },
+      })
+      .then(() => {
+        setAlert({
+          message: `Merry Christmas and welcome ${register.firstname}!`,
+          isSuccess: true,
+        });
+      })
+      .catch(() => {
+        setAlert({
+          message: "Server error, please try again later",
+          isSuccess: false,
+        });
+      });
   };
   const handleLoginChange = (event) => {
     setLogin({ ...login, [event.target.name]: event.target.value });
