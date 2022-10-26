@@ -1,18 +1,18 @@
 {
-    "events": [
-         {
-            "eventId": 1,
-            "title": "Manchester Code secret santa",
-            "date": "",
-            "budget": 10,
-            "adminId": 3
-        },
-        {
-            "eventId": 2,
-            "title": "May cohort secret santa",
-            "date": "",
-            "budget": 10,
-            "adminId": 2  
-        }
-    ]
+  "events": [
+    {
+      "eventId": 1,
+      "title": "Manchester Code secret santa",
+      "date": "",
+      "budget": 10,
+      "adminId": 3
+    },
+    {
+      "eventId": 2,
+      "title": "May cohort secret santa",
+      "date": "",
+      "budget": 10,
+      "adminId": 2
+    }
+  ]
 }
