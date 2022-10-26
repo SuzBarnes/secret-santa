@@ -4,6 +4,7 @@ import "../styles/login.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "../api/axios";
+import Alert from "./Alert";
 
 const LOGIN_URL = "/posts";
 
@@ -95,6 +96,7 @@ const Login = () => {
     <div className="login">
       <h3>Login</h3>
       <form onSubmit={handleLogin}>
+        <Alert message={alert.message} success={alert.isSuccess} />
         <input
           id="email"
           name="email"
@@ -127,6 +129,8 @@ const Login = () => {
       </p>
       <h3>Register</h3>
       <form onSubmit={handleRegister}>
+        <Alert message={alert.message} success={alert.isSuccess} />
+
         <input
           id="firstname"
           name="firstname"
