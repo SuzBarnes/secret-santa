@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 import "../styles/accountdetails.scss";
 import user from "../data/user.json";
 import likesDislikes from "../data/likesDislikes.json";
@@ -15,6 +17,7 @@ const AccountDetails = () => {
   const [checkPassword, setCheckPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [retypeNewPassword, setRetypeNewPassword] = useState("");
+  const [passwordShown, setPasswordShown] = useState(false);
 
   const handleChange = (event) => {
     setFields({ ...user.users[0], [event.target.name]: event.target.value });
@@ -60,18 +63,6 @@ const AccountDetails = () => {
     setNewDislike("");
   };
 
-  // const handlePasswordChange = (event) => {
-  //   setCheckPassword(event.target.value);
-  // };
-
-  // const handleNewPassword = (event) => {
-  //   setNewPassword(event.target.value);
-  // }
-
-  // const handleRetypeNewPassword = (event) => {
-  //   setRetypeNewPassword(event.target.value);
-  // };
-
   const handlePasswordChange = () => {
     if (
       checkPassword === user.users[0].password &&
@@ -81,6 +72,10 @@ const AccountDetails = () => {
     } else {
       console.log("password mismatch");
     }
+  };
+
+  const togglePassword = () => {
+    setPasswordShown(!passwordShown);
   };
 
   return (
@@ -140,20 +135,21 @@ const AccountDetails = () => {
               Current password
               <input
                 className="field-value"
-                id="password"
                 name="password"
-                type="text"
+                type={passwordShown ? "text" : "password"}
                 value={checkPassword}
                 onChange={(event) => setCheckPassword(event.target.value)}
               />
             </label>
+            <button type="submit" onClick={togglePassword}>
+              <FontAwesomeIcon icon={faEye} className="font-awesome" />
+            </button>
             <label className="field-tag" htmlFor="password">
               New password
               <input
                 className="field-value"
-                id="password"
                 name="password"
-                type="text"
+                type={passwordShown ? "text" : "password"}
                 value={newPassword}
                 onChange={(event) => setNewPassword(event.target.value)}
               />
@@ -162,9 +158,8 @@ const AccountDetails = () => {
               Retype new password
               <input
                 className="field-value"
-                id="password"
                 name="password"
-                type="text"
+                type={passwordShown ? "text" : "password"}
                 value={retypeNewPassword}
                 onChange={(event) => setRetypeNewPassword(event.target.value)}
               />
@@ -180,7 +175,6 @@ const AccountDetails = () => {
             <div className="like-container" key={item}>
               <input
                 className="field-value"
-                id="likes"
                 name="likes"
                 placeholder={item}
                 type="text"
@@ -200,7 +194,6 @@ const AccountDetails = () => {
             <div className="like-container">
               <input
                 className="field-value"
-                id="likes"
                 name="likes"
                 placeholder=""
                 type="text"
@@ -226,7 +219,6 @@ const AccountDetails = () => {
             <div className="like-container" key={item}>
               <input
                 className="field-value"
-                id="dislikes"
                 name="dislikes"
                 placeholder={item}
                 type="text"
@@ -246,7 +238,6 @@ const AccountDetails = () => {
             <div className="like-container">
               <input
                 className="field-value"
-                id="dislikes"
                 name="dislikes"
                 placeholder=""
                 type="text"
