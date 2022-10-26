@@ -11,7 +11,6 @@ const App = () => {
   return (
     <div className="App">
       <h1>Secret Santa App</h1>
-      <Login />
       <NavBar />
       <Routes>
         <Route path="/" element={<MyEvents />} />
