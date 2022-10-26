@@ -11,6 +11,7 @@
         button {
             background-color: white;
             border-radius: $border-radius;
+            cursor: pointer;
         }
     }
     .fields-container {
@@ -21,9 +22,11 @@
             margin: 10px auto;
             justify-content: center;
             .field-tag {
+                display: block;
                 width: 100px;
             }
             .field-value {
+                display: block;
                 background-color: white;
                 border: 1px solid black;
                 width: 100px;
