@@ -25,14 +25,19 @@
                 display: block;
                 width: 100px;
             }
-            .field-value {
-                display: block;
-                background-color: white;
-                border: 1px solid black;
-                width: 100px;
-                border-radius: $border-radius;
+            .like-container {
+                .field-value {
+                    display: inline;
+                    background-color: white;
+                    border: 1px solid black;
+                    width: 100px;
+                    border-radius: $border-radius;
+                }
+                .like-button {
+                    display: inline;
+                    border-radius: 50%;
+                }
             }
         }
     }
-
 }

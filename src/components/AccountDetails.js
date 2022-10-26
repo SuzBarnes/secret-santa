@@ -57,16 +57,26 @@ const AccountDetails = () => {
         <div className="field-card">
           <div className="field-tag">likes</div>
           {likesDislikes.likesDislikes.likes.split(", ").map((item) => (
-            <div key={item} className="field-value">
-              {item}
+            <div className="like-container" key={item}>
+              <div className="field-value">{item}</div>
+              {!notEditable && (
+                <button className="like-button" type="submit">
+                  -
+                </button>
+              )}
             </div>
           ))}
         </div>
         <div className="field-card">
           <div className="field-tag">dislikes </div>
           {likesDislikes.likesDislikes.dislikes.split(", ").map((item) => (
-            <div key={item} className="field-value">
-              {item}
+            <div className="like-container" key={item}>
+              <div className="field-value">{item}</div>
+              {!notEditable && (
+                <button className="like-button" type="submit">
+                  -
+                </button>
+              )}
             </div>
           ))}
         </div>
