@@ -1,14 +1,21 @@
 /* eslint-disable no-console */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
+import axios from "../api/axios";
 import "../styles/accountdetails.scss";
 import user from "../data/user.json";
 import likesDislikes from "../data/likesDislikes.json";
 
+const ACCOUNT_DETAILS_URL = "/users";
+
 const AccountDetails = () => {
   const [notEditable, setNotEditable] = useState(true);
-  const [fields, setFields] = useState(user.users[0]);
+  const [fields, setFields] = useState({
+    name: "Suzie",
+    email: "suzie@ss.com",
+    password: "password1",
+  });
   const [likes, setLikes] = useState(likesDislikes.likesDislikes.likes);
   const [dislikes, setDislikes] = useState(
     likesDislikes.likesDislikes.dislikes
@@ -19,6 +26,10 @@ const AccountDetails = () => {
   const [newPassword, setNewPassword] = useState("");
   const [retypeNewPassword, setRetypeNewPassword] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
+
+  useEffect(() => {
+    axios.get(ACCOUNT_DETAILS_URL).then(({ data }) => setFields(data[1]));
+  }, []);
 
   const handleChange = (event) => {
     setFields({ ...user.users[0], [event.target.name]: event.target.value });
