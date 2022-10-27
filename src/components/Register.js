@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import "../styles/login.scss";
+import "../styles/register.scss";
 // import AuthContext from "../context/AuthProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "../api/axios";
 import Alert from "./Alert";
 
-const LOGIN_URL = "/users";
+const REGISTER_URL = "/users";
 
-const Login = () => {
+const Register = () => {
   // const { setAuth } = useContext(AuthContext);
 
   const initialState = {
-    login: {
+    register: {
+      firstname: "",
+      surname: "",
       email: "",
       password: "",
     },
@@ -21,7 +23,7 @@ const Login = () => {
       isSuccess: false,
     },
   };
-  const [login, setLogin] = useState(initialState.login);
+  const [register, setRegister] = useState(initialState.register);
   const [passwordShown, setPasswordShown] = useState(false);
   const [alert, setAlert] = useState(initialState.alert);
 
@@ -29,12 +31,11 @@ const Login = () => {
     setPasswordShown(!passwordShown);
   };
 
-  const handleLogin = (event) => {
+  const handleRegister = (event) => {
     event.preventDefault();
     setAlert({ message: "", isSuccess: false });
-
     axios
-      .get(LOGIN_URL, JSON.stringify(login), {
+      .post(REGISTER_URL, JSON.stringify(register), {
         headers: {
           "Content-Type": "application/json",
           withCredentials: true,
@@ -42,8 +43,7 @@ const Login = () => {
       })
       .then(() => {
         setAlert({
-          message: `Welcome ${login.email}`,
-          // want it ideally to be welcome register.first name, but not sure how it will access the firstname from the original registration//
+          message: `Merry Christmas and welcome ${register.firstname}!`,
           isSuccess: true,
         });
       })
@@ -55,21 +55,38 @@ const Login = () => {
       });
   };
 
-  const handleLoginChange = (event) => {
-    setLogin({ ...login, [event.target.name]: event.target.value });
+  const handleRegisterChange = (event) => {
+    setRegister({ ...register, [event.target.name]: event.target.value });
   };
 
   return (
-    <div className="login">
-      <h3>Login</h3>
-      <form onSubmit={handleLogin}>
+    <div>
+      <h3>Register</h3>
+      <form onSubmit={handleRegister}>
         <Alert message={alert.message} success={alert.isSuccess} />
+
+        <input
+          id="firstname"
+          name="firstname"
+          placeholder="Enter First Name"
+          value={register.firstname}
+          onChange={handleRegisterChange}
+          required
+        />
+        <input
+          id="surname"
+          name="surname"
+          placeholder="Enter Surname"
+          value={register.surname}
+          onChange={handleRegisterChange}
+          required
+        />
         <input
           id="email"
           name="email"
           placeholder="Email Address"
-          value={login.email}
-          onChange={handleLoginChange}
+          value={register.email}
+          onChange={handleRegisterChange}
           required
         />
 
@@ -78,23 +95,17 @@ const Login = () => {
           name="password"
           type={passwordShown ? "text" : "password"}
           placeholder="Enter valid password"
-          value={login.password}
-          onChange={handleLoginChange}
+          value={register.password}
+          onChange={handleRegisterChange}
           required
         />
         <button type="button" onClick={togglePassword}>
           <FontAwesomeIcon icon={faEye} className="font-awesome" />
         </button>
-        <button type="submit">Log in</button>
+
+        <button type="submit">Register</button>
       </form>
-      <p>
-        Need an Account?
-        <span className="line">
-          {/* put router link here */}
-          {/* <a href="login">Sign Up</a> */}
-        </span>
-      </p>
     </div>
   );
 };
-export default Login;
+export default Register;
