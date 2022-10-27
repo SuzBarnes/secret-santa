@@ -88,9 +88,9 @@ const Login = () => {
         <button type="submit">Log in</button>
       </form>
       <p>
-        Need an account?
+        Need an Account?
         <span className="line">
-          <a href="register">Sign Up</a>
+          <a href="login">Sign Up</a>
         </span>
       </p>
     </div>

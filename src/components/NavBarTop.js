@@ -5,7 +5,7 @@ import "../styles/navbartop.scss";
 const NavBarTop = () => {
   return (
     <div className="navbartop">
-      <h1 className="navbartop-title">NavBarTop</h1>
+      <h1>Secret Santa App</h1>
       <ul className="navbartop-links">
         <li>
           <Link className="navbartop-link-item" to="login">

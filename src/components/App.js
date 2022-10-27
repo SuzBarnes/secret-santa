@@ -12,7 +12,6 @@ import AccountDetails from "./AccountDetails";
 const App = () => {
   return (
     <div className="App">
-      <h1>Secret Santa App</h1>
       <NavBarTop />
       <NavBarBottom />
       <Routes>
