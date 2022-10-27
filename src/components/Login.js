@@ -88,10 +88,9 @@ const Login = () => {
         <button type="submit">Log in</button>
       </form>
       <p>
-        Need an Account?
+        Need an account?
         <span className="line">
-          {/* put router link here */}
-          {/* <a href="login">Sign Up</a> */}
+          <a href="register">Sign Up</a>
         </span>
       </p>
     </div>
