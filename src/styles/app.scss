@@ -1,7 +1,10 @@
+@import "config";
+
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: $main-font-theme;
 }
 
 .App {
-    height: 100vh;
+  height: 100vh;
 }

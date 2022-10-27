@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -81,7 +82,7 @@ const AccountDetails = () => {
   return (
     <div className="account-details-container">
       <div className="account-details-title">
-        Account Details.{" "}
+        Account Details{" "}
         {notEditable ? (
           <button type="submit" onClick={() => setNotEditable(false)}>
             edit
@@ -100,77 +101,66 @@ const AccountDetails = () => {
       </div>
       <div className="fields-container">
         <div className="field-card">
-          <label className="field-tag" htmlFor="name">
-            Name
-            <input
-              className="field-value"
-              id="name"
-              name="name"
-              placeholder="name"
-              type="text"
-              value={fields.name}
-              onChange={handleChange}
-              readOnly={notEditable}
-            />
-          </label>
+          <input
+            className="field-value"
+            id="name"
+            name="name"
+            placeholder="name"
+            type="text"
+            value={fields.name}
+            onChange={handleChange}
+            readOnly={notEditable}
+          />
         </div>
         <div className="field-card">
-          <label className="field-tag" htmlFor="email">
-            Email
-            <input
-              className="field-value"
-              id="email"
-              name="email"
-              placeholder="email"
-              type="text"
-              value={fields.email}
-              onChange={handleChange}
-              readOnly={notEditable}
-            />
-          </label>
+          <input
+            className="field-value"
+            id="email"
+            name="email"
+            placeholder="email"
+            type="text"
+            value={fields.email}
+            onChange={handleChange}
+            readOnly={notEditable}
+          />
         </div>
         {!notEditable && (
           <div className="field-card">
-            <label className="field-tag" htmlFor="password">
-              <button type="submit" onClick={togglePassword}>
-                <FontAwesomeIcon
-                  icon={faEye}
-                  className="eyeIcon"
-                  data-testid="eye-icon"
-                />
-              </button>
-              Current password
+            <div className="password-container">
               <input
                 className="field-value"
                 name="password"
                 type={passwordShown ? "text" : "password"}
+                placeholder="current password"
                 value={checkPassword}
                 onChange={(event) => setCheckPassword(event.target.value)}
               />
-            </label>
-
-            <label className="field-tag" htmlFor="password">
-              New password
               <input
                 className="field-value"
                 name="password"
                 type={passwordShown ? "text" : "password"}
+                placeholder="new password"
                 value={newPassword}
                 onChange={(event) => setNewPassword(event.target.value)}
               />
-            </label>
-            <label className="field-tag" htmlFor="password">
-              Retype new password
               <input
                 className="field-value"
                 name="password"
                 type={passwordShown ? "text" : "password"}
+                placeholder="retype new password"
                 value={retypeNewPassword}
                 onChange={(event) => setRetypeNewPassword(event.target.value)}
               />
-            </label>
+            </div>
             <button type="submit" onClick={handlePasswordChange}>
               change password
+            </button>
+            <button type="button" onClick={togglePassword}>
+              <FontAwesomeIcon
+                icon={faEye}
+                className="eyeIcon"
+                data-testid="eye-icon"
+              />
             </button>
           </div>
         )}
@@ -209,7 +199,7 @@ const AccountDetails = () => {
               />
               {!notEditable && (
                 <button
-                  className="like-button"
+                  className="add-like-button"
                   data-testid="like-add-button"
                   type="submit"
                   onClick={handleLikeAdd}
@@ -256,7 +246,7 @@ const AccountDetails = () => {
               />
               {!notEditable && (
                 <button
-                  className="like-button"
+                  className="add-like-button"
                   data-testid="dislike-add-button"
                   type="submit"
                   onClick={handleDislikeAdd}

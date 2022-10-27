@@ -1,43 +1,58 @@
 @import "config";
 
-* {
-    box-sizing: border-box;
-}
-
 .account-details-container {
-    background-color: $main-color;
-    .account-details-title {
-        text-align: center;
-        button {
-            background-color: white;
-            border-radius: $border-radius;
-            cursor: pointer;
-        }
+  background-color: $main-color;
+  .account-details-title {
+    text-align: center;
+    button {
+      background-color: $main-button-color;
+      border-radius: $border-radius;
+      cursor: pointer;
     }
-    .fields-container {
+  }
+  .fields-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    .field-card {
+      margin: 10px auto;
+      justify-content: center;
+      .like-container {
+        .field-value {
+          display: inline;
+          background-color: white;
+          border: 1px solid black;
+          width: 100px;
+          margin: 2px;
+          border-radius: $border-radius;
+        }
+        .like-button {
+          display: inline;
+          border-radius: 50%;
+          height: 20px;
+          width: 20px;
+          background-color: rgb(244, 76, 76);
+        }
+        .add-like-button {
+          display: inline;
+          border-radius: 50%;
+          height: 20px;
+          width: 20px;
+          background-color: rgb(75, 217, 75);
+        }
+      }
+      .password-container {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        .field-card {
-            margin: 10px auto;
-            justify-content: center;
-            .field-tag {
-                display: block;
-                width: 100px;
-            }
-            .like-container {
-                .field-value {
-                    display: inline;
-                    background-color: white;
-                    border: 1px solid black;
-                    width: 100px;
-                    border-radius: $border-radius;
-                }
-                .like-button {
-                    display: inline;
-                    border-radius: 50%;
-                }
-            }
+        .field-value {
+          display: inline;
+          background-color: white;
+          border: 1px solid black;
+          margin: 2px;
+          border-radius: $border-radius;
         }
+      }
     }
+  }
 }
