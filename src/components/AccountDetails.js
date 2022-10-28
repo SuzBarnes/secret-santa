@@ -8,23 +8,28 @@ import "../styles/accountdetails.scss";
 const ACCOUNT_DETAILS_URL = "/users";
 
 const AccountDetails = () => {
+  const initialState = {
+    fields: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      password: "",
+      likes: "",
+      dislikes: "",
+    },
+    password: {
+      checkPassword: "",
+      newPassword: "",
+      retypeNewPassword: "",
+    },
+  };
   const [notEditable, setNotEditable] = useState(true);
-  const [fields, setFields] = useState({
-    first_name: "Richard",
-    last_name: "Heffernan",
-    email: "richard@ss.com",
-    password: "password23",
-    likes: "none",
-    dislikes: "none",
-  });
+  const [fields, setFields] = useState(initialState.fields);
   const [newLike, setNewLike] = useState("");
   const [newDislike, setNewDislike] = useState("");
-  const [checkPassword, setCheckPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
-  const [retypeNewPassword, setRetypeNewPassword] = useState("");
+  const [password, setPassword] = useState(initialState.password);
   const [passwordShown, setPasswordShown] = useState(false);
   const [isSure, setIsSure] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [userId, setUserId] = useState(6);
 
   useEffect(() => {
@@ -45,25 +50,14 @@ const AccountDetails = () => {
     setNewDislike(event.target.value);
   };
 
-  const handleLikeDelete = (item) => {
-    const newLikes = fields.likes
-      .split(", ")
-      .filter((like) => like !== item)
-      .join(", ");
+  const handleListDelete = (item, likeOrDislike) => {
+    const array = fields[likeOrDislike];
     setFields({
       ...fields,
-      likes: newLikes,
-    });
-  };
-
-  const handleDislikeDelete = (item) => {
-    const newDislikes = fields.dislikes
-      .split(", ")
-      .filter((dislike) => dislike !== item)
-      .join(", ");
-    setFields({
-      ...fields,
-      dislikes: newDislikes,
+      [likeOrDislike]: array
+        .split(", ")
+        .filter((like) => like !== item)
+        .join(", "),
     });
   };
 
@@ -84,12 +78,12 @@ const AccountDetails = () => {
   const handlePasswordChange = () => {
     axios.get(`${ACCOUNT_DETAILS_URL}/${userId}`).then(({ data }) => {
       if (
-        checkPassword === data[0].password &&
-        newPassword === retypeNewPassword
+        password.checkPassword === data[0].password &&
+        password.newPassword === password.retypeNewPassword
       ) {
         console.log("password changed");
         axios.patch(`${ACCOUNT_DETAILS_URL}/${userId}`, {
-          password: newPassword,
+          password: password.newPassword,
         });
       } else {
         console.log("incorrect password");
@@ -115,6 +109,7 @@ const AccountDetails = () => {
     } else if (isSure) {
       axios.delete(`${ACCOUNT_DETAILS_URL}/${userId}`);
       setIsSure(false);
+      setUserId(null);
     }
   };
 
@@ -178,27 +173,42 @@ const AccountDetails = () => {
             <div className="password-container">
               <input
                 className="field-value"
-                name="password"
+                name="checkPassword"
                 type={passwordShown ? "text" : "password"}
                 placeholder="current password"
-                value={checkPassword}
-                onChange={(event) => setCheckPassword(event.target.value)}
+                value={password.checkPassword}
+                onChange={(event) =>
+                  setPassword({
+                    ...password,
+                    [event.target.name]: event.target.value,
+                  })
+                }
               />
               <input
                 className="field-value"
-                name="password"
+                name="newPassword"
                 type={passwordShown ? "text" : "password"}
                 placeholder="new password"
-                value={newPassword}
-                onChange={(event) => setNewPassword(event.target.value)}
+                value={password.newPassword}
+                onChange={(event) =>
+                  setPassword({
+                    ...password,
+                    [event.target.name]: event.target.value,
+                  })
+                }
               />
               <input
                 className="field-value"
-                name="password"
+                name="retypeNewPassword"
                 type={passwordShown ? "text" : "password"}
                 placeholder="retype new password"
-                value={retypeNewPassword}
-                onChange={(event) => setRetypeNewPassword(event.target.value)}
+                value={password.retypeNewPassword}
+                onChange={(event) =>
+                  setPassword({
+                    ...password,
+                    [event.target.name]: event.target.value,
+                  })
+                }
               />
             </div>
             <button type="submit" onClick={handlePasswordChange}>
@@ -230,7 +240,7 @@ const AccountDetails = () => {
                   name="likes"
                   data-testid={`like-delete-button-${index}`}
                   type="submit"
-                  onClick={() => handleLikeDelete(item)}
+                  onClick={() => handleListDelete(item, "likes")}
                 >
                   -
                 </button>
@@ -276,7 +286,7 @@ const AccountDetails = () => {
                   className="like-button"
                   data-testid={`dislike-delete-button-${index}`}
                   type="submit"
-                  onClick={() => handleDislikeDelete(item)}
+                  onClick={() => handleListDelete(item, "dislikes")}
                 >
                   -
                 </button>
