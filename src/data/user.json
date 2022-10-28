@@ -2,7 +2,7 @@
   "users": [
     {
       "userId": 1,
-      "name": "Suzie",
+      "first_name": "Suzie",
       "email": "suzie@ss.com",
       "password": "password1"
     },
@@ -38,7 +38,7 @@
     },
     {
       "userId": 7,
-      "name": "Masiye",
+      "first_name": "Masiye",
       "email": "masiye@ss.com",
       "password": "password8"
     }

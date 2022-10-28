@@ -166,7 +166,7 @@ const Login = () => {
           onChange={handleRegisterChange}
           required
         />
-        <button type="submit" onClick={togglePassword}>
+        <button type="button" onClick={togglePassword}>
           <FontAwesomeIcon icon={faEye} className="font-awesome" />
         </button>
 

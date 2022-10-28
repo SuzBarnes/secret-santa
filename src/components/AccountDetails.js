@@ -4,35 +4,37 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "../api/axios";
 import "../styles/accountdetails.scss";
-import user from "../data/user.json";
-import likesDislikes from "../data/likesDislikes.json";
 
 const ACCOUNT_DETAILS_URL = "/users";
 
 const AccountDetails = () => {
   const [notEditable, setNotEditable] = useState(true);
   const [fields, setFields] = useState({
-    name: "Suzie",
-    email: "suzie@ss.com",
-    password: "password1",
+    first_name: "Richard",
+    last_name: "Heffernan",
+    email: "richard@ss.com",
+    password: "password23",
+    likes: "none",
+    dislikes: "none",
   });
-  const [likes, setLikes] = useState(likesDislikes.likesDislikes.likes);
-  const [dislikes, setDislikes] = useState(
-    likesDislikes.likesDislikes.dislikes
-  );
   const [newLike, setNewLike] = useState("");
   const [newDislike, setNewDislike] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [retypeNewPassword, setRetypeNewPassword] = useState("");
   const [passwordShown, setPasswordShown] = useState(false);
+  const [isSure, setIsSure] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [userId, setUserId] = useState(6);
 
   useEffect(() => {
-    axios.get(ACCOUNT_DETAILS_URL).then(({ data }) => setFields(data[1]));
-  }, []);
+    axios
+      .get(`${ACCOUNT_DETAILS_URL}/${userId}`)
+      .then(({ data }) => setFields(data[0]));
+  }, [userId]);
 
   const handleChange = (event) => {
-    setFields({ ...user.users[0], [event.target.name]: event.target.value });
+    setFields({ ...fields, [event.target.name]: event.target.value });
   };
 
   const handleLikeChange = (event) => {
@@ -44,45 +46,75 @@ const AccountDetails = () => {
   };
 
   const handleLikeDelete = (item) => {
-    setLikes(
-      likes
-        .split(", ")
-        .filter((like) => like !== item)
-        .join(", ")
-    );
+    const newLikes = fields.likes
+      .split(", ")
+      .filter((like) => like !== item)
+      .join(", ");
+    setFields({
+      ...fields,
+      likes: newLikes,
+    });
   };
 
   const handleDislikeDelete = (item) => {
-    setDislikes(
-      dislikes
-        .split(", ")
-        .filter((dislike) => dislike !== item)
-        .join(", ")
-    );
+    const newDislikes = fields.dislikes
+      .split(", ")
+      .filter((dislike) => dislike !== item)
+      .join(", ");
+    setFields({
+      ...fields,
+      dislikes: newDislikes,
+    });
   };
 
   const handleLikeAdd = () => {
-    const array = likes.split(", ");
+    const array = fields.likes.split(", ");
     array.push(newLike);
-    setLikes(array.join(", "));
+    setFields({ ...fields, likes: array.join(", ") });
     setNewLike("");
   };
 
   const handleDislikeAdd = () => {
-    const array = dislikes.split(", ");
+    const array = fields.dislikes.split(", ");
     array.push(newDislike);
-    setDislikes(array.join(", "));
+    setFields({ ...fields, dislikes: array.join(", ") });
     setNewDislike("");
   };
 
   const handlePasswordChange = () => {
-    if (
-      checkPassword === user.users[0].password &&
-      newPassword === retypeNewPassword
-    ) {
-      console.log("password changed");
-    } else {
-      console.log("password mismatch");
+    axios.get(`${ACCOUNT_DETAILS_URL}/${userId}`).then(({ data }) => {
+      if (
+        checkPassword === data[0].password &&
+        newPassword === retypeNewPassword
+      ) {
+        console.log("password changed");
+        axios.patch(`${ACCOUNT_DETAILS_URL}/${userId}`, {
+          password: newPassword,
+        });
+      } else {
+        console.log("incorrect password");
+      }
+    });
+  };
+
+  const handleChangeOfDetails = () => {
+    console.log("detils changed");
+    axios.patch(`${ACCOUNT_DETAILS_URL}/${userId}`, {
+      first_name: fields.first_name,
+      last_name: fields.last_name,
+      email: fields.email,
+      likes: fields.likes,
+      dislikes: fields.dislikes,
+    });
+    setNotEditable(true);
+  };
+
+  const handleDeleteAccount = () => {
+    if (!isSure) {
+      setIsSure(true);
+    } else if (isSure) {
+      axios.delete(`${ACCOUNT_DETAILS_URL}/${userId}`);
+      setIsSure(false);
     }
   };
 
@@ -99,13 +131,7 @@ const AccountDetails = () => {
             edit
           </button>
         ) : (
-          <button
-            type="submit"
-            onClick={() => {
-              console.log("saved");
-              setNotEditable(true);
-            }}
-          >
+          <button type="submit" onClick={handleChangeOfDetails}>
             save
           </button>
         )}
@@ -114,11 +140,23 @@ const AccountDetails = () => {
         <div className="field-card">
           <input
             className="field-value"
-            id="name"
-            name="name"
-            placeholder="name"
+            id="first_name"
+            name="first_name"
+            placeholder="first name"
             type="text"
-            value={fields.name}
+            value={fields.first_name}
+            onChange={handleChange}
+            readOnly={notEditable}
+          />
+        </div>
+        <div className="field-card">
+          <input
+            className="field-value"
+            id="last_name"
+            name="last_name"
+            placeholder="last name"
+            type="text"
+            value={fields.last_name}
             onChange={handleChange}
             readOnly={notEditable}
           />
@@ -177,7 +215,7 @@ const AccountDetails = () => {
         )}
         <div className="field-card">
           <div className="field-tag">likes</div>
-          {likes.split(", ").map((item, index) => (
+          {fields.likes.split(", ").map((item, index) => (
             <div className="like-container" key={item}>
               <input
                 className="field-value"
@@ -189,6 +227,7 @@ const AccountDetails = () => {
               {!notEditable && (
                 <button
                   className="like-button"
+                  name="likes"
                   data-testid={`like-delete-button-${index}`}
                   type="submit"
                   onClick={() => handleLikeDelete(item)}
@@ -221,10 +260,9 @@ const AccountDetails = () => {
             </div>
           )}
         </div>
-
         <div className="field-card">
           <div className="field-tag">dislikes</div>
-          {dislikes.split(", ").map((item, index) => (
+          {fields.dislikes.split(", ").map((item, index) => (
             <div className="like-container" key={item}>
               <input
                 className="field-value"
@@ -268,6 +306,19 @@ const AccountDetails = () => {
             </div>
           )}
         </div>
+        {!notEditable && (
+          <div className="field-card">
+            {isSure && (
+              <div className="delete-confirm-message">
+                Are you sure? Your account will not be able to be retrieved upon
+                deletion
+              </div>
+            )}
+            <button type="submit" onClick={handleDeleteAccount}>
+              {isSure ? "confirm" : "delete account"}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
