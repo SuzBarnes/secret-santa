@@ -74,17 +74,31 @@ const AccountDetails = () => {
   };
 
   const handleLikeAdd = () => {
-    const array = fields.likes.split(", ");
-    array.push(newLike);
-    setFields({ ...fields, likes: array.join(", ") });
-    setNewLike("");
+    if (newLike) {
+      let array;
+      if (fields.likes) {
+        array = fields.likes.split(", ");
+      } else {
+        array = [];
+      }
+      array.push(newLike);
+      setFields({ ...fields, likes: array.join(", ") });
+      setNewLike("");
+    }
   };
 
   const handleDislikeAdd = () => {
-    const array = fields.dislikes.split(", ");
-    array.push(newDislike);
-    setFields({ ...fields, dislikes: array.join(", ") });
-    setNewDislike("");
+    if (newDislike) {
+      let array;
+      if (fields.dislikes) {
+        array = fields.dislikes.split(", ");
+      } else {
+        array = [];
+      }
+      array.push(newDislike);
+      setFields({ ...fields, dislikes: array.join(", ") });
+      setNewDislike("");
+    }
   };
 
   const handlePasswordChange = () => {
@@ -271,28 +285,29 @@ const AccountDetails = () => {
         )}
         <div className="field-card">
           <div className="field-tag">likes</div>
-          {fields.likes.split(", ").map((item, index) => (
-            <div className="like-container" key={item}>
-              <input
-                className="field-value"
-                data-testid="likes"
-                name="likes"
-                placeholder={item}
-                type="text"
-              />
-              {!notEditable && (
-                <button
-                  className="like-button"
+          {fields.likes &&
+            fields.likes.split(", ").map((item, index) => (
+              <div className="like-container" key={item}>
+                <input
+                  className="field-value"
+                  data-testid="likes"
                   name="likes"
-                  data-testid={`like-delete-button-${index}`}
-                  type="submit"
-                  onClick={() => handleListDelete(item, "likes")}
-                >
-                  -
-                </button>
-              )}
-            </div>
-          ))}
+                  placeholder={item}
+                  type="text"
+                />
+                {!notEditable && (
+                  <button
+                    className="like-button"
+                    name="likes"
+                    data-testid={`like-delete-button-${index}`}
+                    type="submit"
+                    onClick={() => handleListDelete(item, "likes")}
+                  >
+                    -
+                  </button>
+                )}
+              </div>
+            ))}
           {!notEditable && (
             <div className="like-container">
               <input
@@ -318,27 +333,28 @@ const AccountDetails = () => {
         </div>
         <div className="field-card">
           <div className="field-tag">dislikes</div>
-          {fields.dislikes.split(", ").map((item, index) => (
-            <div className="like-container" key={item}>
-              <input
-                className="field-value"
-                data-testid="dislikes"
-                name="dislikes"
-                placeholder={item}
-                type="text"
-              />
-              {!notEditable && (
-                <button
-                  className="like-button"
-                  data-testid={`dislike-delete-button-${index}`}
-                  type="submit"
-                  onClick={() => handleListDelete(item, "dislikes")}
-                >
-                  -
-                </button>
-              )}
-            </div>
-          ))}
+          {fields.dislikes &&
+            fields.dislikes.split(", ").map((item, index) => (
+              <div className="like-container" key={item}>
+                <input
+                  className="field-value"
+                  data-testid="dislikes"
+                  name="dislikes"
+                  placeholder={item}
+                  type="text"
+                />
+                {!notEditable && (
+                  <button
+                    className="like-button"
+                    data-testid={`dislike-delete-button-${index}`}
+                    type="submit"
+                    onClick={() => handleListDelete(item, "dislikes")}
+                  >
+                    -
+                  </button>
+                )}
+              </div>
+            ))}
           {!notEditable && (
             <div className="like-container">
               <input
