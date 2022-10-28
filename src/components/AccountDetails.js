@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "../api/axios";
+import Alert from "./Alert";
 import "../styles/accountdetails.scss";
 
 const ACCOUNT_DETAILS_URL = "/users";
@@ -22,6 +23,10 @@ const AccountDetails = () => {
       newPassword: "",
       retypeNewPassword: "",
     },
+    alert: {
+      message: "",
+      isSuccess: false,
+    },
   };
   const [notEditable, setNotEditable] = useState(true);
   const [fields, setFields] = useState(initialState.fields);
@@ -31,11 +36,18 @@ const AccountDetails = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const [isSure, setIsSure] = useState(false);
   const [userId, setUserId] = useState(6);
+  const [alert, setAlert] = useState(initialState.alert);
 
   useEffect(() => {
     axios
       .get(`${ACCOUNT_DETAILS_URL}/${userId}`)
-      .then(({ data }) => setFields(data[0]));
+      .then(({ data }) => setFields(data[0]))
+      .catch(() => {
+        setAlert({
+          message: "Server error, please try again later",
+          isSuccess: false,
+        });
+      });
   }, [userId]);
 
   const handleChange = (event) => {
@@ -76,40 +88,73 @@ const AccountDetails = () => {
   };
 
   const handlePasswordChange = () => {
-    axios.get(`${ACCOUNT_DETAILS_URL}/${userId}`).then(({ data }) => {
-      if (
-        password.checkPassword === data[0].password &&
-        password.newPassword === password.retypeNewPassword
-      ) {
-        console.log("password changed");
-        axios.patch(`${ACCOUNT_DETAILS_URL}/${userId}`, {
-          password: password.newPassword,
+    axios
+      .get(`${ACCOUNT_DETAILS_URL}/${userId}`)
+      .then(({ data }) => {
+        if (
+          password.checkPassword === data[0].password &&
+          password.newPassword === password.retypeNewPassword
+        ) {
+          console.log("password changed");
+          axios
+            .patch(`${ACCOUNT_DETAILS_URL}/${userId}`, {
+              password: password.newPassword,
+            })
+            .catch(() => {
+              setAlert({
+                message: "Server error, please try again later",
+                isSuccess: false,
+              });
+            });
+        } else {
+          console.log("incorrect password");
+        }
+      })
+      .catch(() => {
+        setAlert({
+          message: "Server error, please try again later",
+          isSuccess: false,
         });
-      } else {
-        console.log("incorrect password");
-      }
-    });
+      });
   };
 
   const handleChangeOfDetails = () => {
     console.log("detils changed");
-    axios.patch(`${ACCOUNT_DETAILS_URL}/${userId}`, {
-      first_name: fields.first_name,
-      last_name: fields.last_name,
-      email: fields.email,
-      likes: fields.likes,
-      dislikes: fields.dislikes,
-    });
-    setNotEditable(true);
+    axios
+      .patch(`${ACCOUNT_DETAILS_URL}/${userId}`, {
+        first_name: fields.first_name,
+        last_name: fields.last_name,
+        email: fields.email,
+        likes: fields.likes,
+        dislikes: fields.dislikes,
+      })
+      .then(() => {
+        setNotEditable(true);
+      })
+      .catch(() => {
+        setAlert({
+          message: "Server error, please try again later",
+          isSuccess: false,
+        });
+      });
   };
 
   const handleDeleteAccount = () => {
     if (!isSure) {
       setIsSure(true);
     } else if (isSure) {
-      axios.delete(`${ACCOUNT_DETAILS_URL}/${userId}`);
-      setIsSure(false);
-      setUserId(null);
+      axios
+        .delete(`${ACCOUNT_DETAILS_URL}/${userId}`)
+        .then(() => {
+          setIsSure(false);
+          setUserId(null);
+        })
+        .catch(() => {
+          setAlert({
+            message: "Server error, please try again later",
+            isSuccess: false,
+          });
+        });
     }
   };
 
@@ -119,6 +164,7 @@ const AccountDetails = () => {
 
   return (
     <div className="account-details-container">
+      <Alert message={alert.message} success={alert.isSuccess} />
       <div className="account-details-title">
         Account Details{" "}
         {notEditable ? (
