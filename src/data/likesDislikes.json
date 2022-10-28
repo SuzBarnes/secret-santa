@@ -1,7 +1,6 @@
 {
-    "likesDislikes":
-    {
-        "likes": "baking, reading, archery, rugby, chocolate, cocktails",
-        "dislikes": "football, beer, wine"
-    }
+  "likesDislikes": {
+    "likes": "baking, reading, archery, rugby, chocolate, cocktails",
+    "dislikes": "football, beer, wine"
+  }
 }
