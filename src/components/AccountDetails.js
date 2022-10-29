@@ -6,7 +6,7 @@ import axios from "axios";
 import Alert from "./Alert";
 import "../styles/accountdetails.scss";
 
-const ACCOUNT_DETAILS_URL = "localhost:3000/users";
+const ACCOUNT_DETAILS_URL = "http://localhost:3000/users";
 
 const AccountDetails = () => {
   const initialState = {
