@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import axios from "../api/axios";
+import axios from "axios";
 import Alert from "./Alert";
 import "../styles/accountdetails.scss";
 
-const ACCOUNT_DETAILS_URL = "/users";
+const ACCOUNT_DETAILS_URL = "http://localhost:3000/users";
 
 const AccountDetails = () => {
   const initialState = {

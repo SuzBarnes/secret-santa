@@ -3,18 +3,16 @@ import "../styles/register.scss";
 // import AuthContext from "../context/AuthProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import axios from "../api/axios";
+import axios from "axios";
 import Alert from "./Alert";
-
-const REGISTER_URL = "/users";
 
 const Register = () => {
   // const { setAuth } = useContext(AuthContext);
 
   const initialState = {
     register: {
-      firstname: "",
-      surname: "",
+      first_name: "",
+      last_name: "",
       email: "",
       password: "",
     },
@@ -35,15 +33,10 @@ const Register = () => {
     event.preventDefault();
     setAlert({ message: "", isSuccess: false });
     axios
-      .post(REGISTER_URL, JSON.stringify(register), {
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: true,
-        },
-      })
+      .post(`http://localhost:3000/users`, register)
       .then(() => {
         setAlert({
-          message: `Merry Christmas and welcome ${register.firstname}!`,
+          message: `Merry Christmas and welcome ${register.first_name}!`,
           isSuccess: true,
         });
       })
@@ -66,18 +59,18 @@ const Register = () => {
         <Alert message={alert.message} success={alert.isSuccess} />
 
         <input
-          id="firstname"
-          name="firstname"
+          id="first_name"
+          name="first_name"
           placeholder="Enter First Name"
-          value={register.firstname}
+          value={register.first_name}
           onChange={handleRegisterChange}
           required
         />
         <input
-          id="surname"
-          name="surname"
+          id="last_name"
+          name="last_name"
           placeholder="Enter Surname"
-          value={register.surname}
+          value={register.last_name}
           onChange={handleRegisterChange}
           required
         />

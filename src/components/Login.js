@@ -4,10 +4,8 @@ import "../styles/login.scss";
 // import AuthContext from "../context/AuthProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
-import axios from "../api/axios";
+import axios from "axios";
 import Alert from "./Alert";
-
-const LOGIN_URL = "/users";
 
 const Login = () => {
   // const { setAuth } = useContext(AuthContext);
@@ -35,18 +33,17 @@ const Login = () => {
     setAlert({ message: "", isSuccess: false });
 
     axios
-      .get(LOGIN_URL, JSON.stringify(login), {
-        headers: {
-          "Content-Type": "application/json",
-          withCredentials: true,
-        },
-      })
-      .then(() => {
+      .post(`http://localhost:3000/users`, login)
+      .then((res) => {
+        if (res.data.accessToken) {
+          localStorage.setItem("user", JSON.stringify(res.data));
+        }
         setAlert({
           message: `Welcome ${login.email}`,
           // want it ideally to be welcome register.first name, but not sure how it will access the firstname from the original registration//
           isSuccess: true,
         });
+        return res.data;
       })
       .catch(() => {
         setAlert({
@@ -91,7 +88,7 @@ const Login = () => {
       <p>
         Need an Account?
         <span className="line">
-          <a href="login">Sign Up</a>
+          <a href="register">Sign Up</a>
         </span>
       </p>
     </div>
