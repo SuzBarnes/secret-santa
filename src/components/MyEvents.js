@@ -5,9 +5,10 @@ import events from "../data/event.json";
 const MyEvents = () => {
   const [eventData, setEventData] = useState(events.events[0]);
   const [isEventAdmin, setIsEventAdmin] = useState(false);
+  const { userId } = useAuthContext();
 
 useEffect(() => {
-  
+
 }, []);
 
   const handleChange = () => {
