@@ -5,7 +5,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Alert from "./Alert";
 import "../styles/accountdetails.scss";
-import { useAuthContext } from "../context/AuthProvider";
+import { useAuthContext } from "../contexts/AuthProvider";
 
 const ACCOUNT_DETAILS_URL = "http://localhost:3000/users";
 
