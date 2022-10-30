@@ -10,21 +10,21 @@
       margin: auto;
     }
   }
-    ul {
-        float:right;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        list-style: none;
-        padding: 0px;
-        margin: 10px;
-        height: 75px;
-        .navbartop-link-item {
-            padding-left: 10px;
-            padding-right: 10px;
-            font-size: 25px;
-            text-decoration: none;
-            color: white;
-          }
+  ul {
+    float: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    list-style: none;
+    padding: 0px;
+    margin: 10px;
+    height: 75px;
+    .navbartop-link-item {
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 25px;
+      text-decoration: none;
+      color: white;
     }
   }
+}
