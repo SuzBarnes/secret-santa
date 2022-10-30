@@ -8,8 +8,6 @@ import axios from "axios";
 import Alert from "./Alert";
 
 const Login = () => {
-  // const { setAuth } = useContext(AuthContext);
-
   const initialState = {
     login: {
       email: "",
@@ -40,8 +38,7 @@ const Login = () => {
         }
         console.log(res.data.accessToken);
         setAlert({
-          message: `Welcome ${login.email}`,
-          // want it ideally to be welcome register.first name, but not sure how it will access the firstname from the original registration//
+          message: `${res.data.message}`,
           isSuccess: true,
         });
         return res.data;

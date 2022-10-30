@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import "../styles/register.scss";
-// import AuthContext from "../context/AuthProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Alert from "./Alert";
 
 const Register = () => {
-  // const { setAuth } = useContext(AuthContext);
-
   const initialState = {
     register: {
       first_name: "",
