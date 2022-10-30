@@ -40,9 +40,9 @@ const Register = () => {
           isSuccess: true,
         });
       })
-      .catch(() => {
+      .catch((err) => {
         setAlert({
-          message: "Server error, please try again later",
+          message: `${err.response.data.message}`,
           isSuccess: false,
         });
       });
