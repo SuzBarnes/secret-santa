@@ -33,7 +33,7 @@ const Register = () => {
     event.preventDefault();
     setAlert({ message: "", isSuccess: false });
     axios
-      .post(`http://localhost:3000/users`, register)
+      .post(`http://localhost:3000/api/auth/signup`, register)
       .then(() => {
         setAlert({
           message: `Merry Christmas and welcome ${register.first_name}!`,

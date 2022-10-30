@@ -33,11 +33,12 @@ const Login = () => {
     setAlert({ message: "", isSuccess: false });
 
     axios
-      .post(`http://localhost:3000/users`, login)
+      .post(`http://localhost:3000/api/auth/signin`, login)
       .then((res) => {
         if (res.data.accessToken) {
           localStorage.setItem("user", JSON.stringify(res.data));
         }
+        console.log(res.data.accessToken);
         setAlert({
           message: `Welcome ${login.email}`,
           // want it ideally to be welcome register.first name, but not sure how it will access the firstname from the original registration//
