@@ -1,18 +1,23 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
 import "../styles/myevents.scss";
 import events from "../data/event.json";
+import { useAuthContext } from "../contexts/AuthProvider";
 
 const MyEvents = () => {
   const [eventData, setEventData] = useState(events.events[0]);
   const [isEventAdmin, setIsEventAdmin] = useState(false);
   const { userId } = useAuthContext();
 
-useEffect(() => {
+  useEffect(() => {
+    if (userId === eventData.adminId) {
+      setIsEventAdmin(true);
+      console.log("admin llgged in");
+    }
+  }, [userId, eventData.adminId]);
 
-}, []);
-
-  const handleChange = () => {
-    console.log("change");
+  const handleChange = (event) => {
+    setEventData({ ...eventData, [event.target.name]: event.target.value });
   };
 
   return (
@@ -50,7 +55,7 @@ useEffect(() => {
             name="budget"
             placeholder="budget"
             type="text"
-            value={`£${eventData.budget}`}
+            value={`${eventData.budget}`}
             onChange={handleChange}
             readOnly={!isEventAdmin}
           />
