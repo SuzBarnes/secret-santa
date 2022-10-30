@@ -7,6 +7,7 @@ import MyEvents from "./MyEvents";
 import CreateEvent from "./CreateEvent";
 import Register from "./Register";
 import Login from "./Login";
+import Logout from "./Logout";
 import AccountDetails from "./AccountDetails";
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/" element={<MyEvents />} />
         <Route path="create-event" element={<CreateEvent />} />
         <Route path="login" element={<Login />} />
+        <Route path="/" element={<Logout />} />
         <Route path="register" element={<Register />} />
         <Route path="account-details" element={<AccountDetails />} />
       </Routes>

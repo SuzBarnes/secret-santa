@@ -5,7 +5,6 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Alert from "./Alert";
 import "../styles/accountdetails.scss";
-import { useAuthContext } from "../contexts/AuthProvider";
 
 const ACCOUNT_DETAILS_URL = "http://localhost:3000/users";
 
@@ -36,9 +35,8 @@ const AccountDetails = () => {
   const [password, setPassword] = useState(initialState.password);
   const [passwordShown, setPasswordShown] = useState(false);
   const [isSure, setIsSure] = useState(false);
-  // const [userId, setUserId] = useState(7);
+  const [userId, setUserId] = useState(6);
   const [alert, setAlert] = useState(initialState.alert);
-  const { userId } = useAuthContext();
 
   useEffect(() => {
     axios
@@ -103,60 +101,35 @@ const AccountDetails = () => {
     }
   };
 
-  // Need to redo this because of jwt use.
   const handlePasswordChange = () => {
-    if (password.newPassword === password.retypeNewPassword) {
-      axios
-        .post(`http://localhost:3000/api/auth/signin`, {
-          email: fields.email,
-          password: password.checkPassword,
-        })
-        .then((res) => {
-          if (res.data.accessToken) {
-            localStorage.setItem("user", JSON.stringify(res.data));
-          }
-          console.log(res.data.accessToken);
-          setAlert({
-            message: `${res.data.message}`,
-            isSuccess: true,
-          });
-          return res.data;
-        })
-        .catch((err) => {
-          setAlert({
-            message: `${err.response.data.message}`,
-            isSuccess: false,
-          });
+    axios
+      .get(`${ACCOUNT_DETAILS_URL}/${userId}`)
+      .then(({ data }) => {
+        if (
+          password.checkPassword === data[0].password &&
+          password.newPassword === password.retypeNewPassword
+        ) {
+          console.log("password changed");
+          axios
+            .patch(`${ACCOUNT_DETAILS_URL}/${userId}`, {
+              password: password.newPassword,
+            })
+            .catch(() => {
+              setAlert({
+                message: "Server error, please try again later",
+                isSuccess: false,
+              });
+            });
+        } else {
+          console.log("incorrect password");
+        }
+      })
+      .catch(() => {
+        setAlert({
+          message: "Server error, please try again later",
+          isSuccess: false,
         });
-    }
-    // axios
-    //   .get(`${ACCOUNT_DETAILS_URL}/${userId}`)
-    //   .then(({ data }) => {
-    //     if (
-    //       password.checkPassword === data[0].password &&
-    //       password.newPassword === password.retypeNewPassword
-    //     ) {
-    //       console.log("password changed");
-    //       axios
-    //         .patch(`${ACCOUNT_DETAILS_URL}/${userId}`, {
-    //           password: password.newPassword,
-    //         })
-    //         .catch(() => {
-    //           setAlert({
-    //             message: "Server error, please try again later",
-    //             isSuccess: false,
-    //           });
-    //         });
-    //     } else {
-    //       console.log("incorrect password");
-    //     }
-    //   })
-    //   .catch(() => {
-    //     setAlert({
-    //       message: "Server error, please try again later",
-    //       isSuccess: false,
-    //     });
-    //   });
+      });
   };
 
   const handleChangeOfDetails = () => {
@@ -188,7 +161,7 @@ const AccountDetails = () => {
         .delete(`${ACCOUNT_DETAILS_URL}/${userId}`)
         .then(() => {
           setIsSure(false);
-          // setUserId(null);
+          setUserId(null);
         })
         .catch(() => {
           setAlert({
