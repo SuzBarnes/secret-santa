@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Alert from "./Alert";
 
 const Logout = () => {
   const initialState = {
@@ -18,6 +19,7 @@ const Logout = () => {
 
   return (
     <div className="logout">
+      <Alert message={alert.message} success={alert.isSuccess} />
       <button type="submit" onClick={logoutClick}>
         Logout
       </button>
