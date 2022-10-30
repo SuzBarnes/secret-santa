@@ -5,6 +5,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Alert from "./Alert";
 import "../styles/accountdetails.scss";
+import { useAuthContext } from "../contexts/AuthProvider";
 
 const ACCOUNT_DETAILS_URL = "http://localhost:3000/users";
 
@@ -35,8 +36,9 @@ const AccountDetails = () => {
   const [password, setPassword] = useState(initialState.password);
   const [passwordShown, setPasswordShown] = useState(false);
   const [isSure, setIsSure] = useState(false);
-  const [userId, setUserId] = useState(7);
+  // const [userId, setUserId] = useState(7);
   const [alert, setAlert] = useState(initialState.alert);
+  const { userId } = useAuthContext();
 
   useEffect(() => {
     axios
@@ -186,7 +188,7 @@ const AccountDetails = () => {
         .delete(`${ACCOUNT_DETAILS_URL}/${userId}`)
         .then(() => {
           setIsSure(false);
-          setUserId(null);
+          // setUserId(null);
         })
         .catch(() => {
           setAlert({

@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
 import React, { useState } from "react";
 import "../styles/login.scss";
-// import AuthContext from "../context/AuthProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
+import { useAuthContext } from "../contexts/AuthProvider";
 import Alert from "./Alert";
 
 const Login = () => {
@@ -21,6 +21,7 @@ const Login = () => {
   const [login, setLogin] = useState(initialState.login);
   const [passwordShown, setPasswordShown] = useState(false);
   const [alert, setAlert] = useState(initialState.alert);
+  const { setUserId } = useAuthContext();
 
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -36,7 +37,7 @@ const Login = () => {
         if (res.data.accessToken) {
           localStorage.setItem("user", JSON.stringify(res.data));
         }
-        console.log(res.data.accessToken);
+        setUserId(res.data.id);
         setAlert({
           message: `${res.data.message}`,
           isSuccess: true,
