@@ -3,15 +3,17 @@
     {
       "eventId": 1,
       "title": "Manchester Code secret santa",
-      "date": "",
+      "date": "18/12/2022",
       "budget": 10,
+      "participants": "Lisa, Alex, Suzie",
       "adminId": 3
     },
     {
       "eventId": 2,
       "title": "May cohort secret santa",
-      "date": "",
+      "date": "20/12/2022",
       "budget": 10,
+      "participants": "Lisa, Alex, Suzie",
       "adminId": 2
     }
   ]
