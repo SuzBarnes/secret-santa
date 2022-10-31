@@ -2,7 +2,6 @@ import React from "react";
 import "../styles/navbartop.scss";
 import secretSantLogo from "../images/SS-logo.png";
 import { useAuthContext } from "../contexts/AuthProvider";
-import Login from "./Login";
 import Logout from "./Logout";
 
 const NavBarTop = () => {
@@ -17,11 +16,6 @@ const NavBarTop = () => {
             src={secretSantLogo}
           />
         </div>
-        <ul className="navbartop-links">
-          <li>
-            <Login className="navbartop-link-item" to="/" />
-          </li>
-        </ul>
       </div>
     );
   }

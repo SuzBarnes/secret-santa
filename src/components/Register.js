@@ -50,7 +50,7 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className="register">
       <h3>Register</h3>
       <form onSubmit={handleRegister}>
         <Alert message={alert.message} success={alert.isSuccess} />

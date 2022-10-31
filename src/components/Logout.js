@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import Alert from "./Alert";
 import { useAuthContext } from "../contexts/AuthProvider";
+import "../styles/logout.scss";
 
 const Logout = () => {
   const initialState = {
@@ -24,6 +27,7 @@ const Logout = () => {
       <Alert message={alert.message} success={alert.isSuccess} />
       <button type="submit" onClick={logoutClick}>
         Logout
+        <FontAwesomeIcon icon={faRightToBracket} className="font-awesome" />
       </button>
     </div>
   );
