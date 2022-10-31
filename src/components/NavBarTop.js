@@ -20,6 +20,11 @@ const NavBarTop = () => {
             Register
           </Link>
         </li>
+        <li>
+          <Link className="navbartop-link-item" to="logout">
+            Logout
+          </Link>
+        </li>
       </ul>
     </div>
   );
