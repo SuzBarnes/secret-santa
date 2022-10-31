@@ -19,7 +19,6 @@ const Logout = () => {
       isSuccess: true,
     });
   };
-
   return (
     <div className="logout">
       <Alert message={alert.message} success={alert.isSuccess} />
