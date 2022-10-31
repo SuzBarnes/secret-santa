@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import "../styles/navbartop.scss";
 import secretSantLogo from "../images/SS-logo.png";
 import { useAuthContext } from "../contexts/AuthProvider";
+import Login from "./Login";
+import Register from "./Register";
+import Logout from "./Logout";
 
 const NavBarTop = () => {
   const { userId } = useAuthContext();
@@ -18,14 +21,7 @@ const NavBarTop = () => {
         </div>
         <ul className="navbartop-links">
           <li>
-            <Link className="navbartop-link-item" to="login">
-              Login
-            </Link>
-          </li>
-          <li>
-            <Link className="navbartop-link-item" to="register">
-              Register
-            </Link>
+            <Login className="navbartop-link-item" to="/" />
           </li>
         </ul>
       </div>
@@ -38,9 +34,7 @@ const NavBarTop = () => {
       </div>
       <ul className="navbartop-links">
         <li>
-          <Link className="navbartop-link-item" to="logout">
-            Logout
-          </Link>
+          <Logout className="navbartop-link-item" to="/" />
         </li>
       </ul>
     </div>
