@@ -63,7 +63,7 @@ const Login = () => {
       <form onSubmit={handleLogin}>
         <Alert message={alert.message} success={alert.isSuccess} />
         <input
-          id="email"
+          id="login-email"
           name="email"
           placeholder="Email Address"
           value={login.email}
@@ -72,7 +72,7 @@ const Login = () => {
         />
 
         <input
-          id="password"
+          id="login-password"
           name="password"
           type={passwordShown ? "text" : "password"}
           placeholder="Enter valid password"

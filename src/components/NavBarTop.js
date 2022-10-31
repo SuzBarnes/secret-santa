@@ -1,10 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import "../styles/navbartop.scss";
 import secretSantLogo from "../images/SS-logo.png";
 import { useAuthContext } from "../contexts/AuthProvider";
 import Login from "./Login";
-import Register from "./Register";
 import Logout from "./Logout";
 
 const NavBarTop = () => {
