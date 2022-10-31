@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Alert from "./Alert";
+import { useAuthContext } from "../contexts/AuthProvider";
 
 const Logout = () => {
   const initialState = {
@@ -8,9 +9,11 @@ const Logout = () => {
       isSuccess: false,
     },
   };
+  const { setUserId } = useAuthContext();
   const [alert, setAlert] = useState(initialState.alert);
   const logoutClick = () => {
     localStorage.clear();
+    setUserId("");
     setAlert({
       message: "You have successfully logged out",
       isSuccess: true,
