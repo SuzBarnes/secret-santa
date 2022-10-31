@@ -50,7 +50,7 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <div className="register">
       <h3>Register</h3>
       <form onSubmit={handleRegister}>
         <Alert message={alert.message} success={alert.isSuccess} />
@@ -72,7 +72,7 @@ const Register = () => {
           required
         />
         <input
-          id="email"
+          id="register-email"
           name="email"
           placeholder="Email Address"
           value={register.email}
@@ -81,7 +81,7 @@ const Register = () => {
         />
 
         <input
-          id="password"
+          id="register-password"
           name="password"
           type={passwordShown ? "text" : "password"}
           placeholder="Enter valid password"
