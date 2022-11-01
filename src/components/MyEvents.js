@@ -1,19 +1,33 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
 import "../styles/myevents.scss";
-import events from "../data/event.json";
+import axios from "axios";
+// import events from "../data/event.json";
 import { useAuthContext } from "../contexts/AuthProvider";
 
+const MY_EVENTS_URL = "http://localhost:3000/userevents";
+
 const MyEvents = () => {
-  const [eventData, setEventData] = useState(events.events[0]);
+  const [eventData, setEventData] = useState({
+    title: "",
+    exchange_date: "",
+    budget: "",
+    participants: "",
+    adminId: "1",
+  });
   const [isEventAdmin, setIsEventAdmin] = useState(false);
   const { userId } = useAuthContext();
 
   useEffect(() => {
-    if (userId === eventData.adminId) {
-      setIsEventAdmin(true);
-      console.log("admin llgged in");
-    }
+    axios.get(`${MY_EVENTS_URL}/userid/${userId}`).then(({ data }) => {
+      console.log(data);
+      console.log(data[0].Event);
+      setEventData(data[0].Event);
+      if (userId === eventData.adminId) {
+        setIsEventAdmin(true);
+        console.log("admin logged in");
+      }
+    });
   }, [userId, eventData.adminId]);
 
   const handleChange = (event) => {
@@ -22,60 +36,65 @@ const MyEvents = () => {
 
   return (
     <div className="my-events-container">
-      <div className="my-events-title">My events</div>
-      <div className="event-data-container">
-        <div className="event-data-card">
-          <input
-            className="event-data-value"
-            id="title"
-            name="title"
-            placeholder="title"
-            type="text"
-            value={eventData.title}
-            onChange={handleChange}
-            readOnly={!isEventAdmin}
-          />
+      {userId && (
+        <div>
+          <div className="my-events-title">My events</div>
+
+          <div className="event-data-container">
+            <div className="event-data-card">
+              <input
+                className="event-data-value"
+                id="title"
+                name="title"
+                placeholder="title"
+                type="text"
+                value={eventData.title}
+                onChange={handleChange}
+                readOnly={!isEventAdmin}
+              />
+            </div>
+            <div className="event-data-card">
+              <input
+                className="event-data-value"
+                id="exchange_date"
+                name="exchange_date"
+                placeholder="exchange_date"
+                type="text"
+                value={eventData.exchange_date}
+                onChange={handleChange}
+                readOnly={!isEventAdmin}
+              />
+            </div>
+            <div className="event-data-card">
+              <input
+                className="event-data-value"
+                id="budget"
+                name="budget"
+                placeholder="budget"
+                type="text"
+                value={`${eventData.budget}`}
+                onChange={handleChange}
+                readOnly={!isEventAdmin}
+              />
+            </div>
+            <div className="event-data-card">
+              <div className="event-data-tag">participants</div>
+              {eventData.participants &&
+                eventData.participants.split(", ").map((item) => (
+                  <div className="like-container" key={item}>
+                    <input
+                      className="field-value"
+                      data-testid="likes"
+                      name="likes"
+                      placeholder={item}
+                      type="text"
+                    />
+                  </div>
+                ))}
+            </div>
+          </div>
         </div>
-        <div className="event-data-card">
-          <input
-            className="event-data-value"
-            id="date"
-            name="date"
-            placeholder="date"
-            type="text"
-            value={eventData.date}
-            onChange={handleChange}
-            readOnly={!isEventAdmin}
-          />
-        </div>
-        <div className="event-data-card">
-          <input
-            className="event-data-value"
-            id="budget"
-            name="budget"
-            placeholder="budget"
-            type="text"
-            value={`${eventData.budget}`}
-            onChange={handleChange}
-            readOnly={!isEventAdmin}
-          />
-        </div>
-        <div className="event-data-card">
-          <div className="event-data-tag">participants</div>
-          {eventData.participants &&
-            eventData.participants.split(", ").map((item) => (
-              <div className="like-container" key={item}>
-                <input
-                  className="field-value"
-                  data-testid="likes"
-                  name="likes"
-                  placeholder={item}
-                  type="text"
-                />
-              </div>
-            ))}
-        </div>
-      </div>
+      )}
     </div>
   );
 };
