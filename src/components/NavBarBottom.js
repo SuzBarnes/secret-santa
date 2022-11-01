@@ -11,32 +11,37 @@ import {
 const NavBarBottom = () => {
   return (
     <div className="navbarbottom">
-      <ul className="navbarbottom-links">
-        <li>
-          <Link className="navbarbottom-link-item" to="/">
-            <div>
-              <FontAwesomeIcon icon={faGift} className="font-awesome" />
-            </div>
-            <div>My Events</div>
-          </Link>
-        </li>
-        <li>
-          <Link className="navbarbottom-link-item" to="create-event">
-            <div>
-              <FontAwesomeIcon icon={faCalendarDays} className="font-awesome" />
-            </div>
-            <div>Create Event</div>
-          </Link>
-        </li>
-        <li>
-          <Link className="navbarbottom-link-item" to="account-details">
-            <div>
-              <FontAwesomeIcon icon={faUser} className="font-awesome" />
-            </div>
-            <div>Account Details</div>
-          </Link>
-        </li>
-      </ul>
+      <div className="list-container">
+        <ul className="navbarbottom-links">
+          <li>
+            <Link className="navbarbottom-link-item" to="/">
+              <div>
+                <FontAwesomeIcon icon={faGift} className="font-awesome" />
+              </div>
+              <div>My Events</div>
+            </Link>
+          </li>
+          <li>
+            <Link className="navbarbottom-link-item" to="create-event">
+              <div>
+                <FontAwesomeIcon
+                  icon={faCalendarDays}
+                  className="font-awesome"
+                />
+              </div>
+              <div>Create Event</div>
+            </Link>
+          </li>
+          <li>
+            <Link className="navbarbottom-link-item" to="account-details">
+              <div>
+                <FontAwesomeIcon icon={faUser} className="font-awesome" />
+              </div>
+              <div>Account Details</div>
+            </Link>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

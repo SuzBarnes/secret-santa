@@ -15,14 +15,16 @@ const App = () => {
     <div className="App">
       <NavBarTop />
       <NavBarBottom />
-      <Routes>
-        <Route path="/" element={<MyEvents />} />
-        <Route path="create-event" element={<CreateEvent />} />
-        <Route path="login" element={<Login />} />
-        <Route path="/logout" element={<Logout />} />
-        <Route path="register" element={<Register />} />
-        <Route path="account-details" element={<AccountDetails />} />
-      </Routes>
+      <div className="main">
+        <Routes>
+          <Route path="/" element={<MyEvents />} />
+          <Route path="create-event" element={<CreateEvent />} />
+          <Route path="login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="register" element={<Register />} />
+          <Route path="account-details" element={<AccountDetails />} />
+        </Routes>
+      </div>
     </div>
   );
 };
