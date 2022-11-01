@@ -2,12 +2,10 @@
 import React, { useEffect, useState } from "react";
 import "../styles/myevents.scss";
 import axios from "axios";
-// import events from "../data/event.json";
-import { useAuthContext } from "../contexts/AuthProvider";
-
-const MY_EVENTS_URL = "http://localhost:3000/userevents";
 import { useAuthContext } from "../contexts/AuthProvider";
 import Login from "./Login";
+
+const MY_EVENTS_URL = "http://localhost:3000/userevents";
 
 const MyEvents = () => {
   const [eventData, setEventData] = useState({
@@ -21,20 +19,30 @@ const MyEvents = () => {
   const { userId } = useAuthContext();
 
   useEffect(() => {
-    axios.get(`${MY_EVENTS_URL}/userid/${userId}`).then(({ data }) => {
-      console.log(data);
-      console.log(data[0].Event);
-      setEventData(data[0].Event);
-      if (userId === eventData.adminId) {
-        setIsEventAdmin(true);
-        console.log("admin logged in");
-      }
-    });
+    if (userId) {
+      axios.get(`${MY_EVENTS_URL}/userid/${userId}`).then(({ data }) => {
+        console.log(data);
+        console.log(data[0].Event);
+        setEventData(data[0].Event);
+        if (userId === eventData.adminId) {
+          setIsEventAdmin(true);
+          console.log("admin logged in");
+        }
+      });
+    }
   }, [userId, eventData.adminId]);
 
   const handleChange = (event) => {
     setEventData({ ...eventData, [event.target.name]: event.target.value });
   };
+
+  if (!userId) {
+    return (
+      <div className="login-home">
+        <Login className="login-form" to="/" />
+      </div>
+    );
+  }
 
   return (
     <div className="my-events-container">
