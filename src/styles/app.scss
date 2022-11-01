@@ -7,10 +7,6 @@
 }
 
 .App {
-  height: 100vh;
-}
-
-.App {
   display: grid;
   grid-template-rows: 15% auto 15%;
   grid-template-areas:
@@ -19,6 +15,7 @@
     "navbar-bottom";
     padding: 0px;
     margin: 0px;
+    height: 100vh;
 }
 
 NavBarTop {
