@@ -59,11 +59,26 @@ const Login = () => {
 
   return (
     <div className="login">
+      <h2>
+        Secret Santa...with a <i>twist</i>.
+      </h2>
+      With 5 simple steps, you could be joining the millions playing Secret
+      Santa today!
+      <ol>
+        <li>Login or Register,</li>
+        <li>
+          Create your event with the participants, budget and exchange date of
+          your choice,
+        </li>
+        <li>Draw your random name!</li>
+        <li>Add your wishlist,</li>
+        <li>Add gift ideas for other members, keeping your anonymity!</li>
+      </ol>
       <h3>Login</h3>
       <form onSubmit={handleLogin}>
         <Alert message={alert.message} success={alert.isSuccess} />
         <input
-          id="email"
+          id="login-email"
           name="email"
           placeholder="Email Address"
           value={login.email}
@@ -72,7 +87,7 @@ const Login = () => {
         />
 
         <input
-          id="password"
+          id="login-password"
           name="password"
           type={passwordShown ? "text" : "password"}
           placeholder="Enter valid password"

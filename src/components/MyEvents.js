@@ -6,6 +6,8 @@ import axios from "axios";
 import { useAuthContext } from "../contexts/AuthProvider";
 
 const MY_EVENTS_URL = "http://localhost:3000/userevents";
+import { useAuthContext } from "../contexts/AuthProvider";
+import Login from "./Login";
 
 const MyEvents = () => {
   const [eventData, setEventData] = useState({
@@ -98,4 +100,5 @@ const MyEvents = () => {
     </div>
   );
 };
+
 export default MyEvents;
