@@ -32,8 +32,6 @@ const AdminCard = () => {
   // const [isSure, setIsSure] = useState(false);
   useEffect(() => {
     axios.get(`${ADMIN_CARD_URL}/userid/${userId}`).then(({ data }) => {
-      console.log(data);
-      console.log(data[0].Event);
       setEventData(data[0].Event);
     });
   }, [userId, eventData.AdminId]);
@@ -196,6 +194,7 @@ const AdminCard = () => {
                       data-testid={`name-delete-button-${index}`}
                       type="submit"
                       onClick={() => handleNameDelete(item)}
+                      readOnly={notEditable}
                     >
                       <FontAwesomeIcon icon={faMinus} />
                     </button>
@@ -218,20 +217,19 @@ const AdminCard = () => {
                   type="submit"
                   onClick={handleNameAdd}
                   onSubmit={handleNameAdd}
+                  readOnly={notEditable}
                 >
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
               </div>
             </div>
-            <button type="submit" onSubmit={handleChangeOfEventDetails}>
-              Submit
-            </button>
           </div>
           {notEditable ? (
             <button type="submit" onClick={() => setNotEditable(false)}>
               Edit
             </button>
           ) : (
+            //  RENDER DRAW BUTTON HERE
             <>
               <button type="submit" onClick={handleChangeOfEventDetails}>
                 Save
