@@ -225,11 +225,15 @@ const AdminCard = () => {
             </div>
           </div>
           {notEditable ? (
-            <button type="submit" onClick={() => setNotEditable(false)}>
-              Edit
-            </button>
+            <>
+              <button type="submit" onClick={() => setNotEditable(false)}>
+                Edit
+              </button>
+              <button type="submit" disabled="eventData.participants.length>0">
+                DRAW NAMES
+              </button>
+            </>
           ) : (
-            //  RENDER DRAW BUTTON HERE
             <>
               <button type="submit" onClick={handleChangeOfEventDetails}>
                 Save
