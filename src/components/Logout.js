@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import Alert from "./Alert";
@@ -14,13 +15,16 @@ const Logout = () => {
   };
   const { setUserId } = useAuthContext();
   const [alert, setAlert] = useState(initialState.alert);
+  const navigate = useNavigate();
   const logoutClick = () => {
     localStorage.clear();
+    sessionStorage.clear();
     setUserId("");
     setAlert({
       message: "You have successfully logged out",
       isSuccess: true,
     });
+    navigate("/");
   };
   return (
     <div className="logout">
