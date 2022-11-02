@@ -10,6 +10,7 @@ const CreateEvent = () => {
     exchange_date: "",
     budget: "",
     participants: "",
+    AdminId: JSON.parse(localStorage.getItem("user")).id,
   });
   const [newName, setNewName] = useState("");
 

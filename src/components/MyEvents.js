@@ -13,7 +13,7 @@ const MyEvents = () => {
     exchange_date: "",
     budget: "",
     participants: "",
-    adminId: "1",
+    adminId: "",
   });
   const [isEventAdmin, setIsEventAdmin] = useState(false);
   const { userId } = useAuthContext();
@@ -24,13 +24,14 @@ const MyEvents = () => {
         console.log(data);
         console.log(data[0].Event);
         setEventData(data[0].Event);
-        if (userId === eventData.adminId) {
+        console.log(userId, "userId", eventData.AdminId, "eventData.AdminId");
+        if (userId === eventData.AdminId) {
           setIsEventAdmin(true);
           console.log("admin logged in");
         }
       });
     }
-  }, [userId, eventData.adminId]);
+  }, [userId, eventData.AdminId]);
 
   const handleChange = (event) => {
     setEventData({ ...eventData, [event.target.name]: event.target.value });
