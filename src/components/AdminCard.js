@@ -176,12 +176,11 @@ const AdminCard = () => {
           <div className="event-data-card">
             <div className="event-data-tag">Participants</div>
             <div className="event-data-card">
-              <div className="event-data-tag">participants</div>
               {eventData.participants &&
                 eventData.participants.split(", ").map((item, index) => (
                   <div className="name-container" key={item}>
                     <input
-                      className="field-value"
+                      className="name-value"
                       data-testid="participants"
                       name="participants"
                       placeholder={item}
@@ -203,7 +202,7 @@ const AdminCard = () => {
 
               <div className="name-container">
                 <input
-                  className="field-value"
+                  className="name-value"
                   name="participants"
                   placeholder="Add Name"
                   type="text"
@@ -229,7 +228,7 @@ const AdminCard = () => {
               <button type="submit" onClick={() => setNotEditable(false)}>
                 Edit
               </button>
-              <button type="submit" disabled="eventData.participants.length>0">
+              <button type="  " disabled="eventData.participants.length>0">
                 DRAW NAMES
               </button>
             </>
