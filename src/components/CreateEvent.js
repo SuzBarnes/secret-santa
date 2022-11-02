@@ -3,13 +3,16 @@ import axios from "axios";
 import "../styles/createevent.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useAuthContext } from "../contexts/AuthProvider";
 
 const CreateEvent = () => {
+  const { userId } = useAuthContext();
   const [fields, setFields] = useState({
     title: "",
     exchange_date: "",
     budget: "",
     participants: "",
+    AdminId: userId,
   });
   const [newName, setNewName] = useState("");
 
