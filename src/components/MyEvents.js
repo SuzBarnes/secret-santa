@@ -13,7 +13,7 @@ const MyEvents = () => {
     exchange_date: "",
     budget: "",
     participants: "",
-    adminId: "",
+    AdminId: "",
   });
   const [isEventAdmin, setIsEventAdmin] = useState(false);
   const { userId } = useAuthContext();
