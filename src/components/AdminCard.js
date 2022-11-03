@@ -27,7 +27,6 @@ const AdminCard = () => {
   };
   const [eventData, setEventData] = useState(initialState.fields);
   const [alert, setAlert] = useState(initialState.alert);
-  const [notEditable, setNotEditable] = useState(true);
   const [newParticipant, setNewParticipant] = useState("");
   const [isSure, setIsSure] = useState(false);
   useEffect(() => {
@@ -84,7 +83,6 @@ const AdminCard = () => {
         });
         console.log("Details  have been updated");
         console.log(eventData);
-        setNotEditable(true);
       })
       .catch(() => {
         setAlert({
@@ -105,7 +103,6 @@ const AdminCard = () => {
             message: "Event has been deleted",
             isSuccess: true,
           });
-          setNotEditable(true);
           setIsSure(false);
         })
         .catch(() => {
@@ -135,7 +132,6 @@ const AdminCard = () => {
               type="text"
               value={eventData.title}
               onChange={handleChange}
-              readOnly={notEditable}
             />
           </div>
           <div className="event-data-card">
@@ -148,7 +144,6 @@ const AdminCard = () => {
               type="date"
               value={eventData.exchange_date}
               onChange={handleChange}
-              readOnly={notEditable}
             />
           </div>
           <div className="event-data-card">
@@ -161,7 +156,6 @@ const AdminCard = () => {
               type="text"
               value={`${eventData.budget}`}
               onChange={handleChange}
-              readOnly={notEditable}
             />
           </div>
           <div className="event-data-card">
@@ -184,7 +178,6 @@ const AdminCard = () => {
                       data-testid={`name-delete-button-${index}`}
                       type="submit"
                       onClick={() => handleNameDelete(item)}
-                      readOnly={notEditable}
                     >
                       <FontAwesomeIcon icon={faMinus} />
                     </button>
@@ -207,44 +200,29 @@ const AdminCard = () => {
                   type="submit"
                   onClick={handleNameAdd}
                   onSubmit={handleNameAdd}
-                  readOnly={notEditable}
                 >
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
               </div>
             </div>
           </div>
-          {notEditable ? (
-            <>
-              <button type="submit" onClick={() => setNotEditable(false)}>
-                Edit
-              </button>
-              <button type="submit" disabled="eventData.participants.length>0">
-                DRAW NAMES
-              </button>
-            </>
+          {isSure ? (
+            <button type="submit" onClick={() => setIsSure(false)}>
+              Cancel
+            </button>
           ) : (
-            <>
-              {isSure && (
-                <div className="delete-confirm-message">
-                  Are you sure you want to delete this event?
-                </div>
-              )}
-
-              <button type="submit" onClick={deleteEvent}>
-                {isSure ? "Confirm" : "Delete Event"}
-              </button>
-              {isSure ? (
-                <button type="submit" onClick={() => setIsSure(false)}>
-                  Cancel
-                </button>
-              ) : (
-                <button type="submit" onClick={handleChangeOfEventDetails}>
-                  Save
-                </button>
-              )}
-            </>
+            <button type="submit" onClick={handleChangeOfEventDetails}>
+              Save
+            </button>
           )}
+          {isSure && (
+            <div className="delete-confirm-message">
+              Are you sure you want to delete this event?
+            </div>
+          )}
+          <button type="submit" onClick={deleteEvent}>
+            {isSure ? "Confirm" : "Delete Event"}
+          </button>
         </div>
       </div>
     </div>
