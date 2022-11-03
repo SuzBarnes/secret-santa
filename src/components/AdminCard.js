@@ -27,9 +27,8 @@ const AdminCard = () => {
   };
   const [eventData, setEventData] = useState(initialState.fields);
   const [alert, setAlert] = useState(initialState.alert);
-  const [notEditable, setNotEditable] = useState(true);
   const [newParticipant, setNewParticipant] = useState("");
-  // const [isSure, setIsSure] = useState(false);
+  const [isSure, setIsSure] = useState(false);
   useEffect(() => {
     axios.get(`${ADMIN_CARD_URL}/userid/${userId}`).then(({ data }) => {
       setEventData(data[0].Event);
@@ -84,7 +83,6 @@ const AdminCard = () => {
         });
         console.log("Details  have been updated");
         console.log(eventData);
-        setNotEditable(true);
       })
       .catch(() => {
         setAlert({
@@ -93,63 +91,27 @@ const AdminCard = () => {
         });
       });
   };
-
-  // const handleParticipantAdd = () => {
-  //     if (newParticipant) {
-  //         let array;
-  //         if (eventData.participants) {
-  //             array = eventData.newParticipant.split(", ");
-  //         } else {
-  //             array = [];
-  //         }
-  //         array.push(newParticipant);
-  //         setEventData({ ...eventData, participants: array.join(", ") });
-  //         setNewParticipant("");
-  //     }
-  // };
 
   const deleteEvent = () => {
-    axios
-      .delete(`http://localhost:3000/events/${eventData.id}`)
-      .then(() => {
-        setAlert({
-          message: "Event has been deleted",
-          isSuccess: true,
+    if (!isSure) {
+      setIsSure(true);
+    } else if (isSure) {
+      axios
+        .delete(`http://localhost:3000/events/${eventData.id}`)
+        .then(() => {
+          setAlert({
+            message: "Event has been deleted",
+            isSuccess: true,
+          });
+          setIsSure(false);
+        })
+        .catch(() => {
+          setAlert({
+            message: "Server error, please try again later",
+            isSuccess: false,
+          });
         });
-        console.log("Event has been deleted");
-        setNotEditable(true);
-      })
-      .catch(() => {
-        setAlert({
-          message: "Server error, please try again later",
-          isSuccess: false,
-        });
-      });
-  };
-
-  const secretSantaShuffle = (arr) => {
-    const shuffledArr = arr.sort(() => Math.random() - 0.5);
-    const copiedArr = [...shuffledArr];
-    copiedArr.push(copiedArr.shift());
-
-    for (let i = 0; i < copiedArr.length; i += 1) {
-      const patchData = { BuyForId: copiedArr[i] };
-      axios.patch(
-        `http://localhost:3000/userevents/eventid/${eventData.id}/userid/${shuffledArr[i]}`,
-        patchData
-      );
-      console.log(`${shuffledArr[i]} buys for ${copiedArr[i]}`);
     }
-  };
-
-  const drawNames = () => {
-    axios
-      .get(`http://localhost:3000/userevents/eventid/${eventData.id}`)
-      .then((response) => {
-        const userIds = response.data.map((user) => user.User.id);
-        console.log(userIds);
-        secretSantaShuffle(userIds);
-      });
   };
 
   return (
@@ -170,7 +132,6 @@ const AdminCard = () => {
               type="text"
               value={eventData.title}
               onChange={handleChange}
-              readOnly={notEditable}
             />
           </div>
           <div className="event-data-card">
@@ -183,7 +144,6 @@ const AdminCard = () => {
               type="date"
               value={eventData.exchange_date}
               onChange={handleChange}
-              readOnly={notEditable}
             />
           </div>
           <div className="event-data-card">
@@ -196,7 +156,6 @@ const AdminCard = () => {
               type="text"
               value={`${eventData.budget}`}
               onChange={handleChange}
-              readOnly={notEditable}
             />
           </div>
           <div className="event-data-card">
@@ -219,7 +178,6 @@ const AdminCard = () => {
                       data-testid={`name-delete-button-${index}`}
                       type="submit"
                       onClick={() => handleNameDelete(item)}
-                      readOnly={notEditable}
                     >
                       <FontAwesomeIcon icon={faMinus} />
                     </button>
@@ -242,36 +200,29 @@ const AdminCard = () => {
                   type="submit"
                   onClick={handleNameAdd}
                   onSubmit={handleNameAdd}
-                  readOnly={notEditable}
                 >
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
               </div>
             </div>
           </div>
-          {notEditable ? (
-            <>
-              <button type="submit" onClick={() => setNotEditable(false)}>
-                Edit
-              </button>
-              <button
-                type="submit"
-                onClick={drawNames}
-                // disabled="eventData.participants.length>0"
-              >
-                DRAW NAMES
-              </button>
-            </>
+          {isSure ? (
+            <button type="submit" onClick={() => setIsSure(false)}>
+              Cancel
+            </button>
           ) : (
-            <>
-              <button type="submit" onClick={handleChangeOfEventDetails}>
-                Save
-              </button>
-              <button type="submit" onClick={deleteEvent}>
-                DELETE EVENT
-              </button>
-            </>
+            <button type="submit" onClick={handleChangeOfEventDetails}>
+              Save
+            </button>
           )}
+          {isSure && (
+            <div className="delete-confirm-message">
+              Are you sure you want to delete this event?
+            </div>
+          )}
+          <button type="submit" onClick={deleteEvent}>
+            {isSure ? "Confirm" : "Delete Event"}
+          </button>
         </div>
       </div>
     </div>
