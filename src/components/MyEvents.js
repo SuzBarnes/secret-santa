@@ -52,7 +52,7 @@ const MyEvents = () => {
 
   return (
     <div className="my-events-container">
-      {!Event.eventId ? (
+      {Event.eventId ? (
         <div>
           <label htmlFor="code">
             enter event code here
