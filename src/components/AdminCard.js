@@ -230,15 +230,19 @@ const AdminCard = () => {
                   Are you sure you want to delete this event?
                 </div>
               )}
-              <button type="submit" onClick={handleChangeOfEventDetails}>
-                Save
-              </button>
+
               <button type="submit" onClick={deleteEvent}>
                 {isSure ? "Confirm" : "Delete Event"}
               </button>
-              <button type="submit" onClick={() => setIsSure(false)}>
-                Cancel
-              </button>
+              {isSure ? (
+                <button type="submit" onClick={() => setIsSure(false)}>
+                  Cancel
+                </button>
+              ) : (
+                <button type="submit" onClick={handleChangeOfEventDetails}>
+                  Save
+                </button>
+              )}
             </>
           )}
         </div>
