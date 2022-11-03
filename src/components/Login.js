@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/login.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -21,7 +22,15 @@ const Login = () => {
   const [login, setLogin] = useState(initialState.login);
   const [passwordShown, setPasswordShown] = useState(false);
   const [alert, setAlert] = useState(initialState.alert);
+
   const { setUserId } = useAuthContext();
+
+  const navigate = useNavigate();
+
+  const changeLocation = (redirect) => {
+    navigate(redirect, { replace: true });
+    window.location.reload();
+  };
 
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
@@ -43,6 +52,7 @@ const Login = () => {
           message: `${res.data.message}`,
           isSuccess: true,
         });
+        changeLocation("/");
         return res.data;
       })
       .catch((err) => {
