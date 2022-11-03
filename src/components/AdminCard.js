@@ -32,8 +32,6 @@ const AdminCard = () => {
   // const [isSure, setIsSure] = useState(false);
   useEffect(() => {
     axios.get(`${ADMIN_CARD_URL}/userid/${userId}`).then(({ data }) => {
-      console.log(data);
-      console.log(data[0].Event);
       setEventData(data[0].Event);
     });
   }, [userId, eventData.AdminId]);
@@ -178,12 +176,11 @@ const AdminCard = () => {
           <div className="event-data-card">
             <div className="event-data-tag">Participants</div>
             <div className="event-data-card">
-              <div className="event-data-tag">participants</div>
               {eventData.participants &&
                 eventData.participants.split(", ").map((item, index) => (
                   <div className="name-container" key={item}>
                     <input
-                      className="field-value"
+                      className="name-value"
                       data-testid="participants"
                       name="participants"
                       placeholder={item}
@@ -196,6 +193,7 @@ const AdminCard = () => {
                       data-testid={`name-delete-button-${index}`}
                       type="submit"
                       onClick={() => handleNameDelete(item)}
+                      readOnly={notEditable}
                     >
                       <FontAwesomeIcon icon={faMinus} />
                     </button>
@@ -204,7 +202,7 @@ const AdminCard = () => {
 
               <div className="name-container">
                 <input
-                  className="field-value"
+                  className="name-value"
                   name="participants"
                   placeholder="Add Name"
                   type="text"
@@ -218,19 +216,22 @@ const AdminCard = () => {
                   type="submit"
                   onClick={handleNameAdd}
                   onSubmit={handleNameAdd}
+                  readOnly={notEditable}
                 >
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
               </div>
             </div>
-            <button type="submit" onSubmit={handleChangeOfEventDetails}>
-              Submit
-            </button>
           </div>
           {notEditable ? (
-            <button type="submit" onClick={() => setNotEditable(false)}>
-              Edit
-            </button>
+            <>
+              <button type="submit" onClick={() => setNotEditable(false)}>
+                Edit
+              </button>
+              <button type="submit" disabled="eventData.participants.length>0">
+                DRAW NAMES
+              </button>
+            </>
           ) : (
             <>
               <button type="submit" onClick={handleChangeOfEventDetails}>
