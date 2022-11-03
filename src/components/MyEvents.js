@@ -9,13 +9,16 @@ const MY_EVENTS_URL = "http://localhost:3000/userevents";
 
 const MyEvents = () => {
   const [eventData, setEventData] = useState({
+    eventId: "",
     title: "",
     exchange_date: "",
     budget: "",
     participants: "",
     adminId: "1",
   });
-  const [isEventAdmin, setIsEventAdmin] = useState(false);
+  const [buyForId, setBuyForId] = useState("");
+  const [eventCode, setEventCode] = useState("");
+  // const [isEventAdmin, setIsEventAdmin] = useState(false);
   const { userId } = useAuthContext();
 
   useEffect(() => {
@@ -24,16 +27,19 @@ const MyEvents = () => {
         console.log(data);
         console.log(data[0].Event);
         setEventData(data[0].Event);
-        if (userId === eventData.adminId) {
-          setIsEventAdmin(true);
-          console.log("admin logged in");
-        }
+        console.log(data[0].BuyFor.first_name);
+        setBuyForId(data[0].BuyFor.first_name);
       });
     }
-  }, [userId, eventData.adminId]);
+  }, [userId]);
 
   const handleChange = (event) => {
     setEventData({ ...eventData, [event.target.name]: event.target.value });
+  };
+
+  const handleCodeChange = (event) => {
+    console.log("code changed");
+    setEventCode(event.target.value);
   };
 
   if (!userId) {
@@ -46,7 +52,22 @@ const MyEvents = () => {
 
   return (
     <div className="my-events-container">
-      {userId && (
+      {!Event.eventId ? (
+        <div>
+          <label htmlFor="code">
+            enter event code here
+            <input
+              className="code"
+              id="code"
+              name="code"
+              placeholder="code"
+              type="text"
+              value={eventCode}
+              onChange={handleCodeChange}
+            />
+          </label>
+        </div>
+      ) : (
         <div>
           <div className="my-events-title">My events</div>
 
@@ -60,7 +81,6 @@ const MyEvents = () => {
                 type="text"
                 value={eventData.title}
                 onChange={handleChange}
-                readOnly={!isEventAdmin}
               />
             </div>
             <div className="event-data-card">
@@ -72,7 +92,6 @@ const MyEvents = () => {
                 type="text"
                 value={eventData.exchange_date}
                 onChange={handleChange}
-                readOnly={!isEventAdmin}
               />
             </div>
             <div className="event-data-card">
@@ -84,8 +103,11 @@ const MyEvents = () => {
                 type="text"
                 value={`${eventData.budget}`}
                 onChange={handleChange}
-                readOnly={!isEventAdmin}
               />
+            </div>
+            <div className="event-data-card">
+              You are buying for...
+              <div>{buyForId}</div>
             </div>
             <div className="event-data-card">
               <div className="event-data-tag">participants</div>
