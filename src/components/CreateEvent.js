@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/createevent.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -45,11 +46,20 @@ const CreateEvent = () => {
     }
   };
 
+  const navigate = useNavigate();
+
+  const changeLocation = (redirect) => {
+    navigate(redirect, { replace: true });
+    window.location.reload();
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(fields);
 
-    axios.post(`http://localhost:3000/events`, fields);
+    axios
+      .post(`http://localhost:3000/events`, fields)
+      .then(changeLocation("/"));
   };
 
   const handleChange = (event) => {

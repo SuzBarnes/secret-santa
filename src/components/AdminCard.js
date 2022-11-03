@@ -126,6 +126,32 @@ const AdminCard = () => {
         });
       });
   };
+
+  const secretSantaShuffle = (arr) => {
+    const shuffledArr = arr.sort(() => Math.random() - 0.5);
+    const copiedArr = [...shuffledArr];
+    copiedArr.push(copiedArr.shift());
+
+    for (let i = 0; i < copiedArr.length; i += 1) {
+      const patchData = { BuyForId: copiedArr[i] };
+      axios.patch(
+        `http://localhost:3000/userevents/eventid/${eventData.id}/userid/${shuffledArr[i]}`,
+        patchData
+      );
+      console.log(`${shuffledArr[i]} buys for ${copiedArr[i]}`);
+    }
+  };
+
+  const drawNames = () => {
+    axios
+      .get(`http://localhost:3000/userevents/eventid/${eventData.id}`)
+      .then((response) => {
+        const userIds = response.data.map((user) => user.User.id);
+        console.log(userIds);
+        secretSantaShuffle(userIds);
+      });
+  };
+
   return (
     <div className="admin-card-container">
       <Alert message={alert.message} success={alert.isSuccess} />
@@ -228,7 +254,11 @@ const AdminCard = () => {
               <button type="submit" onClick={() => setNotEditable(false)}>
                 Edit
               </button>
-              <button type="submit" disabled="eventData.participants.length>0">
+              <button
+                type="submit"
+                onClick={drawNames}
+                // disabled="eventData.participants.length>0"
+              >
                 DRAW NAMES
               </button>
             </>
