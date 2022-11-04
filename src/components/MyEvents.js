@@ -94,27 +94,8 @@ const MyEvents = () => {
 
   return (
     <div className="my-events-container">
-<<<<<<< Updated upstream
-      {!Event.eventId ? (
-        <div>
-          <label htmlFor="code">
-            enter event code here
-            <input
-              className="code"
-              id="code"
-              name="code"
-              placeholder="code"
-              type="text"
-              value={eventCode}
-              onChange={handleCodeChange}
-            />
-          </label>
-        </div>
-      ) : (
-=======
       <Alert message={alert.message} success={alert.isSuccess} />
       {eventData.eventId ? (
->>>>>>> Stashed changes
         <div>
           <div className="my-events-title">My events</div>
           <div className="event-data-container">
