@@ -116,7 +116,7 @@ const MyEvents = () => {
                 id="exchange_date"
                 name="exchange_date"
                 placeholder="exchange_date"
-                type="text"
+                type="date"
                 value={eventData.exchange_date}
                 onChange={handleChange}
               />

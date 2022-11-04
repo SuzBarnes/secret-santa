@@ -1,0 +1,51 @@
+@import "config";
+
+.create-event-container {
+  background-color: $main-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+
+  h1 {
+    color: white;
+  }
+
+  .create-event-form {
+    display: flex;
+    flex-direction: column;
+    margin: 10px auto;
+  }
+
+  .field-card {
+    margin: 10px auto;
+    width: 100%;
+  }
+
+  .name-container {
+    margin-bottom: 5px;
+  }
+
+  .field-value-title,
+  .field-value-budget,
+  .field-value-date {
+    width: 100%;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  input,
+  button {
+    border: 2px solid white;
+    border-radius: 3px;
+    padding: 5px;
+    color: white;
+    background-color: transparent;
+  }
+
+  input::placeholder {
+    color: white;
+  }
+}

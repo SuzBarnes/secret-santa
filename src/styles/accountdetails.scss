@@ -7,21 +7,26 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   .account-details-title {
     text-align: center;
+
     button {
       background-color: $main-button-color;
       border-radius: $border-radius;
       cursor: pointer;
     }
   }
+
   .fields-container {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+
     .field-card {
       margin: 10px auto;
       justify-content: center;
+
       .like-container {
         .field-value {
           display: inline;
@@ -31,6 +36,7 @@
           margin: 2px;
           border-radius: $border-radius;
         }
+
         .like-button {
           display: inline;
           border-radius: 50%;
@@ -38,6 +44,7 @@
           width: 20px;
           background-color: rgb(244, 76, 76);
         }
+
         .add-like-button {
           display: inline;
           border-radius: 50%;
@@ -46,10 +53,12 @@
           background-color: rgb(75, 217, 75);
         }
       }
+
       .password-container {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+
         .field-value {
           display: inline;
           background-color: white;
