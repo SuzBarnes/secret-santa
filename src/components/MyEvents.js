@@ -13,15 +13,15 @@ const MyEvents = () => {
     title: "",
     exchange_date: "",
     budget: "",
-    adminId: "",
-    adminName: "",
+    adminId: "3",
   });
   const [eventId, setEventId] = useState("");
   const [eventInvite, setEventInvite] = useState({
     eventId: "",
     title: "",
     names: "",
-    adminId: "",
+    adminId: "4",
+    adminName: "",
   });
   const [buyForId, setBuyForId] = useState("");
   const [eventCode, setEventCode] = useState("");
@@ -37,7 +37,15 @@ const MyEvents = () => {
       axios
         .get(`${MY_EVENTS_URL}/userid/${userId}`)
         .then(({ data }) => {
-          setEventData(data[0].Event);
+          // setEventData(data[0].Event);
+          console.log("get event data");
+          console.log(data[0].Event);
+          setEventData({
+            title: data[0].Event.title,
+            exchange_date: data[0].Event.exchange_date,
+            budget: data[0].Event.budget,
+            adminId: data[0].Event.AdminId,
+          });
           setEventId(data[0].EventId);
           if (data[0].BuyFor) {
             setBuyForId(data[0].BuyFor.first_name);
@@ -46,6 +54,7 @@ const MyEvents = () => {
             axios
               .get(`${MY_EVENTS_URL}/eventid/${data[0].EventId}`)
               .then((data2) => {
+                console.log("get user taking part");
                 setUsersTakingPart(
                   data2.data.map((item) => item.User.first_name)
                 );
@@ -142,6 +151,7 @@ const MyEvents = () => {
 
   return (
     <div className="my-events-container">
+      {userId === eventData.adminId && <div>admin logged in</div>}
       <Alert message={alert.message} success={alert.isSuccess} />
       {eventId ? (
         <div>
