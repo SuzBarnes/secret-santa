@@ -13,6 +13,7 @@ const CreateEvent = () => {
     exchange_date: "",
     budget: "",
     participants: "",
+    drawn: false,
     AdminId: userId,
   });
   const [newName, setNewName] = useState("");
