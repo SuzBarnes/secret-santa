@@ -20,9 +20,18 @@ const App = () => {
           <Route path="/" element={<MyEvents />} />
           <Route path="create-event" element={<CreateEvent />} />
           <Route path="login" element={<Login />} />
+<<<<<<< Updated upstream
           <Route path="/logout" element={<Logout />} />
           <Route path="register" element={<Register />} />
           <Route path="account-details" element={<AccountDetails />} />
+=======
+          <Route path="logout" element={<Logout />} />
+          <Route path="register" element={<Register />} />
+          <Route
+            path="account-details"
+            element={userId ? <AccountDetails /> : <Navigate to="/login" />}
+          />
+>>>>>>> Stashed changes
         </Routes>
       </div>
     </div>

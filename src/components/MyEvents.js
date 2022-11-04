@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/myevents.scss";
 import axios from "axios";
+import Alert from "./Alert";
 import { useAuthContext } from "../contexts/AuthProvider";
 import Login from "./Login";
 
@@ -16,22 +17,39 @@ const MyEvents = () => {
     participants: "",
     adminId: "1",
   });
+  const [eventInvite, setEventInvite] = useState({
+    eventId: "",
+    title: "",
+    names: "",
+  });
   const [buyForId, setBuyForId] = useState("");
   const [eventCode, setEventCode] = useState("");
-  // const [isEventAdmin, setIsEventAdmin] = useState(false);
+  const [alert, setAlert] = useState({
+    message: "",
+    isSuccess: false,
+  });
   const { userId } = useAuthContext();
 
   useEffect(() => {
     if (userId) {
-      axios.get(`${MY_EVENTS_URL}/userid/${userId}`).then(({ data }) => {
-        console.log(data);
-        console.log(data[0].Event);
-        setEventData(data[0].Event);
-        console.log(data[0].BuyFor.first_name);
-        setBuyForId(data[0].BuyFor.first_name);
-      });
+      axios
+        .get(`${MY_EVENTS_URL}/userid/${userId}`)
+        .then(({ data }) => {
+          console.log(data);
+          console.log(data[0].Event);
+          setEventData(data[0].Event);
+          console.log(data[0].BuyFor.first_name);
+          setBuyForId(data[0].BuyFor.first_name);
+          console.log("eventId", data[0].Event.eventId);
+        })
+        .catch(() => {
+          // setAlert({
+          //   message: "You currently aren't in an event",
+          //   isSuccess: false,
+          // });
+        });
     }
-  }, [userId]);
+  }, [userId, eventData.eventId]);
 
   const handleChange = (event) => {
     setEventData({ ...eventData, [event.target.name]: event.target.value });
@@ -40,6 +58,30 @@ const MyEvents = () => {
   const handleCodeChange = (event) => {
     console.log("code changed");
     setEventCode(event.target.value);
+  };
+
+  const handleCodeEnter = () => {
+    axios
+      .get(`http://localhost:3000/events/${eventCode}`)
+      .then(({ data }) => {
+        console.log("eventId invite", data[0].id);
+        setEventInvite({
+          eventId: data[0].id,
+          title: data[0].title,
+          names: data[0].participants,
+        });
+        console.log(data[0]);
+      })
+      .catch(() => {
+        setAlert({
+          message: "Wrong code, please try again",
+          isSuccess: false,
+        });
+      });
+  };
+
+  const eventCheck = () => {
+    console.log(eventInvite);
   };
 
   if (!userId) {
@@ -52,6 +94,7 @@ const MyEvents = () => {
 
   return (
     <div className="my-events-container">
+<<<<<<< Updated upstream
       {!Event.eventId ? (
         <div>
           <label htmlFor="code">
@@ -68,9 +111,12 @@ const MyEvents = () => {
           </label>
         </div>
       ) : (
+=======
+      <Alert message={alert.message} success={alert.isSuccess} />
+      {eventData.eventId ? (
+>>>>>>> Stashed changes
         <div>
           <div className="my-events-title">My events</div>
-
           <div className="event-data-container">
             <div className="event-data-card">
               <input
@@ -125,6 +171,40 @@ const MyEvents = () => {
                 ))}
             </div>
           </div>
+        </div>
+      ) : (
+        <div>
+          {eventInvite.eventId ? (
+            <div>
+              <div>{eventInvite.title}</div>
+              {eventInvite.names.split(", ").map((item) => (
+                <button type="button" key={item}>
+                  {item}
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div>
+              <label htmlFor="code">
+                enter event code here
+                <input
+                  className="code"
+                  id="code"
+                  name="code"
+                  placeholder="code"
+                  type="text"
+                  value={eventCode}
+                  onChange={handleCodeChange}
+                />
+              </label>
+              <button type="submit" onClick={handleCodeEnter}>
+                enter
+              </button>
+              <button type="submit" onClick={eventCheck}>
+                check
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>
