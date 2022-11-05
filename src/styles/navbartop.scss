@@ -4,9 +4,11 @@
   background-position: center;
   .navbar-logo-container {
     display: inline-block;
-    margin: 10px;
+    margin: 0px 10px;
+    padding: 25px 10px;
+    height: 100%;
     .ss-logo {
-      height: 75px;
+      height: 100%;
       margin: auto;
     }
   }
