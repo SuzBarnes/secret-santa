@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "../styles/myevents.scss";
 import axios from "axios";
 import Alert from "./Alert";
@@ -151,7 +152,13 @@ const MyEvents = () => {
 
   return (
     <div className="my-events-container">
-      {userId === eventData.adminId && <div>admin logged in</div>}
+      {userId === eventData.adminId && (
+        <div>
+          <Link className="my-events-link" to="/eventadmin">
+            <div>Edit Events</div>
+          </Link>
+        </div>
+      )}
       <Alert message={alert.message} success={alert.isSuccess} />
       {eventId ? (
         <div>
