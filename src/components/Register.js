@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/register.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
@@ -18,12 +19,19 @@ const Register = () => {
       isSuccess: false,
     },
   };
+
   const [register, setRegister] = useState(initialState.register);
   const [passwordShown, setPasswordShown] = useState(false);
   const [alert, setAlert] = useState(initialState.alert);
 
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
+  };
+
+  const navigate = useNavigate();
+  const changeLocation = (redirect) => {
+    navigate(redirect, { replace: true });
+    window.location.reload();
   };
 
   const handleRegister = (event) => {
@@ -36,6 +44,7 @@ const Register = () => {
           message: `Merry Christmas and welcome ${register.first_name}!`,
           isSuccess: true,
         });
+        changeLocation("/");
       })
       .catch((err) => {
         setAlert({

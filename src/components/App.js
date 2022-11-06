@@ -3,12 +3,12 @@ import "../styles/app.scss";
 import { Route, Routes, Navigate } from "react-router-dom";
 import NavBarTop from "./NavBarTop";
 import NavBarBottom from "./NavBarBottom";
-import MyEvents from "./MyEvents";
 import CreateEvent from "./CreateEvent";
 import Register from "./Register";
 import Login from "./Login";
 import Logout from "./Logout";
 import AccountDetails from "./AccountDetails";
+import MyEvents from "./MyEvents";
 import AdminCard from "./AdminCard";
 import { useAuthContext } from "../contexts/AuthProvider";
 
