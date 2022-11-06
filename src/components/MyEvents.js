@@ -14,14 +14,14 @@ const MyEvents = () => {
     title: "",
     exchange_date: "",
     budget: "",
-    adminId: "3",
+    adminId: "",
   });
   const [eventId, setEventId] = useState("");
   const [eventInvite, setEventInvite] = useState({
     eventId: "",
     title: "",
     names: "",
-    adminId: "4",
+    adminId: "",
     adminName: "",
   });
   const [buyForId, setBuyForId] = useState("");
@@ -111,6 +111,7 @@ const MyEvents = () => {
       .filter((name) => name !== item)
       .join(", ");
     setEventInvite({ ...eventInvite, names: newNameList });
+    console.log({ eventInvite });
     axios
       .patch(`http://localhost:3000/events/${eventInvite.eventId}`, {
         participants: newNameList,
@@ -128,7 +129,7 @@ const MyEvents = () => {
       .post(MY_EVENTS_URL, {
         UserId: userId,
         BuyForId: null,
-        EventId: 1,
+        EventId: eventInvite.eventId,
       })
       .then(() => {
         console.log("added user to the event");
