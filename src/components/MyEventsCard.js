@@ -126,7 +126,7 @@ const MyEventsCard = () => {
           </div>
         </div>
       )}
-      <button type="button" onClick={nextEvent}>
+      <button type="button" onClick={nextEvent} disabled={false}>
         NEXT
       </button>
       <div className="previous-button">
