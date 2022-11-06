@@ -19,4 +19,15 @@
       justify-content: center;
     }
   }
+  .reveal-container{
+    font-size: 35px;
+    text-align: center;
+  }
+  .gift-icon{
+    cursor: pointer;
+    transition-duration: 300ms;
+  }
+  .gift-icon:hover{
+    transform: rotate(-20deg);
+  }
 }

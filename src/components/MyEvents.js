@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import "../styles/myevents.scss";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGift } from "@fortawesome/free-solid-svg-icons";
 import { useAuthContext } from "../contexts/AuthProvider";
 import Login from "./Login";
 
@@ -20,6 +22,7 @@ const MyEvents = () => {
   const [eventCode, setEventCode] = useState("");
   // const [isEventAdmin, setIsEventAdmin] = useState(false);
   const { userId } = useAuthContext();
+  const [reveal, setReveal] = useState(false);
 
   useEffect(() => {
     if (userId) {
@@ -107,7 +110,19 @@ const MyEvents = () => {
             </div>
             <div className="event-data-card">
               You are buying for...
-              <div>{buyForId}</div>
+              <div className="reveal-container">
+                {!reveal ? (
+                  <FontAwesomeIcon
+                    className="gift-icon"
+                    icon={faGift}
+                    onClick={() => {
+                      setReveal(true);
+                    }}
+                  />
+                ) : (
+                  buyForId
+                )}
+              </div>
             </div>
             <div className="event-data-card">
               <div className="event-data-tag">participants</div>

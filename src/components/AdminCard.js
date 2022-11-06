@@ -29,6 +29,7 @@ const AdminCard = () => {
   const [alert, setAlert] = useState(initialState.alert);
   const [newParticipant, setNewParticipant] = useState("");
   const [isSure, setIsSure] = useState(false);
+  const [hasBeenDrawn, setHasBeenDrawn] = useState(false);
   useEffect(() => {
     axios.get(`${ADMIN_CARD_URL}/userid/${userId}`).then(({ data }) => {
       setEventData(data[0].Event);
@@ -136,7 +137,9 @@ const AdminCard = () => {
         console.log(userIds);
         secretSantaShuffle(userIds);
       });
+    setHasBeenDrawn(true);
   };
+
   return (
     <div className="admin-card-container">
       <Alert message={alert.message} success={alert.isSuccess} />
@@ -229,13 +232,15 @@ const AdminCard = () => {
               </div>
             </div>
           </div>
-          <button
-            type="submit"
-            onClick={drawNames}
-            // disabled="eventData.participants.length>0"
-          >
-            DRAW NAMES
-          </button>
+          {!hasBeenDrawn && (
+            <button
+              type="submit"
+              onClick={drawNames}
+              // disabled="eventData.participants.length>0"
+            >
+              DRAW NAMES
+            </button>
+          )}
           {isSure ? (
             <button type="submit" onClick={() => setIsSure(false)}>
               Cancel
