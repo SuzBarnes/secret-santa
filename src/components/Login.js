@@ -69,53 +69,66 @@ const Login = () => {
 
   return (
     <div className="login">
-      <h2>
-        Secret Santa...with a <i>twist</i>.
-      </h2>
-      With 5 simple steps, you could be joining the millions playing Secret
-      Santa today!
-      <ol>
-        <li>Login or Register,</li>
-        <li>
-          Create your event with the participants, budget and exchange date of
-          your choice,
-        </li>
-        <li>Draw your random name!</li>
-        <li>Add your wishlist,</li>
-        <li>Add gift ideas for other members, keeping your anonymity!</li>
-      </ol>
-      <h3>Login</h3>
-      <form onSubmit={handleLogin}>
-        <Alert message={alert.message} success={alert.isSuccess} />
-        <input
-          id="login-email"
-          name="email"
-          placeholder="Email Address"
-          value={login.email}
-          onChange={handleLoginChange}
-          required
-        />
-
-        <input
-          id="login-password"
-          name="password"
-          type={passwordShown ? "text" : "password"}
-          placeholder="Enter valid password"
-          value={login.password}
-          onChange={handleLoginChange}
-          required
-        />
-        <button type="button" onClick={togglePassword}>
-          <FontAwesomeIcon icon={faEye} className="font-awesome" />
-        </button>
-        <button type="submit">Log in</button>
-      </form>
-      <p>
-        Need an Account?
-        <span className="line">
-          <a href="register">Sign Up</a>
-        </span>
-      </p>
+      <div className="description-div">
+        <h2>
+          Secret Santa...with a <i>twist</i>.
+        </h2>
+        With 5 simple steps, you could be joining the millions playing Secret
+        Santa today!
+        <ol>
+          <li>Login or Register,</li>
+          <li>
+            Create your event with the participants, budget and exchange date of
+            your choice,
+          </li>
+          <li>Draw your random name!</li>
+          <li>Add your wishlist,</li>
+          <li>Add gift ideas for other members, keeping your anonymity!</li>
+        </ol>
+      </div>
+      <div className="form-div">
+        <form className="login-form" onSubmit={handleLogin}>
+          <div>
+            <Alert message={alert.message} success={alert.isSuccess} />
+            <h3>Login</h3>
+          </div>
+          <div className="email-div">
+            <input
+              id="login-email"
+              name="email"
+              placeholder="Email Address"
+              value={login.email}
+              onChange={handleLoginChange}
+              required
+            />
+          </div>
+          <div className="password-div">
+            <input
+              id="login-password"
+              name="password"
+              type={passwordShown ? "text" : "password"}
+              placeholder="Enter valid password"
+              value={login.password}
+              onChange={handleLoginChange}
+              required
+            />
+            <button type="button" onClick={togglePassword}>
+              <FontAwesomeIcon icon={faEye} className="font-awesome" />
+            </button>
+          </div>
+          <div>
+            <button type="submit">Log in</button>
+          </div>
+        </form>
+      </div>
+      <div className="switch-register">
+        <p>
+          Need an Account?
+          <span className="line">
+            <a href="register">Sign Up</a>
+          </span>
+        </p>
+      </div>
     </div>
   );
 };

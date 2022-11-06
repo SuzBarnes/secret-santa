@@ -1,7 +1,50 @@
+@import "config";
+
 .login {
-  width: 100%;
+  background-color: $main-color;
+  color: $font-color;
+  // width: 100%;
+  height: 100%;
   padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
+  .switch-register,
+  .form-div,
+  .description-div {
+    margin: $margin-fields;
+  }
+  .form-div {
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .password-div,
+      .email-div {
+        margin: $margin-fields;
+        width: 100%;
+      }
+      .email-div {
+        input {
+          width:100%;
+        }
+      }
+    }
+  }
+  input,
+  button {
+    border: 2px solid white;
+    border-radius: 3px;
+    padding: 5px;
+    color: white;
+    background-color: transparent;
+  }
+
+  input::placeholder {
+    color: white;
+  }
 }

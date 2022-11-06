@@ -21,7 +21,10 @@ const App = () => {
       <NavBarBottom />
       <div className="main">
         <Routes>
-          <Route path="/" element={<MyEvents />} />
+          <Route
+            path="/"
+            element={userId ? <MyEvents /> : <Navigate to="/login" />}
+          />
           <Route
             path="/eventadmin"
             element={userId ? <AdminCard /> : <Navigate to="/login" />}

@@ -205,7 +205,7 @@ const AccountDetails = () => {
     <div className="account-details-container">
       <Alert message={alert.message} success={alert.isSuccess} />
       <div className="account-details-title">
-        Account Details{" "}
+        <h1>Account Details</h1>
         {notEditable ? (
           <button type="submit" onClick={() => setNotEditable(false)}>
             edit

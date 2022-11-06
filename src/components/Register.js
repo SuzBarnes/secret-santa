@@ -51,56 +51,71 @@ const Register = () => {
 
   return (
     <div className="register">
-      <h3>Register</h3>
-      <form onSubmit={handleRegister}>
-        <Alert message={alert.message} success={alert.isSuccess} />
-
-        <input
-          id="first_name"
-          name="first_name"
-          placeholder="Enter First Name"
-          value={register.first_name}
-          onChange={handleRegisterChange}
-          required
-        />
-        <input
-          id="last_name"
-          name="last_name"
-          placeholder="Enter Surname"
-          value={register.last_name}
-          onChange={handleRegisterChange}
-          required
-        />
-        <input
-          id="register-email"
-          name="email"
-          placeholder="Email Address"
-          value={register.email}
-          onChange={handleRegisterChange}
-          required
-        />
-
-        <input
-          id="register-password"
-          name="password"
-          type={passwordShown ? "text" : "password"}
-          placeholder="Enter valid password"
-          value={register.password}
-          onChange={handleRegisterChange}
-          required
-        />
-        <button type="button" onClick={togglePassword}>
-          <FontAwesomeIcon icon={faEye} className="font-awesome" />
-        </button>
-
-        <button type="submit">Register</button>
-      </form>
-      <p>
-        Already have an account?
-        <span className="line">
-          <a href="login">Sign In</a>
-        </span>
-      </p>
+      <div>
+        <h1>Register</h1>
+      </div>
+      <div>
+        <form className="register-form" onSubmit={handleRegister}>
+          <div>
+            <Alert message={alert.message} success={alert.isSuccess} />
+          </div>
+          <div className="name-div">
+            <input
+              id="first_name"
+              name="first_name"
+              placeholder="Enter First Name"
+              value={register.first_name}
+              onChange={handleRegisterChange}
+              required
+            />
+          </div>
+          <div className="name-div">
+            <input
+              id="last_name"
+              name="last_name"
+              placeholder="Enter Surname"
+              value={register.last_name}
+              onChange={handleRegisterChange}
+              required
+            />
+          </div>
+          <div className="email-div">
+            <input
+              id="register-email"
+              name="email"
+              placeholder="Email Address"
+              value={register.email}
+              onChange={handleRegisterChange}
+              required
+            />
+          </div>
+          <div className="password-div">
+            <input
+              id="register-password"
+              name="password"
+              type={passwordShown ? "text" : "password"}
+              placeholder="Enter valid password"
+              value={register.password}
+              onChange={handleRegisterChange}
+              required
+            />
+            <button type="button" onClick={togglePassword}>
+              <FontAwesomeIcon icon={faEye} className="font-awesome" />
+            </button>
+          </div>
+          <div className="button-div">
+            <button type="submit">Register</button>
+          </div>
+        </form>
+      </div>
+      <div>
+        <p>
+          Already have an account?
+          <span className="line">
+            <a href="login">Sign In</a>
+          </span>
+        </p>
+      </div>
     </div>
   );
 };

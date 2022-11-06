@@ -163,7 +163,9 @@ const MyEvents = () => {
       <Alert message={alert.message} success={alert.isSuccess} />
       {eventId ? (
         <div>
-          <div className="my-events-title">My events</div>
+          <div className="my-events-title">
+            <h1>My Events</h1>
+          </div>
           <div className="event-data-container">
             <div className="event-data-card">
               <input

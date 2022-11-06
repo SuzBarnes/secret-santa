@@ -142,7 +142,9 @@ const AdminCard = () => {
       <Alert message={alert.message} success={alert.isSuccess} />
 
       <div>
-        <div className="admin-card-title">Admin Card</div>
+        <div className="admin-card-title">
+          <h1>Edit Event</h1>
+        </div>
 
         <div className="event-data-container">
           Title
