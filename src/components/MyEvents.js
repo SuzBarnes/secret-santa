@@ -81,9 +81,33 @@ const MyEvents = () => {
       e.preventDefault();
       const nextEventIndex = currentIndex + 1;
       setCurrentIndex(nextEventIndex);
-      setCurrentIndex(nextEventIndex);
-      setBuyForId(dataArray[nextEventIndex].BuyFor.first_name);
+      if (dataArray[nextEventIndex].BuyFor) {
+        setBuyForId(dataArray[nextEventIndex].BuyFor.first_name);
+        console.log("buyfor", dataArray[nextEventIndex].BuyFor.first_name);
+      } else {
+        setBuyForId("");
+      }
       setEventData(dataArray[nextEventIndex].Event);
+      console.log(
+        "data length",
+        dataArray.length,
+        "curent index",
+        nextEventIndex
+      );
+      if (dataArray[nextEventIndex].EventId) {
+        axios
+          .get(`${MY_EVENTS_URL}/eventid/${dataArray[nextEventIndex].EventId}`)
+          .then((data2) => {
+            console.log("get user taking part");
+            setUsersTakingPart(data2.data.map((item) => item.User.first_name));
+          })
+          .catch(() => {
+            // setAlert({
+            //   message: "You currently aren't in an event",
+            //   isSuccess: false,
+            // });
+          });
+      }
     }
   };
 
@@ -93,8 +117,32 @@ const MyEvents = () => {
         e.preventDefault();
         const prevEventIndex = currentIndex - 1;
         setCurrentIndex(prevEventIndex);
-        setBuyForId(dataArray[prevEventIndex].BuyFor.first_name);
+        // setBuyForId(dataArray[prevEventIndex].BuyFor.first_name);
+        if (dataArray[prevEventIndex].BuyFor) {
+          setBuyForId(dataArray[prevEventIndex].BuyFor.first_name);
+          console.log("buyfor", dataArray[prevEventIndex].BuyFor.first_name);
+        } else {
+          setBuyForId("");
+        }
         setEventData(dataArray[prevEventIndex].Event);
+        if (dataArray[prevEventIndex].EventId) {
+          axios
+            .get(
+              `${MY_EVENTS_URL}/eventid/${dataArray[prevEventIndex].EventId}`
+            )
+            .then((data2) => {
+              console.log("get user taking part");
+              setUsersTakingPart(
+                data2.data.map((item) => item.User.first_name)
+              );
+            })
+            .catch(() => {
+              // setAlert({
+              //   message: "You currently aren't in an event",
+              //   isSuccess: false,
+              // });
+            });
+        }
       }
     } catch (err) {
       console.log(err);
