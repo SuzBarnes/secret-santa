@@ -40,7 +40,7 @@ const MyEvents = () => {
         .then(({ data }) => {
           setEventData(data[0].Event);
           setDataArray(data);
-          setBuyForId(data[0].BuyFor.first_name);
+          console.log("data", data);
           setEventId(data[0].EventId);
           if (data[0].BuyFor) {
             setBuyForId(data[0].BuyFor.first_name);
@@ -55,18 +55,18 @@ const MyEvents = () => {
                 );
               })
               .catch(() => {
-                setAlert({
-                  message: "You currently aren't in an event",
-                  isSuccess: false,
-                });
+                // setAlert({
+                //   message: "You currently aren't in an event",
+                //   isSuccess: false,
+                // });
               });
           }
         })
         .catch(() => {
-          setAlert({
-            message: "You currently aren't in an event",
-            isSuccess: false,
-          });
+          // setAlert({
+          //   message: "You currently aren't in an event",
+          //   isSuccess: false,
+          // });
         });
     }
   }, [userId, eventId, setUsersTakingPart]);
