@@ -3,31 +3,34 @@ import React, { useEffect, useState } from "react";
 import "../styles/myeventscard.scss";
 import axios from "axios";
 import { useAuthContext } from "../contexts/AuthProvider";
-import Login from "./Login";
 
 const MY_EVENTS_URL = "http://localhost:3000/userevents";
 
 const MyEventsCard = () => {
-  const [eventData, setEventData] = useState({
-    eventId: "",
-    title: "",
-    exchange_date: "",
-    budget: "",
-    participants: "",
-    AdminId: "",
-  });
+  const initialState = {
+    Event: {
+      eventId: "",
+      title: "",
+      exchange_date: "",
+      budget: "",
+      participants: "",
+      drawn: false,
+      AdminId: "",
+    },
+  };
+  const { userId } = useAuthContext();
+  const [eventData, setEventData] = useState(initialState.Event);
+  const [dataArray, setDataArray] = useState(initialState.Event);
   const [buyForId, setBuyForId] = useState("");
   const [eventCode, setEventCode] = useState("");
   // const [isEventAdmin, setIsEventAdmin] = useState(false);
-  const { userId } = useAuthContext();
 
   useEffect(() => {
     if (userId) {
       axios.get(`${MY_EVENTS_URL}/userid/${userId}`).then(({ data }) => {
-        console.log(data);
-        console.log(data[0].Event);
         setEventData(data[0].Event);
-        console.log(data[0].BuyFor.first_name);
+        setDataArray(data);
+        // console.log(data[0].BuyFor.first_name);
         setBuyForId(data[0].BuyFor.first_name);
       });
     }
@@ -37,25 +40,42 @@ const MyEventsCard = () => {
     setEventData({ ...eventData, [event.target.name]: event.target.value });
   };
 
+  const [currentIndex, setCurrentIndex] = useState(1);
+
+  const nextEvent = (e) => {
+    if (currentIndex < dataArray.length) {
+      e.preventDefault();
+      setCurrentIndex(currentIndex + 1);
+      setBuyForId(dataArray[currentIndex].BuyFor.first_name);
+      setEventData(dataArray[currentIndex].Event);
+    }
+  };
+  const prevEvent = (i, e) => {
+    try {
+      console.log(currentIndex);
+      if (currentIndex >= 0) {
+        e.preventDefault();
+        setCurrentIndex(currentIndex - 1);
+        setBuyForId(dataArray[currentIndex].BuyFor.first_name);
+        setEventData(() => dataArray[currentIndex].Event);
+        console.log(dataArray[currentIndex].Event);
+      }
+    } catch (err) {
+      console.log(err);
+      console.log(eventData.Event);
+    }
+  };
   const handleCodeChange = (event) => {
     console.log("code changed");
     setEventCode(event.target.value);
   };
-
-  if (!userId) {
-    return (
-      <div className="login-home">
-        <Login className="login-form" to="/" />
-      </div>
-    );
-  }
 
   return (
     <div className="my-events-container">
       {Event.eventId ? (
         <div>
           <label htmlFor="code">
-            enter event code here
+            Enter event code here
             <input
               className="code"
               id="code"
@@ -72,17 +92,7 @@ const MyEventsCard = () => {
           <div className="my-events-title">My events</div>
 
           <div className="event-data-container">
-            <div className="event-data-card">
-              <input
-                className="event-data-value"
-                id="title"
-                name="title"
-                placeholder="title"
-                type="text"
-                value={eventData.title}
-                onChange={handleChange}
-              />
-            </div>
+            <div className="event-data-card">{eventData.title}</div>
             <div className="event-data-card">
               <input
                 className="event-data-value"
@@ -94,39 +104,37 @@ const MyEventsCard = () => {
                 onChange={handleChange}
               />
             </div>
-            <div className="event-data-card">
-              <input
-                className="event-data-value"
-                id="budget"
-                name="budget"
-                placeholder="budget"
-                type="text"
-                value={`${eventData.budget}`}
-                onChange={handleChange}
-              />
+            <div
+              className="event-data-card"
+              onChange={handleChange}
+              id="event-budget"
+            >
+              £{`${eventData.budget}`}
             </div>
             <div className="event-data-card">
               You are buying for...
-              <div>{buyForId}</div>
+              <div>{`${buyForId}`}</div>
             </div>
             <div className="event-data-card">
-              <div className="event-data-tag">participants</div>
+              <div className="event-data-tag">Participants</div>
               {eventData.participants &&
                 eventData.participants.split(", ").map((item) => (
                   <div className="like-container" key={item}>
-                    <input
-                      className="field-value"
-                      data-testid="likes"
-                      name="likes"
-                      placeholder={item}
-                      type="text"
-                    />
+                    {item}
                   </div>
                 ))}
             </div>
           </div>
         </div>
       )}
+      <button type="button" onClick={nextEvent}>
+        NEXT
+      </button>
+      <div className="previous-button">
+        <button type="button" onClick={prevEvent}>
+          PREVIOUS
+        </button>
+      </div>
     </div>
   );
 };
