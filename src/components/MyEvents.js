@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
-import "../styles/myeventscard.scss";
+import "../styles/myevents.scss";
 import axios from "axios";
 import { useAuthContext } from "../contexts/AuthProvider";
 
 const MY_EVENTS_URL = "http://localhost:3000/userevents";
 
-const MyEventsCard = () => {
+const MyEvents = () => {
   const initialState = {
     Event: {
       eventId: "",
@@ -138,4 +138,4 @@ const MyEventsCard = () => {
   );
 };
 
-export default MyEventsCard;
+export default MyEvents;

@@ -1,3 +1,13 @@
+.events {
+  padding: 0.5rem;
+}
+
+.events>.item {
+  display: inline-block;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
 @import "config";
 
 .my-events-container {
