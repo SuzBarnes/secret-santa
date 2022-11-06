@@ -10,6 +10,7 @@ import Logout from "./Logout";
 import AccountDetails from "./AccountDetails";
 import MyEvents from "./MyEvents";
 import AdminCard from "./AdminCard";
+import JoinEvent from "./JoinEvent";
 import { useAuthContext } from "../contexts/AuthProvider";
 
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
           <Route path="login" element={<Login />} />
           <Route path="logout" element={<Logout />} />
           <Route path="register" element={<Register />} />
+          <Route path="joinevent" element={<JoinEvent />} />
           <Route
             path="account-details"
             element={userId ? <AccountDetails /> : <Navigate to="/login" />}
