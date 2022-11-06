@@ -50,14 +50,14 @@ const MyEventsCard = () => {
       setEventData(dataArray[currentIndex].Event);
     }
   };
-  const prevEvent = (i, e) => {
+  const prevEvent = (e) => {
     try {
       console.log(currentIndex);
       if (currentIndex >= 0) {
         e.preventDefault();
         setCurrentIndex(currentIndex - 1);
         setBuyForId(dataArray[currentIndex].BuyFor.first_name);
-        setEventData(() => dataArray[currentIndex].Event);
+        setEventData(dataArray[currentIndex].Event);
         console.log(dataArray[currentIndex].Event);
       }
     } catch (err) {
