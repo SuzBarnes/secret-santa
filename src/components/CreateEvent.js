@@ -8,7 +8,6 @@ import { useAuthContext } from "../contexts/AuthProvider";
 
 const CreateEvent = () => {
   const { userId } = useAuthContext();
-  const [firstName, setFirstName] = useState("");
 
   const [newName, setNewName] = useState("");
   const [fields, setFields] = useState({
@@ -21,7 +20,7 @@ const CreateEvent = () => {
   });
 
   axios.get(`http://localhost:3000/users/${userId}`).then((response) => {
-    setFirstName(response.data[0].first_name);
+    const firstName = response.data[0].first_name;
     setFields({ ...fields, participants: firstName });
   });
 
