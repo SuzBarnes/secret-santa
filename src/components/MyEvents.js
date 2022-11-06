@@ -5,48 +5,42 @@ import "../styles/myevents.scss";
 import axios from "axios";
 import Alert from "./Alert";
 import { useAuthContext } from "../contexts/AuthProvider";
-import Login from "./Login";
 
 const MY_EVENTS_URL = "http://localhost:3000/userevents";
 
 const MyEvents = () => {
-  const [eventData, setEventData] = useState({
-    title: "",
-    exchange_date: "",
-    budget: "",
-    adminId: "",
-  });
+  const initialState = {
+    Event: {
+      eventId: "",
+      title: "",
+      exchange_date: "",
+      budget: "",
+      participants: "",
+      drawn: false,
+      AdminId: "",
+    },
+  };
+  const { userId } = useAuthContext();
+  const [eventData, setEventData] = useState(initialState.Event);
   const [eventId, setEventId] = useState("");
-  const [eventInvite, setEventInvite] = useState({
-    eventId: "",
-    title: "",
-    names: "",
-    adminId: "",
-    adminName: "",
-  });
+  const [dataArray, setDataArray] = useState(initialState.Event);
   const [buyForId, setBuyForId] = useState("");
   const [eventCode, setEventCode] = useState("");
+  const [eventInvite, setEventInvite] = useState(initialState.Event);
   const [usersTakingPart, setUsersTakingPart] = useState([]);
   const [alert, setAlert] = useState({
     message: "",
     isSuccess: false,
   });
-  const { userId } = useAuthContext();
 
   useEffect(() => {
     if (userId) {
       axios
         .get(`${MY_EVENTS_URL}/userid/${userId}`)
         .then(({ data }) => {
-          // setEventData(data[0].Event);
-          console.log("get event data");
-          console.log(data[0].Event);
-          setEventData({
-            title: data[0].Event.title,
-            exchange_date: data[0].Event.exchange_date,
-            budget: data[0].Event.budget,
-            adminId: data[0].Event.AdminId,
-          });
+          setEventData(data[0].Event);
+          setDataArray(data);
+          setBuyForId(data[0].BuyFor.first_name);
           setEventId(data[0].EventId);
           if (data[0].BuyFor) {
             setBuyForId(data[0].BuyFor.first_name);
@@ -61,18 +55,18 @@ const MyEvents = () => {
                 );
               })
               .catch(() => {
-                // setAlert({
-                //   message: "You currently aren't in an event",
-                //   isSuccess: false,
-                // });
+                setAlert({
+                  message: "You currently aren't in an event",
+                  isSuccess: false,
+                });
               });
           }
         })
         .catch(() => {
-          // setAlert({
-          //   message: "You currently aren't in an event",
-          //   isSuccess: false,
-          // });
+          setAlert({
+            message: "You currently aren't in an event",
+            isSuccess: false,
+          });
         });
     }
   }, [userId, eventId, setUsersTakingPart]);
@@ -81,6 +75,31 @@ const MyEvents = () => {
     setEventData({ ...eventData, [event.target.name]: event.target.value });
   };
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const nextEvent = (e) => {
+    if (currentIndex < dataArray.length) {
+      e.preventDefault();
+      const nextEventIndex = currentIndex + 1;
+      setCurrentIndex(nextEventIndex);
+      setCurrentIndex(nextEventIndex);
+      setBuyForId(dataArray[nextEventIndex].BuyFor.first_name);
+      setEventData(dataArray[nextEventIndex].Event);
+    }
+  };
+
+  const prevEvent = (e) => {
+    try {
+      if (currentIndex >= 0) {
+        e.preventDefault();
+        const prevEventIndex = currentIndex - 1;
+        setCurrentIndex(prevEventIndex);
+        setBuyForId(dataArray[prevEventIndex].BuyFor.first_name);
+        setEventData(dataArray[prevEventIndex].Event);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const handleCodeChange = (event) => {
     setEventCode(event.target.value);
   };
@@ -93,7 +112,7 @@ const MyEvents = () => {
           eventId: data[0].id,
           title: data[0].title,
           names: data[0].participants,
-          adminId: data[0].adminId,
+          adminId: data[0].AdminId,
           adminName: data[0].Admin.first_name,
         });
       })
@@ -143,17 +162,9 @@ const MyEvents = () => {
       });
   };
 
-  if (!userId) {
-    return (
-      <div className="login-home">
-        <Login className="login-form" to="/" />
-      </div>
-    );
-  }
-
   return (
     <div className="my-events-container">
-      {userId === eventData.adminId && (
+      {userId === eventData.AdminId && (
         <div>
           <Link className="my-events-link" to="/eventadmin">
             <div>Edit Events</div>
@@ -165,17 +176,7 @@ const MyEvents = () => {
         <div>
           <div className="my-events-title">My events</div>
           <div className="event-data-container">
-            <div className="event-data-card">
-              <input
-                className="event-data-value"
-                id="title"
-                name="title"
-                placeholder="title"
-                type="text"
-                value={eventData.title}
-                onChange={handleChange}
-              />
-            </div>
+            <div className="event-data-card">{eventData.title}</div>
             <div className="event-data-card">
               <input
                 className="event-data-value"
@@ -187,16 +188,12 @@ const MyEvents = () => {
                 onChange={handleChange}
               />
             </div>
-            <div className="event-data-card">
-              <input
-                className="event-data-value"
-                id="budget"
-                name="budget"
-                placeholder="budget"
-                type="text"
-                value={`${eventData.budget}`}
-                onChange={handleChange}
-              />
+            <div
+              className="event-data-card"
+              onChange={handleChange}
+              id="event-budget"
+            >
+              £{`${eventData.budget}`}
             </div>
             {buyForId && (
               <div className="event-data-card">
@@ -209,13 +206,7 @@ const MyEvents = () => {
               {usersTakingPart &&
                 usersTakingPart.map((item) => (
                   <div className="like-container" key={item}>
-                    <input
-                      className="field-value"
-                      data-testid="likes"
-                      name="likes"
-                      placeholder={item}
-                      type="text"
-                    />
+                    {item}
                   </div>
                 ))}
             </div>
@@ -258,6 +249,14 @@ const MyEvents = () => {
           )}
         </div>
       )}
+      <button type="button" onClick={nextEvent} disabled={false}>
+        NEXT
+      </button>
+      <div className="previous-button">
+        <button type="button" onClick={prevEvent} disabled={currentIndex === 0}>
+          PREVIOUS
+        </button>
+      </div>
     </div>
   );
 };
