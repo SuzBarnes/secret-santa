@@ -30,7 +30,6 @@ const MyEventsCard = () => {
       axios.get(`${MY_EVENTS_URL}/userid/${userId}`).then(({ data }) => {
         setEventData(data[0].Event);
         setDataArray(data);
-        // console.log(data[0].BuyFor.first_name);
         setBuyForId(data[0].BuyFor.first_name);
       });
     }
@@ -40,29 +39,29 @@ const MyEventsCard = () => {
     setEventData({ ...eventData, [event.target.name]: event.target.value });
   };
 
-  const [currentIndex, setCurrentIndex] = useState(1);
-
+  const [currentIndex, setCurrentIndex] = useState(0);
   const nextEvent = (e) => {
     if (currentIndex < dataArray.length) {
       e.preventDefault();
-      setCurrentIndex(currentIndex + 1);
-      setBuyForId(dataArray[currentIndex].BuyFor.first_name);
-      setEventData(dataArray[currentIndex].Event);
+      const nextEventIndex = currentIndex + 1;
+      setCurrentIndex(nextEventIndex);
+      setCurrentIndex(nextEventIndex);
+      setBuyForId(dataArray[nextEventIndex].BuyFor.first_name);
+      setEventData(dataArray[nextEventIndex].Event);
     }
   };
+
   const prevEvent = (e) => {
     try {
-      console.log(currentIndex);
       if (currentIndex >= 0) {
         e.preventDefault();
-        setCurrentIndex(currentIndex - 1);
-        setBuyForId(dataArray[currentIndex].BuyFor.first_name);
-        setEventData(dataArray[currentIndex].Event);
-        console.log(dataArray[currentIndex].Event);
+        const prevEventIndex = currentIndex - 1;
+        setCurrentIndex(prevEventIndex);
+        setBuyForId(dataArray[prevEventIndex].BuyFor.first_name);
+        setEventData(dataArray[prevEventIndex].Event);
       }
     } catch (err) {
       console.log(err);
-      console.log(eventData.Event);
     }
   };
   const handleCodeChange = (event) => {
@@ -131,7 +130,7 @@ const MyEventsCard = () => {
         NEXT
       </button>
       <div className="previous-button">
-        <button type="button" onClick={prevEvent}>
+        <button type="button" onClick={prevEvent} disabled={currentIndex === 0}>
           PREVIOUS
         </button>
       </div>
