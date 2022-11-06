@@ -202,7 +202,7 @@ const MyEvents = () => {
               </div>
             )}
             <div className="event-data-card">
-              <div className="event-data-tag">participants:</div>
+              <div className="event-data-tag">Participants:</div>
               {usersTakingPart &&
                 usersTakingPart.map((item) => (
                   <div className="like-container" key={item}>
