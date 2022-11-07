@@ -8,6 +8,8 @@ import { useAuthContext } from "../contexts/AuthProvider";
 
 const CreateEvent = () => {
   const { userId } = useAuthContext();
+
+  const [newName, setNewName] = useState("");
   const [fields, setFields] = useState({
     title: "",
     exchange_date: "",
@@ -16,7 +18,11 @@ const CreateEvent = () => {
     drawn: false,
     AdminId: userId,
   });
-  const [newName, setNewName] = useState("");
+
+  axios.get(`http://localhost:3000/users/${userId}`).then((response) => {
+    const firstName = response.data[0].first_name;
+    setFields({ ...fields, participants: firstName });
+  });
 
   const handleNameDelete = (item) => {
     setFields({
