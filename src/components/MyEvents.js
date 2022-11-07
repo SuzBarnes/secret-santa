@@ -25,10 +25,15 @@ const MyEvents = () => {
   const [eventId, setEventId] = useState("");
   const [dataArray, setDataArray] = useState(initialState.Event);
   const [buyForId, setBuyForId] = useState("");
+  const [buyForLikes, setBuyForLikes] = useState("");
+  const [buyForDislikes, setBuyForDislikes] = useState("");
   const [eventCode, setEventCode] = useState("");
   const [eventInvite, setEventInvite] = useState(initialState.Event);
   const [usersTakingPart, setUsersTakingPart] = useState([]);
   const [editEvent, setEditEvent] = useState(false);
+  const [userEventId, setUserEventId] = useState("");
+  const [isSure, setIsSure] = useState(false);
+  // const [isDrawn, setIsDrawn] = useState(false);
   const [alert, setAlert] = useState({
     message: "",
     isSuccess: false,
@@ -43,6 +48,8 @@ const MyEvents = () => {
           setDataArray(data);
           console.log("data", data);
           setEventId(data[0].EventId);
+          // setIsDrawn(data[0].Event.drawn);
+          setUserEventId(data[0].id);
           if (data[0].BuyFor) {
             setBuyForId(data[0].BuyFor.first_name);
           }
@@ -84,11 +91,15 @@ const MyEvents = () => {
       setCurrentIndex(nextEventIndex);
       if (dataArray[nextEventIndex].BuyFor) {
         setBuyForId(dataArray[nextEventIndex].BuyFor.first_name);
+        setBuyForLikes(dataArray[nextEventIndex].BuyFor.likes);
+        setBuyForDislikes(dataArray[nextEventIndex].BuyFor.dislikes);
         console.log("buyfor", dataArray[nextEventIndex].BuyFor.first_name);
       } else {
         setBuyForId("");
       }
       setEventData(dataArray[nextEventIndex].Event);
+      // setIsDrawn(dataArray[nextEventIndex].Event)
+      setUserEventId(dataArray[nextEventIndex].id);
       console.log(
         "data length",
         dataArray.length,
@@ -120,11 +131,14 @@ const MyEvents = () => {
         setCurrentIndex(prevEventIndex);
         if (dataArray[prevEventIndex].BuyFor) {
           setBuyForId(dataArray[prevEventIndex].BuyFor.first_name);
+          setBuyForLikes(dataArray[prevEventIndex].BuyFor.likes);
+          setBuyForDislikes(dataArray[prevEventIndex].BuyFor.dislikes);
           console.log("buyfor", dataArray[prevEventIndex].BuyFor.first_name);
         } else {
           setBuyForId("");
         }
         setEventData(dataArray[prevEventIndex].Event);
+        setUserEventId(dataArray[prevEventIndex].id);
         if (dataArray[prevEventIndex].EventId) {
           axios
             .get(
@@ -210,6 +224,25 @@ const MyEvents = () => {
       });
   };
 
+  const handleLeaveEvent = () => {
+    if (!isSure) {
+      setIsSure(true);
+    } else if (isSure) {
+      axios
+        .delete(`${MY_EVENTS_URL}/${userEventId}`)
+        .then(() => {
+          // deleted from database correctly but not rerendering the page
+          console.log("user removed from the event, userEventId", userEventId);
+        })
+        .catch(() => {
+          setAlert({
+            message: "server not working, please try again later",
+            isSuccess: false,
+          });
+        });
+    }
+  };
+
   return (
     <div className="my-events-container">
       {userId === eventData.AdminId && (
@@ -270,6 +303,23 @@ const MyEvents = () => {
                   <div className="event-data-card">
                     You are buying for...
                     <div>{buyForId}</div>
+                    Suggestions from them
+                    <div className="field-tag">likes</div>
+                    {buyForLikes &&
+                      buyForLikes.split(", ").map((item) => (
+                        <div className="like-container" key={item}>
+                          <div className="field-value" />
+                          {item}
+                        </div>
+                      ))}
+                    <div className="field-tag">dislikes</div>
+                    {buyForDislikes &&
+                      buyForDislikes.split(", ").map((item) => (
+                        <div className="like-container" key={item}>
+                          <div className="field-value" />
+                          {item}
+                        </div>
+                      ))}
                   </div>
                 )}
                 <div className="event-data-card">
@@ -320,6 +370,20 @@ const MyEvents = () => {
               )}
             </div>
           )}
+          <div className="field-card">
+            {isSure && (
+              <div className="delete-confirm-message">
+                Are you sure you want to leave this event?
+              </div>
+            )}
+            <button
+              type="submit"
+              onClick={handleLeaveEvent}
+              disabled={eventData.drawn}
+            >
+              {isSure ? "confirm" : "leave event"}
+            </button>
+          </div>
           <button
             type="button"
             onClick={nextEvent}

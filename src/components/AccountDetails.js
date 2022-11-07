@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -37,7 +38,7 @@ const AccountDetails = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const [isSure, setIsSure] = useState(false);
   const [alert, setAlert] = useState(initialState.alert);
-  const { userId } = useAuthContext();
+  const { userId, setUserId } = useAuthContext();
 
   useEffect(() => {
     axios
@@ -79,10 +80,23 @@ const AccountDetails = () => {
       let array;
       if (fields.likes) {
         array = fields.likes.split(", ");
+        const itemMatch = array.filter((item) => item === newLike);
+        if (itemMatch.length === 0) {
+          array.push(newLike);
+          setAlert({
+            message: "",
+            isSuccess: false,
+          });
+        } else {
+          setAlert({
+            message: "This already exists",
+            isSuccess: false,
+          });
+        }
       } else {
         array = [];
       }
-      array.push(newLike);
+
       setFields({ ...fields, likes: array.join(", ") });
       setNewLike("");
     }
@@ -93,10 +107,22 @@ const AccountDetails = () => {
       let array;
       if (fields.dislikes) {
         array = fields.dislikes.split(", ");
+        const itemMatch = array.filter((item) => item === newDislike);
+        if (itemMatch.length === 0) {
+          array.push(newDislike);
+          setAlert({
+            message: "",
+            isSuccess: false,
+          });
+        } else {
+          setAlert({
+            message: "This already exists",
+            isSuccess: false,
+          });
+        }
       } else {
         array = [];
       }
-      array.push(newDislike);
       setFields({ ...fields, dislikes: array.join(", ") });
       setNewDislike("");
     }
@@ -179,6 +205,12 @@ const AccountDetails = () => {
       });
   };
 
+  const navigate = useNavigate();
+  const changeLocation = (redirect) => {
+    navigate(redirect, { replace: true });
+    window.location.reload();
+  };
+
   const handleDeleteAccount = () => {
     if (!isSure) {
       setIsSure(true);
@@ -186,6 +218,10 @@ const AccountDetails = () => {
       axios
         .delete(`${ACCOUNT_DETAILS_URL}/${userId}`)
         .then(() => {
+          localStorage.clear();
+          sessionStorage.clear();
+          setUserId("");
+          changeLocation("/register");
           setIsSure(false);
         })
         .catch(() => {
