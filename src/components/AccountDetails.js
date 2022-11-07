@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Alert from "./Alert";
 import "../styles/accountdetails.scss";
@@ -358,11 +358,15 @@ const AccountDetails = () => {
               change password
             </button>
             <button type="button" onClick={togglePassword}>
-              <FontAwesomeIcon
-                icon={faEye}
-                className="eyeIcon"
-                data-testid="eye-icon"
-              />
+              {!passwordShown ? (
+                <FontAwesomeIcon
+                  icon={faEye}
+                  className="eye-icon"
+                  data-testid="eye-icon"
+                />
+              ) : (
+                <FontAwesomeIcon icon={faEyeSlash} className="slash-eye-icon" />
+              )}
             </button>
           </div>
         )}
