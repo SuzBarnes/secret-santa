@@ -10,7 +10,7 @@ import Alert from "./Alert";
 
 const ADMIN_CARD_URL = "http://localhost:3000/userevents";
 
-const AdminCard = ({ eventId }) => {
+const AdminCard = ({ eventId, usersTakingPart }) => {
   const { userId } = useAuthContext();
   const initialState = {
     fields: {
@@ -19,6 +19,7 @@ const AdminCard = ({ eventId }) => {
       budget: "",
       participants: "",
       adminId: userId,
+      drawn: false,
     },
     alert: {
       message: "",
@@ -29,9 +30,11 @@ const AdminCard = ({ eventId }) => {
   const [alert, setAlert] = useState(initialState.alert);
   const [newParticipant, setNewParticipant] = useState("");
   const [isSure, setIsSure] = useState(false);
+  // const [isSuccessful, setIsSuccessful] = useState(false);
   useEffect(() => {
     axios.get(`${ADMIN_CARD_URL}/eventid/${eventId}`).then(({ data }) => {
       setEventData(data[0].Event);
+      console.log(data[0].Event);
     });
   }, [eventId, eventData.AdminId]);
 
@@ -135,7 +138,16 @@ const AdminCard = ({ eventId }) => {
         const userIds = response.data.map((user) => user.User.id);
         console.log(userIds);
         secretSantaShuffle(userIds);
+        axios
+          .patch(`http://localhost:3000/events/${eventData.id}`, {
+            drawn: true,
+          })
+          .then(() => {
+            console.log("PATCH REQUEST DONE");
+            setEventData({ ...eventData, isDrawn: true });
+          });
       });
+    // setIsSuccessful(true);
   };
   return (
     <div className="admin-card-container">
@@ -229,15 +241,23 @@ const AdminCard = ({ eventId }) => {
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
               </div>
+              <div className="event-data-card">
+                <div className="event-data-tag">
+                  People that have joined the event:
+                </div>
+                {usersTakingPart &&
+                  usersTakingPart.map((item) => (
+                    <div className="like-container" key={item}>
+                      {item}
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
-          <button
-            type="submit"
-            onClick={drawNames}
-            // disabled="eventData.participants.length>0"
-          >
+          <button type="submit" onClick={drawNames} disabled={eventData.drawn}>
             DRAW NAMES
           </button>
+          {eventData.drawn && <div>You have successfully drawn the names</div>}
           {isSure ? (
             <button type="submit" onClick={() => setIsSure(false)}>
               Cancel
@@ -263,6 +283,7 @@ const AdminCard = ({ eventId }) => {
 
 AdminCard.propTypes = {
   eventId: PropTypes.number.isRequired,
+  usersTakingPart: PropTypes.arrayOf.isRequired,
 };
 
 export default AdminCard;

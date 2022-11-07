@@ -237,7 +237,7 @@ const MyEvents = () => {
         </div>
       )}
       {editEvent ? (
-        <AdminCard eventId={eventId} />
+        <AdminCard eventId={eventId} usersTakingPart={usersTakingPart} />
       ) : (
         <div>
           <Alert message={alert.message} success={alert.isSuccess} />
