@@ -51,8 +51,13 @@
     bottom: 20vh;
   }
   .event-button {
-    width: 100%;
+    width: 90px;
     margin: 4px;
+  }
+  .edit-button{
+    position: fixed;
+    left: 0px;
+    top: 20vh;
   }
   input,
   button {
