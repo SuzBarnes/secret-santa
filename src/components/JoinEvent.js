@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/joinevent.scss";
@@ -75,13 +76,26 @@ const JoinEvent = () => {
     axios
       .get(`http://localhost:3000/events/${eventCode}`)
       .then(({ data }) => {
-        setEventInvite({
-          eventId: data[0].id,
-          title: data[0].title,
-          names: data[0].participants,
-          adminId: data[0].AdminId,
-          adminName: data[0].Admin.first_name,
-        });
+        if (data[0].drawn) {
+          console.log("event already drawn");
+          setAlert({
+            message:
+              "Sorry, this event has already been drawn and can no longer be joined",
+            isSuccess: false,
+          });
+        } else {
+          setEventInvite({
+            eventId: data[0].id,
+            title: data[0].title,
+            names: data[0].participants,
+            adminId: data[0].AdminId,
+            adminName: data[0].Admin.first_name,
+          });
+          setAlert({
+            message: "",
+            isSuccess: false,
+          });
+        }
       })
       .catch(() => {
         setAlert({
