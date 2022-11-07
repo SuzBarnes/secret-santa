@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/register.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Alert from "./Alert";
 
@@ -13,6 +13,7 @@ const Register = () => {
       last_name: "",
       email: "",
       password: "",
+      password_check: "",
     },
     alert: {
       message: "",
@@ -37,21 +38,27 @@ const Register = () => {
   const handleRegister = (event) => {
     event.preventDefault();
     setAlert({ message: "", isSuccess: false });
-    axios
-      .post(`http://localhost:3000/api/auth/signup`, register)
-      .then(() => {
-        setAlert({
-          message: `Merry Christmas and welcome ${register.first_name}!`,
-          isSuccess: true,
+    if (register.password === register.password_check) {
+      axios
+        .post(`http://localhost:3000/api/auth/signup`, register)
+        .then(() => {
+          setAlert({
+            message: `Merry Christmas and welcome ${register.first_name}!`,
+            isSuccess: true,
+          });
+          changeLocation("/");
+        })
+        .catch((err) => {
+          setAlert({
+            message: `${err.response.data.message}`,
+            isSuccess: false,
+          });
         });
-        changeLocation("/");
-      })
-      .catch((err) => {
-        setAlert({
-          message: `${err.response.data.message}`,
-          isSuccess: false,
-        });
-      });
+    }
+    setAlert({
+      message: "Passwords do not match",
+      isSuccess: false,
+    });
   };
 
   const handleRegisterChange = (event) => {
@@ -108,8 +115,21 @@ const Register = () => {
               onChange={handleRegisterChange}
               required
             />
+            <input
+              id="register-password-check"
+              name="password_check"
+              type={passwordShown ? "text" : "password"}
+              placeholder="Re-enter password"
+              value={register.password_check}
+              onChange={handleRegisterChange}
+              required
+            />
             <button type="button" onClick={togglePassword}>
-              <FontAwesomeIcon icon={faEye} className="font-awesome" />
+              {!passwordShown ? (
+                <FontAwesomeIcon icon={faEye} className="font-awesome" />
+              ) : (
+                <FontAwesomeIcon icon={faEyeSlash} className="font-awesome" />
+              )}
             </button>
           </div>
           <div className="button-div">

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { useAuthContext } from "../contexts/AuthProvider";
 import Alert from "./Alert";
@@ -113,7 +113,11 @@ const Login = () => {
               required
             />
             <button type="button" onClick={togglePassword}>
-              <FontAwesomeIcon icon={faEye} className="font-awesome" />
+              {!passwordShown ? (
+                <FontAwesomeIcon icon={faEye} className="font-awesome" />
+              ) : (
+                <FontAwesomeIcon icon={faEyeSlash} className="font-awesome" />
+              )}
             </button>
           </div>
           <div>
