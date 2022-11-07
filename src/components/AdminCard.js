@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import "../styles/admincard.scss";
 import axios from "axios";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useAuthContext } from "../contexts/AuthProvider";
@@ -10,7 +11,7 @@ import Alert from "./Alert";
 
 const ADMIN_CARD_URL = "http://localhost:3000/userevents";
 
-const AdminCard = () => {
+const AdminCard = ({ eventId }) => {
   const { userId } = useAuthContext();
   // const navigate = useNavigate();
   // const changeLocation = (redirect) => {
@@ -35,10 +36,12 @@ const AdminCard = () => {
   const [newParticipant, setNewParticipant] = useState("");
   const [isSure, setIsSure] = useState(false);
   useEffect(() => {
-    axios.get(`${ADMIN_CARD_URL}/userid/${userId}`).then(({ data }) => {
+    console.log("current eventId is", eventId);
+    // axios.get(`${ADMIN_CARD_URL}/userid/${userId}`).then(({ data }) => {
+    axios.get(`${ADMIN_CARD_URL}/eventid/${eventId}`).then(({ data }) => {
       setEventData(data[0].Event);
     });
-  }, [userId, eventData.AdminId]);
+  }, [eventId, eventData.AdminId]);
 
   const handleChange = (event) => {
     setEventData({ ...eventData, [event.target.name]: event.target.value });
@@ -190,7 +193,7 @@ const AdminCard = () => {
             />
           </div>
           <div className="event-data-card">
-            <div className="event-data-tag">Participants</div>
+            <div className="event-data-tag">Invited but has not joined</div>
             <div className="event-data-card">
               {eventData.participants &&
                 eventData.participants.split(", ").map((item, index) => (
@@ -265,6 +268,10 @@ const AdminCard = () => {
       </div>
     </div>
   );
+};
+
+AdminCard.propTypes = {
+  eventId: PropTypes.string.isRequired,
 };
 
 export default AdminCard;

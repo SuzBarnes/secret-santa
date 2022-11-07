@@ -71,7 +71,7 @@ const MyEvents = () => {
           // });
         });
     }
-  }, [userId, eventId, setUsersTakingPart]);
+  }, [userId, setUsersTakingPart]);
 
   const handleChange = (event) => {
     setEventData({ ...eventData, [event.target.name]: event.target.value });
@@ -229,6 +229,8 @@ const MyEvents = () => {
             <button
               type="button"
               onClick={() => {
+                console.log("eventId in myevents is ", eventData.id);
+                setEventId(eventData.id);
                 setEditEvent(!editEvent);
               }}
             >
@@ -238,7 +240,7 @@ const MyEvents = () => {
         </div>
       )}
       {editEvent ? (
-        <AdminCard currentIndex={currentIndex} />
+        <AdminCard eventId={eventId} />
       ) : (
         <div>
           <Alert message={alert.message} success={alert.isSuccess} />
