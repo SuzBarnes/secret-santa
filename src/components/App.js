@@ -32,7 +32,10 @@ const App = () => {
           />
           <Route path="login" element={<Login />} />
           <Route path="logout" element={<Logout />} />
-          <Route path="joinevent" element={<JoinEvent />} />
+          <Route
+            path="joinevent"
+            element={userId ? <JoinEvent /> : <Navigate to="/login" />}
+          />
           <Route path="register" element={<Register />} />
           <Route
             path="account-details"
