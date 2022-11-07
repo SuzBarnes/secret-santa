@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
 import "../styles/admincard.scss";
 import axios from "axios";
 import PropTypes from "prop-types";
@@ -13,11 +12,6 @@ const ADMIN_CARD_URL = "http://localhost:3000/userevents";
 
 const AdminCard = ({ eventId }) => {
   const { userId } = useAuthContext();
-  // const navigate = useNavigate();
-  // const changeLocation = (redirect) => {
-  //   navigate(redirect, { replace: true });
-  //   window.location.reload();
-  // };
   const initialState = {
     fields: {
       title: "",
@@ -36,8 +30,6 @@ const AdminCard = ({ eventId }) => {
   const [newParticipant, setNewParticipant] = useState("");
   const [isSure, setIsSure] = useState(false);
   useEffect(() => {
-    console.log("current eventId is", eventId);
-    // axios.get(`${ADMIN_CARD_URL}/userid/${userId}`).then(({ data }) => {
     axios.get(`${ADMIN_CARD_URL}/eventid/${eventId}`).then(({ data }) => {
       setEventData(data[0].Event);
     });
@@ -91,7 +83,6 @@ const AdminCard = ({ eventId }) => {
         });
         console.log("Details  have been updated");
         console.log(eventData);
-        // changeLocation("/");
       })
       .catch(() => {
         setAlert({
@@ -271,7 +262,7 @@ const AdminCard = ({ eventId }) => {
 };
 
 AdminCard.propTypes = {
-  eventId: PropTypes.string.isRequired,
+  eventId: PropTypes.number.isRequired,
 };
 
 export default AdminCard;

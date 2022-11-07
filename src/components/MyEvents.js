@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
 import "../styles/myevents.scss";
 import axios from "axios";
 import Alert from "./Alert";
@@ -119,7 +118,6 @@ const MyEvents = () => {
         e.preventDefault();
         const prevEventIndex = currentIndex - 1;
         setCurrentIndex(prevEventIndex);
-        // setBuyForId(dataArray[prevEventIndex].BuyFor.first_name);
         if (dataArray[prevEventIndex].BuyFor) {
           setBuyForId(dataArray[prevEventIndex].BuyFor.first_name);
           console.log("buyfor", dataArray[prevEventIndex].BuyFor.first_name);
@@ -229,7 +227,6 @@ const MyEvents = () => {
             <button
               type="button"
               onClick={() => {
-                console.log("eventId in myevents is ", eventData.id);
                 setEventId(eventData.id);
                 setEditEvent(!editEvent);
               }}
