@@ -25,17 +25,17 @@ const NavBarTop = () => {
       <div className="navbar-logo-container">
         <img className="ss-logo" alt="secret santa logo" src={secretSantLogo} />
       </div>
-      <div>
-        <ul className="navbartop-links">
-          <li>
-            <Logout className="navbartop-link-item" to="/" />
-          </li>
-          <li>
-            <JoinEvent className="navbartop-link-item" to="/" />
-          </li>
-        </ul>
-      </div>
+      {/* <div className="navbartop-render"> */}
+      <ul className="navbartop-links">
+        <li className="logout">
+          <Logout className="navbartop-link-item" to="/" />
+        </li>
+        <li className="join-event">
+          <JoinEvent className="navbar-link-item" to="/" />
+        </li>
+      </ul>
     </div>
+    // </div>
   );
 };
 export default NavBarTop;

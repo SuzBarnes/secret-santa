@@ -23,7 +23,6 @@ const JoinEvent = () => {
   };
   const [eventCode, setEventCode] = useState("");
   const [eventInvite, setEventInvite] = useState(initialState.Event);
-  // const [eventId, setEventId] = useState("");
   const [alert, setAlert] = useState({
     message: "",
     isSuccess: false,
@@ -131,7 +130,7 @@ const JoinEvent = () => {
   };
 
   return (
-    <div>
+    <div className="join-event">
       {eventInvite.eventId ? (
         <div>
           <div>{eventInvite.title}</div>
