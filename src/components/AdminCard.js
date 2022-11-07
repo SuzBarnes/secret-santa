@@ -27,6 +27,7 @@ const AdminCard = ({ eventId, usersTakingPart }) => {
     },
   };
   const [eventData, setEventData] = useState(initialState.fields);
+  const [isDrawn, setIsDrawn] = useState(initialState.fields.drawn);
   const [alert, setAlert] = useState(initialState.alert);
   const [newParticipant, setNewParticipant] = useState("");
   const [isSure, setIsSure] = useState(false);
@@ -34,9 +35,10 @@ const AdminCard = ({ eventId, usersTakingPart }) => {
   useEffect(() => {
     axios.get(`${ADMIN_CARD_URL}/eventid/${eventId}`).then(({ data }) => {
       setEventData(data[0].Event);
+      setIsDrawn(data[0].Event.drawn);
       console.log(data[0].Event);
     });
-  }, [eventId, eventData]);
+  }, [eventId, eventData.AdminId]);
 
   const handleChange = (event) => {
     setEventData({ ...eventData, [event.target.name]: event.target.value });
@@ -144,7 +146,7 @@ const AdminCard = ({ eventId, usersTakingPart }) => {
           })
           .then(() => {
             console.log("PATCH REQUEST DONE");
-            setEventData({ ...eventData, isDrawn: true });
+            setIsDrawn(true);
           });
       });
     // setIsSuccessful(true);
@@ -254,10 +256,10 @@ const AdminCard = ({ eventId, usersTakingPart }) => {
               </div>
             </div>
           </div>
-          <button type="submit" onClick={drawNames} disabled={eventData.drawn}>
+          <button type="submit" onClick={drawNames} disabled={isDrawn}>
             DRAW NAMES
           </button>
-          {eventData.drawn && <div>You have successfully drawn the names</div>}
+          {isDrawn && <div>You have successfully drawn the names</div>}
           {isSure ? (
             <button type="submit" onClick={() => setIsSure(false)}>
               Cancel
