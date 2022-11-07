@@ -151,6 +151,7 @@ const AdminCard = ({ eventId, usersTakingPart }) => {
       });
     // setIsSuccessful(true);
   };
+
   return (
     <div className="admin-card-container">
       <Alert message={alert.message} success={alert.isSuccess} />
