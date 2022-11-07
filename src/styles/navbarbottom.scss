@@ -3,12 +3,14 @@
   background-image: url(../../public/images2.jpeg);
   background-position: center;
   background-repeat: repeat;
+
   ul {
     list-style: none;
     display: flex;
     padding: 0px;
     justify-content: space-around;
     margin: auto 0px;
+
     li {
       width: 33.33%;
     }
@@ -30,11 +32,13 @@
   text-decoration: none;
   color: white;
   text-align: center;
+
   .font-awesome {
     font-size: 25px;
     text-align: center;
     margin: auto;
   }
+
   div {
     font-size: 16px;
   }
