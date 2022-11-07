@@ -36,7 +36,6 @@ const Logout = () => {
     <div className="logout">
       {/* <Alert message={alert.message} success={alert.isSuccess} /> */}
       <button type="submit" onClick={logoutClick}>
-        {/* Logout */}
         <FontAwesomeIcon
           icon={faPersonWalkingArrowRight}
           className="font-awesome"

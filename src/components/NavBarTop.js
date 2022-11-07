@@ -34,12 +34,10 @@ const NavBarTop = () => {
           </li>
         </div>
         <div className="account-details">
-          <li>
-            <Link className="account-details" to="account-details">
-              <FontAwesomeIcon icon={faUser} className="font-awesome" />
-              <div>My Account</div>
-            </Link>
-          </li>
+          <Link className="account-details" to="account-details">
+            <FontAwesomeIcon icon={faUser} className="font-awesome" />
+            <div>My Account</div>
+          </Link>
         </div>
       </ul>
     </div>
