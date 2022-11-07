@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/myevents.scss";
 import axios from "axios";
 import Alert from "./Alert";
@@ -224,6 +225,12 @@ const MyEvents = () => {
       });
   };
 
+  const navigate = useNavigate();
+  const changeLocation = (redirect) => {
+    navigate(redirect, { replace: true });
+    window.location.reload();
+  };
+
   const handleLeaveEvent = () => {
     if (!isSure) {
       setIsSure(true);
@@ -231,6 +238,7 @@ const MyEvents = () => {
       axios
         .delete(`${MY_EVENTS_URL}/${userEventId}`)
         .then(() => {
+          changeLocation("/");
           // deleted from database correctly but not rerendering the page
           console.log("user removed from the event, userEventId", userEventId);
         })
