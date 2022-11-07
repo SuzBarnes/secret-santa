@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -37,7 +38,7 @@ const AccountDetails = () => {
   const [passwordShown, setPasswordShown] = useState(false);
   const [isSure, setIsSure] = useState(false);
   const [alert, setAlert] = useState(initialState.alert);
-  const { userId } = useAuthContext();
+  const { userId, setUserId } = useAuthContext();
 
   useEffect(() => {
     axios
@@ -179,6 +180,12 @@ const AccountDetails = () => {
       });
   };
 
+  const navigate = useNavigate();
+  const changeLocation = (redirect) => {
+    navigate(redirect, { replace: true });
+    window.location.reload();
+  };
+
   const handleDeleteAccount = () => {
     if (!isSure) {
       setIsSure(true);
@@ -186,6 +193,10 @@ const AccountDetails = () => {
       axios
         .delete(`${ACCOUNT_DETAILS_URL}/${userId}`)
         .then(() => {
+          localStorage.clear();
+          sessionStorage.clear();
+          setUserId("");
+          changeLocation("/register");
           setIsSure(false);
         })
         .catch(() => {
