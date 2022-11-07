@@ -95,6 +95,7 @@ const AccountDetails = () => {
         }
       } else {
         array = [];
+        array.push(newLike);
       }
 
       setFields({ ...fields, likes: array.join(", ") });
@@ -122,6 +123,7 @@ const AccountDetails = () => {
         }
       } else {
         array = [];
+        array.push(newDislike);
       }
       setFields({ ...fields, dislikes: array.join(", ") });
       setNewDislike("");
@@ -233,6 +235,21 @@ const AccountDetails = () => {
     }
   };
 
+  const onCancel = () => {
+    axios
+      .get(`${ACCOUNT_DETAILS_URL}/${userId}`)
+      .then(({ data }) => {
+        setFields(data[0]);
+        setNotEditable(true);
+      })
+      .catch(() => {
+        setAlert({
+          message: "Server error, please try again later",
+          isSuccess: false,
+        });
+      });
+  };
+
   const togglePassword = () => {
     setPasswordShown(!passwordShown);
   };
@@ -249,6 +266,11 @@ const AccountDetails = () => {
         ) : (
           <button type="submit" onClick={handleChangeOfDetails}>
             save
+          </button>
+        )}
+        {!notEditable && (
+          <button type="button" onClick={onCancel}>
+            cancel
           </button>
         )}
       </div>
@@ -450,6 +472,11 @@ const AccountDetails = () => {
             <button type="submit" onClick={handleDeleteAccount}>
               {isSure ? "confirm" : "delete account"}
             </button>
+            {isSure && (
+              <button type="button" onClick={() => setIsSure(false)}>
+                cancel
+              </button>
+            )}
           </div>
         )}
       </div>
