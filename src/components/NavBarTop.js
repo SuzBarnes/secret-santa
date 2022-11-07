@@ -25,14 +25,16 @@ const NavBarTop = () => {
       <div className="navbar-logo-container">
         <img className="ss-logo" alt="secret santa logo" src={secretSantLogo} />
       </div>
-      <ul className="navbartop-links">
-        <li>
-          <Logout className="navbartop-link-item" to="/" />
-        </li>
-        <li>
-          <JoinEvent className="navbartop-link-item" to="/" />
-        </li>
-      </ul>
+      <div>
+        <ul className="navbartop-links">
+          <li>
+            <Logout className="navbartop-link-item" to="/" />
+          </li>
+          <li>
+            <JoinEvent className="navbartop-link-item" to="/" />
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

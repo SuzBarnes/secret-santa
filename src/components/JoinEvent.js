@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/joinevent.scss";
 import axios from "axios";
 import Alert from "./Alert";
 
 import { useAuthContext } from "../contexts/AuthProvider";
 
-const MY_EVENTS_URL = "http://localhost3000/userevents";
+const MY_EVENTS_URL = "http://localhost:3000/userevents";
 
 const JoinEvent = () => {
   const { userId } = useAuthContext();
@@ -31,41 +31,41 @@ const JoinEvent = () => {
     isSuccess: false,
   });
 
-  // useEffect(() => {
-  //   if (userId) {
-  //     axios
-  //       .get(`${MY_EVENTS_URL}/userid/${userId}`)
-  //       .then(({ data }) => {
-  //         // setEventData(data[0].Event);
-  //         // setBuyForId(data[0].BuyFor.first_name);
-  //         setEventId(data[0].EventId);
-  //         // if (data[0].BuyFor) {
-  //         // setBuyForId(data[0].BuyFor.first_name);
-  //         // }
-  //         if (data[0].EventId) {
-  //           axios
-  //             .get(`${MY_EVENTS_URL}/eventid/${data[0].EventId}`)
-  //             // .then((data2) => {
-  //             //   setUsersTakingPart(
-  //             //     data2.data.map((item) => item.User.first_name)
-  //             //   );
-  //             // })
-  //             .catch(() => {
-  //               setAlert({
-  //                 message: "You currently aren't in an event",
-  //                 isSuccess: false,
-  //               });
-  //             });
-  //         }
-  //       })
-  //       .catch(() => {
-  //         setAlert({
-  //           message: "You currently aren't in an event",
-  //           isSuccess: false,
-  //         });
-  //       });
-  //   }
-  // }, [userId, eventId]);
+  useEffect(() => {
+    if (userId) {
+      axios
+        .get(`${MY_EVENTS_URL}/userid/${userId}`)
+        .then(({ data }) => {
+          // setEventData(data[0].Event);
+          // setBuyForId(data[0].BuyFor.first_name);
+          setEventId(data[0].EventId);
+          // if (data[0].BuyFor) {
+          // setBuyForId(data[0].BuyFor.first_name);
+          // }
+          if (data[0].EventId) {
+            axios
+              .get(`${MY_EVENTS_URL}/eventid/${data[0].EventId}`)
+              // .then((data2) => {
+              //   setUsersTakingPart(
+              //     data2.data.map((item) => item.User.first_name)
+              //   );
+              // })
+              .catch(() => {
+                setAlert({
+                  message: "You currently aren't in an event",
+                  isSuccess: false,
+                });
+              });
+          }
+        })
+        .catch(() => {
+          setAlert({
+            message: "You currently aren't in an event",
+            isSuccess: false,
+          });
+        });
+    }
+  }, [userId, eventId]);
   const handleCodeChange = (event) => {
     setEventCode(event.target.value);
   };

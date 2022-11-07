@@ -77,9 +77,9 @@ const MyEvents = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const nextEvent = (e) => {
+    const nextEventIndex = currentIndex + 1;
     if (currentIndex < dataArray.length) {
       e.preventDefault();
-      const nextEventIndex = currentIndex + 1;
       setCurrentIndex(nextEventIndex);
       if (dataArray[nextEventIndex].BuyFor) {
         setBuyForId(dataArray[nextEventIndex].BuyFor.first_name);
