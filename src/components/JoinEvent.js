@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/joinevent.scss";
@@ -75,13 +76,26 @@ const JoinEvent = () => {
     axios
       .get(`http://localhost:3000/events/${eventCode}`)
       .then(({ data }) => {
-        setEventInvite({
-          eventId: data[0].id,
-          title: data[0].title,
-          names: data[0].participants,
-          adminId: data[0].AdminId,
-          adminName: data[0].Admin.first_name,
-        });
+        if (data[0].drawn) {
+          console.log("event already drawn");
+          setAlert({
+            message:
+              "Sorry, this event has already been drawn and can no longer be joined",
+            isSuccess: false,
+          });
+        } else {
+          setEventInvite({
+            eventId: data[0].id,
+            title: data[0].title,
+            names: data[0].participants,
+            adminId: data[0].AdminId,
+            adminName: data[0].Admin.first_name,
+          });
+          setAlert({
+            message: "",
+            isSuccess: false,
+          });
+        }
       })
       .catch(() => {
         setAlert({
@@ -92,25 +106,27 @@ const JoinEvent = () => {
   };
 
   const chooseName = (item) => {
-    const newNameList = eventInvite.names
-      .split(", ")
-      .filter((name) => name !== item)
-      .join(", ");
-    setEventInvite({ ...eventInvite, names: newNameList });
-    console.log({ eventInvite, alert });
-    axios
-      .patch(`http://localhost:3000/events/${eventInvite.eventId}`, {
-        participants: newNameList,
-      })
-      .then(() => {
-        console.log("You have been added to the event!");
-      })
-      .catch(() => {
-        setAlert({
-          message: "Server error, please try again later",
-          isSuccess: false,
+    if (item) {
+      const newNameList = eventInvite.names
+        .split(", ")
+        .filter((name) => name !== item)
+        .join(", ");
+      setEventInvite({ ...eventInvite, names: newNameList });
+      console.log({ eventInvite, alert });
+      axios
+        .patch(`http://localhost:3000/events/${eventInvite.eventId}`, {
+          participants: newNameList,
+        })
+        .then(() => {
+          console.log("You have been added to the event!");
+        })
+        .catch(() => {
+          setAlert({
+            message: "Server error, please try again later",
+            isSuccess: false,
+          });
         });
-      });
+    }
     axios
       .post(MY_EVENTS_URL, {
         UserId: userId,
@@ -137,11 +153,16 @@ const JoinEvent = () => {
             {eventInvite.adminName} has invited you to {eventInvite.title}.
           </div>
           <p>Click your name to join in the fun!</p>
-          {eventInvite.names.split(", ").map((item) => (
-            <button key={item} type="submit" onClick={() => chooseName(item)}>
-              {item}
-            </button>
-          ))}
+          <button type="button" onClick={() => chooseName("")}>
+            click here if your name is not in the list
+          </button>
+          {eventInvite.names &&
+            eventInvite.names.split(", ").map((item) => (
+              <button key={item} type="submit" onClick={() => chooseName(item)}>
+                {item}
+              </button>
+            ))}
+
           <Alert message={alert.message} isSuccess={alert.isSuccess} />
         </div>
       ) : (

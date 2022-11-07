@@ -18,7 +18,6 @@ const CreateEvent = () => {
     drawn: false,
     AdminId: userId,
   });
-
   useEffect(() => {
     axios.get(`http://localhost:3000/users/${userId}`).then((response) => {
       const firstName = response.data[0].first_name;
