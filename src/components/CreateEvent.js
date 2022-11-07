@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -23,6 +24,7 @@ const CreateEvent = () => {
       const firstName = response.data[0].first_name;
       setFields({ ...fields, participants: firstName });
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleNameDelete = (item) => {

@@ -56,9 +56,10 @@ const MyEvents = () => {
               .get(`${MY_EVENTS_URL}/eventid/${data[0].EventId}`)
               .then((data2) => {
                 console.log("get user taking part");
-                setUsersTakingPart(
-                  data2.data.map((item) => item.User.first_name)
-                );
+                const filterUserOut = data2.data
+                  .map((item) => item.User.first_name)
+                  .filter((name) => name !== data[0].User.first_name);
+                setUsersTakingPart(filterUserOut);
               })
               .catch(() => {
                 // setAlert({
@@ -109,7 +110,12 @@ const MyEvents = () => {
           .get(`${MY_EVENTS_URL}/eventid/${dataArray[nextEventIndex].EventId}`)
           .then((data2) => {
             console.log("get user taking part");
-            setUsersTakingPart(data2.data.map((item) => item.User.first_name));
+            const filterUserOut = data2.data
+              .map((item) => item.User.first_name)
+              .filter(
+                (name) => name !== dataArray[nextEventIndex].User.first_name
+              );
+            setUsersTakingPart(filterUserOut);
           })
           .catch(() => {
             // setAlert({
@@ -145,9 +151,12 @@ const MyEvents = () => {
             )
             .then((data2) => {
               console.log("get user taking part");
-              setUsersTakingPart(
-                data2.data.map((item) => item.User.first_name)
-              );
+              const filterUserOut = data2.data
+                .map((item) => item.User.first_name)
+                .filter(
+                  (name) => name !== dataArray[prevEventIndex].User.first_name
+                );
+              setUsersTakingPart(filterUserOut);
             })
             .catch(() => {
               // setAlert({
