@@ -9,7 +9,8 @@ import Login from "./Login";
 import Logout from "./Logout";
 import AccountDetails from "./AccountDetails";
 import MyEvents from "./MyEvents";
-// import AdminCard from "./AdminCard";
+import JoinEvent from "./JoinEvent";
+
 import { useAuthContext } from "../contexts/AuthProvider";
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
           />
           <Route path="login" element={<Login />} />
           <Route path="logout" element={<Logout />} />
+          <Route path="joinevent" element={<JoinEvent />} />
           <Route path="register" element={<Register />} />
           <Route
             path="account-details"

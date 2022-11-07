@@ -2,24 +2,24 @@ import React from "react";
 import "../styles/alert.scss";
 import PropTypes from "prop-types";
 
-const Alert = ({ message, success }) => {
+const Alert = ({ message, isSuccess }) => {
   if (!message) {
     return null;
   }
   return (
-    <div className={`alert alert-${success ? "success" : "error"}`}>
+    <div className={`alert alert-${isSuccess ? "success" : "error"}`}>
       {message}
     </div>
   );
 };
 
 Alert.defaultProps = {
-  success: false,
+  isSuccess: false,
 };
 
 Alert.propTypes = {
   message: PropTypes.string.isRequired,
-  success: PropTypes.bool,
+  isSuccess: PropTypes.bool,
 };
 
 export default Alert;
