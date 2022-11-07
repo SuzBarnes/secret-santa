@@ -44,15 +44,24 @@
     left: 0px;
     bottom: 20vh;
     display: flex;
+    flex-direction: column;
   }
   .next{
     position: fixed;
     right: 30px;
     bottom: 20vh;
   }
-  .event-button {
+  .previous button{
     width: 100%;
+  }
+  .event-button {
+    width: 100px;
     margin: 4px;
+  }
+  .edit-button{
+    position: fixed;
+    left: 0px;
+    top: 20vh;
   }
   input,
   button {

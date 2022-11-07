@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/myevents.scss";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLeftLong, faRightLong } from "@fortawesome/free-solid-svg-icons";
 import Alert from "./Alert";
 import AdminCard from "./AdminCard";
 import { useAuthContext } from "../contexts/AuthProvider";
@@ -198,7 +200,7 @@ const MyEvents = () => {
   return (
     <div className="my-events-container">
       {userId === eventData.AdminId && (
-        <div>
+        <div className="edit-button">
           {editEvent ? (
             <button
               type="button"
@@ -299,21 +301,25 @@ const MyEvents = () => {
                 >
                   {isSure ? "confirm" : "leave event"}
                 </button>
+                <div className="previous">
+                  <button
+                    className="event-button"
+                    type="button"
+                    onClick={prevEvent}
+                    disabled={currentIndex === 0}
+                  >
+                    <FontAwesomeIcon icon={faLeftLong} />
+                  </button>
+                </div>
               </div>
-              <button
-                type="button"
-                onClick={nextEvent}
-                disabled={currentIndex + 1 === dataArray.length}
-              >
-                NEXT
-              </button>
-              <div className="previous-button">
+              <div className="next">
                 <button
+                  className="event-button"
                   type="button"
-                  onClick={prevEvent}
-                  disabled={currentIndex === 0}
+                  onClick={nextEvent}
+                  disabled={currentIndex + 1 === dataArray.length}
                 >
-                  PREVIOUS
+                  <FontAwesomeIcon icon={faRightLong} />
                 </button>
               </div>
             </div>

@@ -27,7 +27,7 @@ const NavBarTop = () => {
       <div className="navbar-logo-container">
         <img className="ss-logo" alt="secret santa logo" src={secretSantLogo} />
       </div>
-      <ul className="navbartop-links">
+      <div className="navbartop-links">
         <div className="logout">
           <Logout className="navbartop-link-item" to="/" />
         </div>
@@ -37,7 +37,7 @@ const NavBarTop = () => {
             {/* <div>My Account</div> */}
           </Link>
         </button>
-      </ul>
+      </div>
     </div>
   );
 };
