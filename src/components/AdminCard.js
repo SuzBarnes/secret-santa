@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../styles/admincard.scss";
 import axios from "axios";
+import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useAuthContext } from "../contexts/AuthProvider";
@@ -10,13 +10,8 @@ import Alert from "./Alert";
 
 const ADMIN_CARD_URL = "http://localhost:3000/userevents";
 
-const AdminCard = () => {
+const AdminCard = ({ eventId, usersTakingPart }) => {
   const { userId } = useAuthContext();
-  const navigate = useNavigate();
-  const changeLocation = (redirect) => {
-    navigate(redirect, { replace: true });
-    window.location.reload();
-  };
   const initialState = {
     fields: {
       title: "",
@@ -24,6 +19,7 @@ const AdminCard = () => {
       budget: "",
       participants: "",
       adminId: userId,
+      drawn: false,
     },
     alert: {
       message: "",
@@ -34,11 +30,13 @@ const AdminCard = () => {
   const [alert, setAlert] = useState(initialState.alert);
   const [newParticipant, setNewParticipant] = useState("");
   const [isSure, setIsSure] = useState(false);
+  // const [isSuccessful, setIsSuccessful] = useState(false);
   useEffect(() => {
-    axios.get(`${ADMIN_CARD_URL}/userid/${userId}`).then(({ data }) => {
+    axios.get(`${ADMIN_CARD_URL}/eventid/${eventId}`).then(({ data }) => {
       setEventData(data[0].Event);
+      console.log(data[0].Event);
     });
-  }, [userId, eventData.AdminId]);
+  }, [eventId, eventData.AdminId]);
 
   const handleChange = (event) => {
     setEventData({ ...eventData, [event.target.name]: event.target.value });
@@ -88,7 +86,6 @@ const AdminCard = () => {
         });
         console.log("Details  have been updated");
         console.log(eventData);
-        changeLocation("/");
       })
       .catch(() => {
         setAlert({
@@ -141,7 +138,16 @@ const AdminCard = () => {
         const userIds = response.data.map((user) => user.User.id);
         console.log(userIds);
         secretSantaShuffle(userIds);
+        axios
+          .patch(`http://localhost:3000/events/${eventData.id}`, {
+            drawn: true,
+          })
+          .then(() => {
+            console.log("PATCH REQUEST DONE");
+            setEventData({ ...eventData, isDrawn: true });
+          });
       });
+    // setIsSuccessful(true);
   };
   return (
     <div className="admin-card-container">
@@ -190,7 +196,7 @@ const AdminCard = () => {
             />
           </div>
           <div className="event-data-card">
-            <div className="event-data-tag">Participants</div>
+            <div className="event-data-tag">Invited but has not joined</div>
             <div className="event-data-card">
               {eventData.participants &&
                 eventData.participants.split(", ").map((item, index) => (
@@ -235,15 +241,23 @@ const AdminCard = () => {
                   <FontAwesomeIcon icon={faPlus} />
                 </button>
               </div>
+              <div className="event-data-card">
+                <div className="event-data-tag">
+                  People that have joined the event:
+                </div>
+                {usersTakingPart &&
+                  usersTakingPart.map((item) => (
+                    <div className="like-container" key={item}>
+                      {item}
+                    </div>
+                  ))}
+              </div>
             </div>
           </div>
-          <button
-            type="submit"
-            onClick={drawNames}
-            // disabled="eventData.participants.length>0"
-          >
+          <button type="submit" onClick={drawNames} disabled={eventData.drawn}>
             DRAW NAMES
           </button>
+          {eventData.drawn && <div>You have successfully drawn the names</div>}
           {isSure ? (
             <button type="submit" onClick={() => setIsSure(false)}>
               Cancel
@@ -265,6 +279,11 @@ const AdminCard = () => {
       </div>
     </div>
   );
+};
+
+AdminCard.propTypes = {
+  eventId: PropTypes.number.isRequired,
+  usersTakingPart: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default AdminCard;
