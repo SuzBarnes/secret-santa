@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/app.scss";
 import { Route, Routes, Navigate } from "react-router-dom";
+import Snowfall from "react-snowfall";
 import NavBarTop from "./NavBarTop";
 import NavBarBottom from "./NavBarBottom";
 import CreateEvent from "./CreateEvent";
@@ -21,6 +22,7 @@ const App = () => {
       <NavBarTop />
       <NavBarBottom />
       <div className="main">
+        {userId ? <Snowfall snowflakeCount={40} /> : null}
         <Routes>
           <Route
             path="/"
