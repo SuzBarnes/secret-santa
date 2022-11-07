@@ -106,25 +106,27 @@ const JoinEvent = () => {
   };
 
   const chooseName = (item) => {
-    const newNameList = eventInvite.names
-      .split(", ")
-      .filter((name) => name !== item)
-      .join(", ");
-    setEventInvite({ ...eventInvite, names: newNameList });
-    console.log({ eventInvite, alert });
-    axios
-      .patch(`http://localhost:3000/events/${eventInvite.eventId}`, {
-        participants: newNameList,
-      })
-      .then(() => {
-        console.log("You have been added to the event!");
-      })
-      .catch(() => {
-        setAlert({
-          message: "Server error, please try again later",
-          isSuccess: false,
+    if (item) {
+      const newNameList = eventInvite.names
+        .split(", ")
+        .filter((name) => name !== item)
+        .join(", ");
+      setEventInvite({ ...eventInvite, names: newNameList });
+      console.log({ eventInvite, alert });
+      axios
+        .patch(`http://localhost:3000/events/${eventInvite.eventId}`, {
+          participants: newNameList,
+        })
+        .then(() => {
+          console.log("You have been added to the event!");
+        })
+        .catch(() => {
+          setAlert({
+            message: "Server error, please try again later",
+            isSuccess: false,
+          });
         });
-      });
+    }
     axios
       .post(MY_EVENTS_URL, {
         UserId: userId,
@@ -151,11 +153,16 @@ const JoinEvent = () => {
             {eventInvite.adminName} has invited you to {eventInvite.title}.
           </div>
           <p>Click your name to join in the fun!</p>
-          {eventInvite.names.split(", ").map((item) => (
-            <button key={item} type="submit" onClick={() => chooseName(item)}>
-              {item}
-            </button>
-          ))}
+          <button type="button" onClick={() => chooseName("")}>
+            click here if your name is not in the list
+          </button>
+          {eventInvite.names &&
+            eventInvite.names.split(", ").map((item) => (
+              <button key={item} type="submit" onClick={() => chooseName(item)}>
+                {item}
+              </button>
+            ))}
+
           <Alert message={alert.message} isSuccess={alert.isSuccess} />
         </div>
       ) : (
