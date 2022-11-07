@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import "../styles/joinevent.scss";
 import axios from "axios";
 import Alert from "./Alert";
-
 import { useAuthContext } from "../contexts/AuthProvider";
 
 const MY_EVENTS_URL = "http://localhost:3000/userevents";
@@ -133,8 +132,11 @@ const JoinEvent = () => {
     <div className="join-event">
       {eventInvite.eventId ? (
         <div>
-          <div>{eventInvite.title}</div>
-          <div>from {eventInvite.adminName}</div>
+          <h3>Merry Christmas!</h3>
+          <div>
+            {eventInvite.adminName} has invited you to {eventInvite.title}.
+          </div>
+          <p>Click your name to join in the fun!</p>
           {eventInvite.names.split(", ").map((item) => (
             <button key={item} type="submit" onClick={() => chooseName(item)}>
               {item}
@@ -144,6 +146,7 @@ const JoinEvent = () => {
         </div>
       ) : (
         <div>
+          <p>Enter your invite code to join your friends:</p>
           <label htmlFor="code">
             <input
               className="code"
