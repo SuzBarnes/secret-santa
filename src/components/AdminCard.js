@@ -36,7 +36,7 @@ const AdminCard = ({ eventId, usersTakingPart }) => {
       setEventData(data[0].Event);
       console.log(data[0].Event);
     });
-  }, [eventId, eventData.AdminId]);
+  }, [eventId, eventData]);
 
   const handleChange = (event) => {
     setEventData({ ...eventData, [event.target.name]: event.target.value });
