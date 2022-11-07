@@ -25,6 +25,8 @@ const MyEvents = () => {
   const [eventId, setEventId] = useState("");
   const [dataArray, setDataArray] = useState(initialState.Event);
   const [buyForId, setBuyForId] = useState("");
+  const [buyForLikes, setBuyForLikes] = useState("");
+  const [buyForDislikes, setBuyForDislikes] = useState("");
   const [eventCode, setEventCode] = useState("");
   const [eventInvite, setEventInvite] = useState(initialState.Event);
   const [usersTakingPart, setUsersTakingPart] = useState([]);
@@ -89,6 +91,8 @@ const MyEvents = () => {
         setBuyForId("");
       }
       setEventData(dataArray[nextEventIndex].Event);
+      setBuyForLikes(dataArray[nextEventIndex].BuyFor.likes);
+      setBuyForDislikes(dataArray[nextEventIndex].BuyFor.dislikes);
       console.log(
         "data length",
         dataArray.length,
@@ -125,6 +129,8 @@ const MyEvents = () => {
           setBuyForId("");
         }
         setEventData(dataArray[prevEventIndex].Event);
+        setBuyForLikes(dataArray[prevEventIndex].BuyFor.likes);
+        setBuyForDislikes(dataArray[prevEventIndex].BuyFor.dislikes);
         if (dataArray[prevEventIndex].EventId) {
           axios
             .get(
@@ -270,6 +276,23 @@ const MyEvents = () => {
                   <div className="event-data-card">
                     You are buying for...
                     <div>{buyForId}</div>
+                    Suggestions from them
+                    <div className="field-tag">likes</div>
+                    {buyForLikes &&
+                      buyForLikes.split(", ").map((item) => (
+                        <div className="like-container" key={item}>
+                          <div className="field-value" />
+                          {item}
+                        </div>
+                      ))}
+                    <div className="field-tag">dislikes</div>
+                    {buyForDislikes &&
+                      buyForDislikes.split(", ").map((item) => (
+                        <div className="like-container" key={item}>
+                          <div className="field-value" />
+                          {item}
+                        </div>
+                      ))}
                   </div>
                 )}
                 <div className="event-data-card">
