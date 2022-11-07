@@ -4,7 +4,7 @@ import "../styles/navbarbottom.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGift,
-  faUser,
+  faPlus,
   faCalendarDays,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -29,15 +29,15 @@ const NavBarBottom = () => {
                   className="font-awesome"
                 />
               </div>
-              <div>Create Event</div>
+              <div>Create</div>
             </Link>
           </li>
           <li>
-            <Link className="navbarbottom-link-item" to="account-details">
+            <Link className="navbarbottom-link-item" to="joinevent">
               <div>
-                <FontAwesomeIcon icon={faUser} className="font-awesome" />
+                <FontAwesomeIcon icon={faPlus} className="font-awesome" />
               </div>
-              <div>Account Details</div>
+              <div>Join</div>
             </Link>
           </li>
         </ul>

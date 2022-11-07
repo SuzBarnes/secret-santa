@@ -1,9 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 import "../styles/navbartop.scss";
 import secretSantLogo from "../images/SS-logo.png";
 import { useAuthContext } from "../contexts/AuthProvider";
 import Logout from "./Logout";
-import JoinEvent from "./JoinEvent";
 
 const NavBarTop = () => {
   const { userId } = useAuthContext();
@@ -25,17 +27,22 @@ const NavBarTop = () => {
       <div className="navbar-logo-container">
         <img className="ss-logo" alt="secret santa logo" src={secretSantLogo} />
       </div>
-      {/* <div className="navbartop-render"> */}
       <ul className="navbartop-links">
-        <li className="logout">
-          <Logout className="navbartop-link-item" to="/" />
-        </li>
-        <li className="join-event">
-          <JoinEvent className="navbar-link-item" to="/" />
-        </li>
+        <div className="logout">
+          <li>
+            <Logout className="navbartop-link-item" to="/" />
+          </li>
+        </div>
+        <div className="account-details">
+          <li>
+            <Link className="account-details" to="account-details">
+              <FontAwesomeIcon icon={faUser} className="font-awesome" />
+              <div>My Account</div>
+            </Link>
+          </li>
+        </div>
       </ul>
     </div>
-    // </div>
   );
 };
 export default NavBarTop;
