@@ -5,6 +5,7 @@ import "../styles/myevents.scss";
 import axios from "axios";
 import Alert from "./Alert";
 import AdminCard from "./AdminCard";
+import AddSuggestions from "./AddSuggestions";
 import { useAuthContext } from "../contexts/AuthProvider";
 
 const MY_EVENTS_URL = "http://localhost:3000/userevents";
@@ -32,6 +33,7 @@ const MyEvents = () => {
   const [editEvent, setEditEvent] = useState(false);
   const [userEventId, setUserEventId] = useState("");
   const [isSure, setIsSure] = useState(false);
+  const [isNameClickedOn, setIsNameClickedOn] = useState(false);
   const [alert, setAlert] = useState({
     message: "",
     isSuccess: false,
@@ -276,15 +278,24 @@ const MyEvents = () => {
                       ))}
                   </div>
                 )}
-                <div className="event-data-card">
-                  <h4 className="event-data-tag">Participants:</h4>
-                  {usersTakingPart &&
-                    usersTakingPart.map((item) => (
-                      <div className="like-container" key={item}>
-                        {item}
-                      </div>
-                    ))}
-                </div>
+                {isNameClickedOn ? (
+                  <AddSuggestions />
+                ) : (
+                  <div className="event-data-card">
+                    <h4 className="event-data-tag">Participants:</h4>
+                    {usersTakingPart &&
+                      usersTakingPart.map((item) => (
+                        <button
+                          className="like-container"
+                          key={item}
+                          type="button"
+                          onClick={() => setIsNameClickedOn(true)}
+                        >
+                          {item}
+                        </button>
+                      ))}
+                  </div>
+                )}
               </div>
               <div className="field-card">
                 {isSure && (
