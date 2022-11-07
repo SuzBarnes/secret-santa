@@ -80,10 +80,23 @@ const AccountDetails = () => {
       let array;
       if (fields.likes) {
         array = fields.likes.split(", ");
+        const itemMatch = array.filter((item) => item === newLike);
+        if (itemMatch.length === 0) {
+          array.push(newLike);
+          setAlert({
+            message: "",
+            isSuccess: false,
+          });
+        } else {
+          setAlert({
+            message: "This already exists",
+            isSuccess: false,
+          });
+        }
       } else {
         array = [];
       }
-      array.push(newLike);
+
       setFields({ ...fields, likes: array.join(", ") });
       setNewLike("");
     }
@@ -94,10 +107,22 @@ const AccountDetails = () => {
       let array;
       if (fields.dislikes) {
         array = fields.dislikes.split(", ");
+        const itemMatch = array.filter((item) => item === newDislike);
+        if (itemMatch.length === 0) {
+          array.push(newDislike);
+          setAlert({
+            message: "",
+            isSuccess: false,
+          });
+        } else {
+          setAlert({
+            message: "This already exists",
+            isSuccess: false,
+          });
+        }
       } else {
         array = [];
       }
-      array.push(newDislike);
       setFields({ ...fields, dislikes: array.join(", ") });
       setNewDislike("");
     }
