@@ -9,7 +9,7 @@ import Login from "./Login";
 import Logout from "./Logout";
 import AccountDetails from "./AccountDetails";
 import MyEvents from "./MyEvents";
-import AdminCard from "./AdminCard";
+// import AdminCard from "./AdminCard";
 import { useAuthContext } from "../contexts/AuthProvider";
 
 const App = () => {
@@ -24,10 +24,6 @@ const App = () => {
           <Route
             path="/"
             element={userId ? <MyEvents /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/eventadmin"
-            element={userId ? <AdminCard /> : <Navigate to="/login" />}
           />
           <Route
             path="create-event"

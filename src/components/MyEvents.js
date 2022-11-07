@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import "../styles/myevents.scss";
 import axios from "axios";
 import Alert from "./Alert";
+import AdminCard from "./AdminCard";
 import { useAuthContext } from "../contexts/AuthProvider";
 
 const MY_EVENTS_URL = "http://localhost:3000/userevents";
@@ -28,6 +29,7 @@ const MyEvents = () => {
   const [eventCode, setEventCode] = useState("");
   const [eventInvite, setEventInvite] = useState(initialState.Event);
   const [usersTakingPart, setUsersTakingPart] = useState([]);
+  const [editEvent, setEditEvent] = useState(false);
   const [alert, setAlert] = useState({
     message: "",
     isSuccess: false,
@@ -214,103 +216,129 @@ const MyEvents = () => {
     <div className="my-events-container">
       {userId === eventData.AdminId && (
         <div>
-          <Link className="my-events-link" to="/eventadmin">
-            <div>Edit Events</div>
-          </Link>
-        </div>
-      )}
-      <Alert message={alert.message} success={alert.isSuccess} />
-      {eventId ? (
-        <div>
-          <div className="my-events-title">
-            <h1>My Events</h1>
-          </div>
-          <div className="event-data-container">
-            <div className="event-data-card">{eventData.title}</div>
-            <div className="event-data-card">
-              <input
-                className="event-data-value"
-                id="exchange_date"
-                name="exchange_date"
-                placeholder="exchange_date"
-                type="date"
-                value={eventData.exchange_date}
-                onChange={handleChange}
-              />
-            </div>
-            <div
-              className="event-data-card"
-              onChange={handleChange}
-              id="event-budget"
+          {editEvent ? (
+            <button
+              type="button"
+              onClick={() => {
+                setEditEvent(!editEvent);
+              }}
             >
-              £{`${eventData.budget}`}
-            </div>
-            {buyForId && (
-              <div className="event-data-card">
-                You are buying for...
-                <div>{buyForId}</div>
-              </div>
-            )}
-            <div className="event-data-card">
-              <div className="event-data-tag">Participants:</div>
-              {usersTakingPart &&
-                usersTakingPart.map((item) => (
-                  <div className="like-container" key={item}>
-                    {item}
-                  </div>
-                ))}
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div>
-          {eventInvite.eventId ? (
-            <div>
-              <div>{eventInvite.title}</div>
-              <div>from {eventInvite.adminName}</div>
-              {eventInvite.names.split(", ").map((item) => (
-                <button
-                  key={item}
-                  type="submit"
-                  onClick={() => chooseName(item)}
-                >
-                  {item}
-                </button>
-              ))}
-            </div>
+              Back
+            </button>
           ) : (
-            <div>
-              <label htmlFor="code">
-                enter event code here
-                <input
-                  className="code"
-                  id="code"
-                  name="code"
-                  placeholder="code"
-                  type="text"
-                  value={eventCode}
-                  onChange={handleCodeChange}
-                />
-              </label>
-              <button type="submit" onClick={handleCodeEnter}>
-                enter
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={() => {
+                setEditEvent(!editEvent);
+              }}
+            >
+              Edit Events
+            </button>
           )}
         </div>
       )}
-      <button
-        type="button"
-        onClick={nextEvent}
-        disabled={currentIndex + 1 === dataArray.length}
-      >
-        NEXT
-      </button>
-      <div className="previous-button">
-        <button type="button" onClick={prevEvent} disabled={currentIndex === 0}>
-          PREVIOUS
-        </button>
-      </div>
+      {editEvent ? (
+        <AdminCard currentIndex={currentIndex} />
+      ) : (
+        <div>
+          <Alert message={alert.message} success={alert.isSuccess} />
+          {eventId ? (
+            <div>
+              <div className="my-events-title">
+                <h1>My Events</h1>
+              </div>
+              <div className="event-data-container">
+                <div className="event-data-card">{eventData.title}</div>
+                <div className="event-data-card">
+                  <input
+                    className="event-data-value"
+                    id="exchange_date"
+                    name="exchange_date"
+                    placeholder="exchange_date"
+                    type="date"
+                    value={eventData.exchange_date}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div
+                  className="event-data-card"
+                  onChange={handleChange}
+                  id="event-budget"
+                >
+                  £{`${eventData.budget}`}
+                </div>
+                {buyForId && (
+                  <div className="event-data-card">
+                    You are buying for...
+                    <div>{buyForId}</div>
+                  </div>
+                )}
+                <div className="event-data-card">
+                  <div className="event-data-tag">Participants:</div>
+                  {usersTakingPart &&
+                    usersTakingPart.map((item) => (
+                      <div className="like-container" key={item}>
+                        {item}
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div>
+              {eventInvite.eventId ? (
+                <div>
+                  <div>{eventInvite.title}</div>
+                  <div>from {eventInvite.adminName}</div>
+                  {eventInvite.names.split(", ").map((item) => (
+                    <button
+                      key={item}
+                      type="submit"
+                      onClick={() => chooseName(item)}
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div>
+                  <label htmlFor="code">
+                    enter event code here
+                    <input
+                      className="code"
+                      id="code"
+                      name="code"
+                      placeholder="code"
+                      type="text"
+                      value={eventCode}
+                      onChange={handleCodeChange}
+                    />
+                  </label>
+                  <button type="submit" onClick={handleCodeEnter}>
+                    enter
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+          <button
+            type="button"
+            onClick={nextEvent}
+            disabled={currentIndex + 1 === dataArray.length}
+          >
+            NEXT
+          </button>
+          <div className="previous-button">
+            <button
+              type="button"
+              onClick={prevEvent}
+              disabled={currentIndex === 0}
+            >
+              PREVIOUS
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

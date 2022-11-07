@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import "../styles/admincard.scss";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,11 +12,11 @@ const ADMIN_CARD_URL = "http://localhost:3000/userevents";
 
 const AdminCard = () => {
   const { userId } = useAuthContext();
-  const navigate = useNavigate();
-  const changeLocation = (redirect) => {
-    navigate(redirect, { replace: true });
-    window.location.reload();
-  };
+  // const navigate = useNavigate();
+  // const changeLocation = (redirect) => {
+  //   navigate(redirect, { replace: true });
+  //   window.location.reload();
+  // };
   const initialState = {
     fields: {
       title: "",
@@ -88,7 +88,7 @@ const AdminCard = () => {
         });
         console.log("Details  have been updated");
         console.log(eventData);
-        changeLocation("/");
+        // changeLocation("/");
       })
       .catch(() => {
         setAlert({
