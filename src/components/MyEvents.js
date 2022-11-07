@@ -28,13 +28,10 @@ const MyEvents = () => {
   const [buyForId, setBuyForId] = useState("");
   const [buyForLikes, setBuyForLikes] = useState("");
   const [buyForDislikes, setBuyForDislikes] = useState("");
-  const [eventCode, setEventCode] = useState("");
-  const [eventInvite, setEventInvite] = useState(initialState.Event);
   const [usersTakingPart, setUsersTakingPart] = useState([]);
   const [editEvent, setEditEvent] = useState(false);
   const [userEventId, setUserEventId] = useState("");
   const [isSure, setIsSure] = useState(false);
-  // const [isDrawn, setIsDrawn] = useState(false);
   const [alert, setAlert] = useState({
     message: "",
     isSuccess: false,
@@ -49,10 +46,10 @@ const MyEvents = () => {
           setDataArray(data);
           console.log("data", data);
           setEventId(data[0].EventId);
-          // setIsDrawn(data[0].Event.drawn);
           setUserEventId(data[0].id);
           if (data[0].BuyFor) {
             setBuyForId(data[0].BuyFor.first_name);
+            console.log("BUYFOR", data[0].BuyFor.first_name);
           }
           if (data[0].EventId) {
             axios
@@ -92,6 +89,7 @@ const MyEvents = () => {
       setCurrentIndex(nextEventIndex);
       if (dataArray[nextEventIndex].BuyFor) {
         setBuyForId(dataArray[nextEventIndex].BuyFor.first_name);
+        console.log("BUYFOR", dataArray[nextEventIndex].BuyFor.first_name);
         setBuyForLikes(dataArray[nextEventIndex].BuyFor.likes);
         setBuyForDislikes(dataArray[nextEventIndex].BuyFor.dislikes);
         console.log("buyfor", dataArray[nextEventIndex].BuyFor.first_name);
@@ -99,7 +97,6 @@ const MyEvents = () => {
         setBuyForId("");
       }
       setEventData(dataArray[nextEventIndex].Event);
-      // setIsDrawn(dataArray[nextEventIndex].Event)
       setUserEventId(dataArray[nextEventIndex].id);
       console.log(
         "data length",
@@ -132,6 +129,7 @@ const MyEvents = () => {
         setCurrentIndex(prevEventIndex);
         if (dataArray[prevEventIndex].BuyFor) {
           setBuyForId(dataArray[prevEventIndex].BuyFor.first_name);
+          console.log("BUYFOR", dataArray[prevEventIndex].BuyFor.first_name);
           setBuyForLikes(dataArray[prevEventIndex].BuyFor.likes);
           setBuyForDislikes(dataArray[prevEventIndex].BuyFor.dislikes);
           console.log("buyfor", dataArray[prevEventIndex].BuyFor.first_name);
@@ -163,67 +161,6 @@ const MyEvents = () => {
       console.log(err);
     }
   };
-  const handleCodeChange = (event) => {
-    setEventCode(event.target.value);
-  };
-
-  const handleCodeEnter = () => {
-    axios
-      .get(`http://localhost:3000/events/${eventCode}`)
-      .then(({ data }) => {
-        setEventInvite({
-          eventId: data[0].id,
-          title: data[0].title,
-          names: data[0].participants,
-          adminId: data[0].AdminId,
-          adminName: data[0].Admin.first_name,
-        });
-      })
-      .catch(() => {
-        setAlert({
-          message: "Wrong code, please try again",
-          isSuccess: false,
-        });
-      });
-  };
-
-  const chooseName = (item) => {
-    const newNameList = eventInvite.names
-      .split(", ")
-      .filter((name) => name !== item)
-      .join(", ");
-    setEventInvite({ ...eventInvite, names: newNameList });
-    console.log({ eventInvite });
-    axios
-      .patch(`http://localhost:3000/events/${eventInvite.eventId}`, {
-        participants: newNameList,
-      })
-      .then(() => {
-        console.log("you have been added to the event");
-      })
-      .catch(() => {
-        setAlert({
-          message: "server not working, please try again later",
-          isSuccess: false,
-        });
-      });
-    axios
-      .post(MY_EVENTS_URL, {
-        UserId: userId,
-        BuyForId: null,
-        EventId: eventInvite.eventId,
-      })
-      .then(() => {
-        console.log("added user to the event");
-        setEventId(eventInvite.eventId);
-      })
-      .catch(() => {
-        setAlert({
-          message: "server not working, please try again later",
-          isSuccess: false,
-        });
-      });
-  };
 
   const navigate = useNavigate();
   const changeLocation = (redirect) => {
@@ -239,8 +176,6 @@ const MyEvents = () => {
         .delete(`${MY_EVENTS_URL}/${userEventId}`)
         .then(() => {
           changeLocation("/");
-          // deleted from database correctly but not rerendering the page
-          console.log("user removed from the event, userEventId", userEventId);
         })
         .catch(() => {
           setAlert({
@@ -340,74 +275,40 @@ const MyEvents = () => {
                     ))}
                 </div>
               </div>
+              <div className="field-card">
+                {isSure && (
+                  <div className="delete-confirm-message">
+                    Are you sure you want to leave this event?
+                  </div>
+                )}
+                <button
+                  type="submit"
+                  onClick={handleLeaveEvent}
+                  disabled={eventData.drawn}
+                >
+                  {isSure ? "confirm" : "leave event"}
+                </button>
+              </div>
+              <button
+                type="button"
+                onClick={nextEvent}
+                disabled={currentIndex + 1 === dataArray.length}
+              >
+                NEXT
+              </button>
+              <div className="previous-button">
+                <button
+                  type="button"
+                  onClick={prevEvent}
+                  disabled={currentIndex === 0}
+                >
+                  PREVIOUS
+                </button>
+              </div>
             </div>
           ) : (
-            <div>
-              {eventInvite.eventId ? (
-                <div>
-                  <div>{eventInvite.title}</div>
-                  <div>from {eventInvite.adminName}</div>
-                  {eventInvite.names.split(", ").map((item) => (
-                    <button
-                      key={item}
-                      type="submit"
-                      onClick={() => chooseName(item)}
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
-              ) : (
-                <div>
-                  <label htmlFor="code">
-                    enter event code here
-                    <input
-                      className="code"
-                      id="code"
-                      name="code"
-                      placeholder="code"
-                      type="text"
-                      value={eventCode}
-                      onChange={handleCodeChange}
-                    />
-                  </label>
-                  <button type="submit" onClick={handleCodeEnter}>
-                    enter
-                  </button>
-                </div>
-              )}
-            </div>
+            <div>no events</div>
           )}
-          <div className="field-card">
-            {isSure && (
-              <div className="delete-confirm-message">
-                Are you sure you want to leave this event?
-              </div>
-            )}
-            <button
-              type="submit"
-              onClick={handleLeaveEvent}
-              disabled={eventData.drawn}
-            >
-              {isSure ? "confirm" : "leave event"}
-            </button>
-          </div>
-          <button
-            type="button"
-            onClick={nextEvent}
-            disabled={currentIndex + 1 === dataArray.length}
-          >
-            NEXT
-          </button>
-          <div className="previous-button">
-            <button
-              type="button"
-              onClick={prevEvent}
-              disabled={currentIndex === 0}
-            >
-              PREVIOUS
-            </button>
-          </div>
         </div>
       )}
     </div>
