@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/createevent.scss";
@@ -19,10 +19,13 @@ const CreateEvent = () => {
     AdminId: userId,
   });
 
-  axios.get(`http://localhost:3000/users/${userId}`).then((response) => {
-    const firstName = response.data[0].first_name;
-    setFields({ ...fields, participants: firstName });
-  });
+  useEffect(() => {
+    axios.get(`http://localhost:3000/users/${userId}`).then((response) => {
+      const firstName = response.data[0].first_name;
+      setFields({ ...fields, participants: firstName });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleNameDelete = (item) => {
     setFields({

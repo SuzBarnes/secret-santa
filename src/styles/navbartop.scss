@@ -28,6 +28,7 @@
     height: 75px;
 
     .navbartop-link-item {
+      display: flex;
       float: right;
       padding-left: 10px;
       padding-right: 10px;
@@ -37,11 +38,12 @@
     }
 
     .account-details {
-      color: white;
+      height: 100%;
+      color: $main-color;
       font-size: 16px;
       text-align: center;
       text-decoration: none;
-      margin-top: 60px;
+      // margin-top: 60px;
     }
 
     .font-awesome {
@@ -58,11 +60,10 @@
 
   button {
     cursor: pointer;
-    margin-top: 10px;
-    position: absolute;
-    width: 100px;
+    position: relative;
+    width: 90px;
     right: 10px;
-    // top: 5px;
+    // top: 50%;
     background-color: $font-color;
     color: $main-color;
     border: 2px solid $font-color;

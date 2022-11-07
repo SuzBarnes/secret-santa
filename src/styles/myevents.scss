@@ -11,15 +11,12 @@
 @import "config";
 
 .my-events-container {
-  box-shadow: 0 0 10px 5px grey;
-  border-radius: 10px;
   background-color: $main-color;
   color: $font-color;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 1rem;
   line-height: 1.2rem;
   text-indent: 10px;
 
@@ -35,17 +32,38 @@
     .event-data-card {
       margin: 10px auto;
       justify-content: center;
+      text-align: center;
+    }
+    .buy-for {
+      font-size: 20px;
+      padding: 5px;
     }
   }
-  .reveal-container{
-    font-size: 35px;
-    text-align: center;
+  .field-card {
+    position: fixed;
+    left: 0px;
+    bottom: 20vh;
+    display: flex;
   }
-  .gift-icon{
-    cursor: pointer;
-    transition-duration: 300ms;
+  .next{
+    position: fixed;
+    right: 30px;
+    bottom: 20vh;
   }
-  .gift-icon:hover{
-    transform: rotate(-20deg);
+  .event-button {
+    width: 100%;
+    margin: 4px;
+  }
+  input,
+  button {
+    border: 2px solid $font-color;
+    border-radius: 3px;
+    padding: 5px;
+    color: $font-color;
+    background-color: transparent;
+  }
+
+  .field-value-date::-webkit-calendar-picker-indicator {
+    filter: invert(1);
   }
 }

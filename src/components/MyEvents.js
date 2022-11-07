@@ -290,6 +290,7 @@ const MyEvents = () => {
               <div className="event-data-container">
                 <div className="event-data-card">{eventData.title}</div>
                 <div className="event-data-card">
+                  Exchange Date
                   <input
                     className="event-data-value"
                     id="exchange_date"
@@ -305,13 +306,14 @@ const MyEvents = () => {
                   onChange={handleChange}
                   id="event-budget"
                 >
-                  £{`${eventData.budget}`}
+                  Budget: £{`${eventData.budget}`}
                 </div>
                 {buyForId && (
                   <div className="event-data-card">
-                    You are buying for...
-                    <div>{buyForId}</div>
-                    Suggestions from them
+                    <h4>You are buying for...</h4>
+                    <div className="buy-for">{buyForId}</div>
+                    <br />
+                    <h4>Suggestions from them</h4>
                     <div className="field-tag">likes</div>
                     {buyForLikes &&
                       buyForLikes.split(", ").map((item) => (
@@ -331,7 +333,7 @@ const MyEvents = () => {
                   </div>
                 )}
                 <div className="event-data-card">
-                  <div className="event-data-tag">Participants:</div>
+                  <h4 className="event-data-tag">Participants:</h4>
                   {usersTakingPart &&
                     usersTakingPart.map((item) => (
                       <div className="like-container" key={item}>
@@ -384,29 +386,38 @@ const MyEvents = () => {
                 Are you sure you want to leave this event?
               </div>
             )}
-            <button
-              type="submit"
-              onClick={handleLeaveEvent}
-              disabled={eventData.drawn}
-            >
-              {isSure ? "confirm" : "leave event"}
-            </button>
-          </div>
-          <button
-            type="button"
-            onClick={nextEvent}
-            disabled={currentIndex + 1 === dataArray.length}
-          >
-            NEXT
-          </button>
-          <div className="previous-button">
-            <button
-              type="button"
-              onClick={prevEvent}
-              disabled={currentIndex === 0}
-            >
-              PREVIOUS
-            </button>
+            <div>
+              <div>
+                <button
+                  className="event-button"
+                  type="submit"
+                  onClick={handleLeaveEvent}
+                  disabled={eventData.drawn}
+                >
+                  {isSure ? "confirm" : "leave event"}
+                </button>
+              </div>
+              <div className="previous">
+                <button
+                  className="event-button"
+                  type="button"
+                  onClick={prevEvent}
+                  disabled={currentIndex === 0}
+                >
+                  PREVIOUS
+                </button>
+              </div>
+            </div>
+            <div className="next">
+              <button
+                className="event-button"
+                type="button"
+                onClick={nextEvent}
+                disabled={currentIndex + 1 === dataArray.length}
+              >
+                NEXT
+              </button>
+            </div>
           </div>
         </div>
       )}

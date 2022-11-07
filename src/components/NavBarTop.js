@@ -29,16 +29,14 @@ const NavBarTop = () => {
       </div>
       <ul className="navbartop-links">
         <div className="logout">
-          <li>
-            <Logout className="navbartop-link-item" to="/" />
-          </li>
+          <Logout className="navbartop-link-item" to="/" />
         </div>
-        <div className="account-details">
+        <button type="button" className="account-details">
           <Link className="account-details" to="account-details">
             <FontAwesomeIcon icon={faUser} className="font-awesome" />
-            <div>My Account</div>
+            {/* <div>My Account</div> */}
           </Link>
-        </div>
+        </button>
       </ul>
     </div>
   );
