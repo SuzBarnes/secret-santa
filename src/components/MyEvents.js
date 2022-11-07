@@ -299,7 +299,11 @@ const MyEvents = () => {
           )}
         </div>
       )}
-      <button type="button" onClick={nextEvent} disabled={false}>
+      <button
+        type="button"
+        onClick={nextEvent}
+        disabled={currentIndex + 1 === dataArray.length}
+      >
         NEXT
       </button>
       <div className="previous-button">
