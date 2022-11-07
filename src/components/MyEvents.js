@@ -31,6 +31,9 @@ const MyEvents = () => {
   const [eventInvite, setEventInvite] = useState(initialState.Event);
   const [usersTakingPart, setUsersTakingPart] = useState([]);
   const [editEvent, setEditEvent] = useState(false);
+  const [userEventId, setUserEventId] = useState("");
+  const [isSure, setIsSure] = useState(false);
+  // const [isDrawn, setIsDrawn] = useState(false);
   const [alert, setAlert] = useState({
     message: "",
     isSuccess: false,
@@ -45,6 +48,8 @@ const MyEvents = () => {
           setDataArray(data);
           console.log("data", data);
           setEventId(data[0].EventId);
+          // setIsDrawn(data[0].Event.drawn);
+          setUserEventId(data[0].id);
           if (data[0].BuyFor) {
             setBuyForId(data[0].BuyFor.first_name);
           }
@@ -86,13 +91,15 @@ const MyEvents = () => {
       setCurrentIndex(nextEventIndex);
       if (dataArray[nextEventIndex].BuyFor) {
         setBuyForId(dataArray[nextEventIndex].BuyFor.first_name);
+        setBuyForLikes(dataArray[nextEventIndex].BuyFor.likes);
+        setBuyForDislikes(dataArray[nextEventIndex].BuyFor.dislikes);
         console.log("buyfor", dataArray[nextEventIndex].BuyFor.first_name);
       } else {
         setBuyForId("");
       }
       setEventData(dataArray[nextEventIndex].Event);
-      setBuyForLikes(dataArray[nextEventIndex].BuyFor.likes);
-      setBuyForDislikes(dataArray[nextEventIndex].BuyFor.dislikes);
+      // setIsDrawn(dataArray[nextEventIndex].Event)
+      setUserEventId(dataArray[nextEventIndex].id);
       console.log(
         "data length",
         dataArray.length,
@@ -124,13 +131,14 @@ const MyEvents = () => {
         setCurrentIndex(prevEventIndex);
         if (dataArray[prevEventIndex].BuyFor) {
           setBuyForId(dataArray[prevEventIndex].BuyFor.first_name);
+          setBuyForLikes(dataArray[prevEventIndex].BuyFor.likes);
+          setBuyForDislikes(dataArray[prevEventIndex].BuyFor.dislikes);
           console.log("buyfor", dataArray[prevEventIndex].BuyFor.first_name);
         } else {
           setBuyForId("");
         }
         setEventData(dataArray[prevEventIndex].Event);
-        setBuyForLikes(dataArray[prevEventIndex].BuyFor.likes);
-        setBuyForDislikes(dataArray[prevEventIndex].BuyFor.dislikes);
+        setUserEventId(dataArray[prevEventIndex].id);
         if (dataArray[prevEventIndex].EventId) {
           axios
             .get(
@@ -214,6 +222,25 @@ const MyEvents = () => {
           isSuccess: false,
         });
       });
+  };
+
+  const handleLeaveEvent = () => {
+    if (!isSure) {
+      setIsSure(true);
+    } else if (isSure) {
+      axios
+        .delete(`${MY_EVENTS_URL}/${userEventId}`)
+        .then(() => {
+          // deleted from database correctly but not rerendering the page
+          console.log("user removed from the event, userEventId", userEventId);
+        })
+        .catch(() => {
+          setAlert({
+            message: "server not working, please try again later",
+            isSuccess: false,
+          });
+        });
+    }
   };
 
   return (
@@ -343,6 +370,20 @@ const MyEvents = () => {
               )}
             </div>
           )}
+          <div className="field-card">
+            {isSure && (
+              <div className="delete-confirm-message">
+                Are you sure you want to leave this event?
+              </div>
+            )}
+            <button
+              type="submit"
+              onClick={handleLeaveEvent}
+              disabled={eventData.drawn}
+            >
+              {isSure ? "confirm" : "leave event"}
+            </button>
+          </div>
           <button
             type="button"
             onClick={nextEvent}
