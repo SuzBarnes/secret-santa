@@ -69,7 +69,7 @@ const MyEvents = () => {
                       firstName: item.User.first_name,
                     };
                   })
-                  .filter((name) => name !== data[0].User.first_name);
+                  .filter((name) => name.firstName !== data[0].User.first_name);
                 console.log("USER ARRAY OF OBJECTS", filterUserOut);
                 setUsersTakingPart(filterUserOut);
               })
@@ -123,9 +123,15 @@ const MyEvents = () => {
           .then((data2) => {
             console.log("get user taking part");
             const filterUserOut = data2.data
-              .map((item) => item.User.first_name)
+              .map((item) => {
+                return {
+                  userId: item.User.id,
+                  firstName: item.User.first_name,
+                };
+              })
               .filter(
-                (name) => name !== dataArray[nextEventIndex].User.first_name
+                (name) =>
+                  name.firstName !== dataArray[nextEventIndex].User.first_name
               );
             setUsersTakingPart(filterUserOut);
           })
@@ -164,9 +170,15 @@ const MyEvents = () => {
             .then((data2) => {
               console.log("get user taking part");
               const filterUserOut = data2.data
-                .map((item) => item.User.first_name)
+                .map((item) => {
+                  return {
+                    userId: item.User.id,
+                    firstName: item.User.first_name,
+                  };
+                })
                 .filter(
-                  (name) => name !== dataArray[prevEventIndex].User.first_name
+                  (name) =>
+                    name.firstName !== dataArray[prevEventIndex].User.first_name
                 );
               setUsersTakingPart(filterUserOut);
             })
