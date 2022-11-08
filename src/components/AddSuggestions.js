@@ -44,7 +44,9 @@ const AddSuggestions = ({ nameToAddSuggestion }) => {
       })
       .then(() => {
         console.log("suggestions updated");
-        changeLocation("/");
+        setTimeout(() => {
+          changeLocation("/");
+        }, 2000);
       })
       .catch();
     console.log("added suggestion");
