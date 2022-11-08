@@ -34,10 +34,6 @@
       justify-content: center;
       text-align: center;
     }
-    .buy-for {
-      font-size: 20px;
-      padding: 5px;
-    }
   }
   .field-card {
     position: fixed;
@@ -55,7 +51,7 @@
     width: 90px;
     margin: 4px;
   }
-  .edit-button{
+  .edit-button {
     position: fixed;
     left: 20px;
     top: 20vh;
@@ -71,5 +67,19 @@
 
   .field-value-date::-webkit-calendar-picker-indicator {
     filter: invert(1);
+  }
+
+  .reveal {
+    padding: 15px;
+    font-size: 30px;
+    button {
+      border: none;
+      font-size: 30px;
+      cursor: pointer;
+      transition-duration: 400ms;
+    }
+    .buy-for{
+      padding: 5px;
+    }
   }
 }

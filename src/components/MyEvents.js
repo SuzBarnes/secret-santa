@@ -4,7 +4,11 @@ import { useNavigate } from "react-router-dom";
 import "../styles/myevents.scss";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRightLong, faLeftLong } from "@fortawesome/free-solid-svg-icons";
+import {
+  faRightLong,
+  faLeftLong,
+  faGift,
+} from "@fortawesome/free-solid-svg-icons";
 import Alert from "./Alert";
 import AdminCard from "./AdminCard";
 import AddSuggestions from "./AddSuggestions";
@@ -24,6 +28,7 @@ const MyEvents = () => {
       AdminId: "",
     },
   };
+  const [reveal, setReveal] = useState(false);
   const { userId } = useAuthContext();
   const [eventData, setEventData] = useState(initialState.Event);
   const [eventId, setEventId] = useState("");
@@ -226,6 +231,14 @@ const MyEvents = () => {
     }
   };
 
+  const handleReveal = () => {
+    document.getElementById("gift-icon").style.transform = "scale(2)";
+    setTimeout(() => {
+      console.log("test");
+      setReveal(true);
+    }, 300);
+  };
+
   return (
     <div className="my-events-container">
       {userId === eventData.AdminId && (
@@ -288,8 +301,22 @@ const MyEvents = () => {
                 {buyForId && (
                   <div className="event-data-card">
                     <h4>You are buying for...</h4>
-                    <div className="buy-for">{buyForId}</div>
-                    <br />
+                    <div className="reveal">
+                      {!reveal ? (
+                        <button
+                          type="button"
+                          id="gift-icon"
+                          onClick={() => {
+                            handleReveal();
+                          }}
+                        >
+                          <FontAwesomeIcon icon={faGift} />
+                        </button>
+                      ) : (
+                        <div className="buy-for">{buyForId}</div>
+                      )}
+                    </div>
+
                     <div>
                       <div>suggestions from other</div>
                       <button
