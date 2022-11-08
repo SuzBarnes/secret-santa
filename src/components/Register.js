@@ -124,26 +124,33 @@ const Register = () => {
               onChange={handleRegisterChange}
               required
             />
-            <button type="button" onClick={togglePassword}>
-              {!passwordShown ? (
-                <FontAwesomeIcon icon={faEye} className="font-awesome" />
-              ) : (
-                <FontAwesomeIcon icon={faEyeSlash} className="font-awesome" />
-              )}
-            </button>
-          </div>
-          <div className="button-div">
-            <button type="submit">Register</button>
+            <div className="register-div">
+              <button type="submit" className="button-div register-button">
+                Register
+              </button>
+
+              <button
+                type="button"
+                className="button-div eye-button"
+                onClick={togglePassword}
+              >
+                {!passwordShown ? (
+                  <FontAwesomeIcon icon={faEye} className="font-awesome" />
+                ) : (
+                  <FontAwesomeIcon icon={faEyeSlash} className="font-awesome" />
+                )}
+              </button>
+            </div>
           </div>
         </form>
       </div>
       <div>
-        <p>
+        <div>
           Already have an account?
           <span className="line">
             <a href="login">Sign In</a>
           </span>
-        </p>
+        </div>
       </div>
     </div>
   );
