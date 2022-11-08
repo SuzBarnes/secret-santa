@@ -57,4 +57,15 @@
   input::placeholder {
     color: $font-color;
   }
+
+  .event-created{
+    color: $font-color;
+    text-align: center;
+    div{
+      margin: 30px;
+    }
+    a:visited{
+      color: $font-color;
+    }
+  }
 }
