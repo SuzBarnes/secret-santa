@@ -34,6 +34,10 @@ const MyEvents = () => {
   const [userEventId, setUserEventId] = useState("");
   const [isSure, setIsSure] = useState(false);
   const [isNameClickedOn, setIsNameClickedOn] = useState(false);
+  const [nameToAddSuggestion, setNameToAddSuggestion] = useState({
+    userId: "",
+    firstName: "",
+  });
   const [alert, setAlert] = useState({
     message: "",
     isSuccess: false,
@@ -59,8 +63,14 @@ const MyEvents = () => {
               .then((data2) => {
                 console.log("get user taking part");
                 const filterUserOut = data2.data
-                  .map((item) => item.User.first_name)
+                  .map((item) => {
+                    return {
+                      userId: item.User.id,
+                      firstName: item.User.first_name,
+                    };
+                  })
                   .filter((name) => name !== data[0].User.first_name);
+                console.log("USER ARRAY OF OBJECTS", filterUserOut);
                 setUsersTakingPart(filterUserOut);
               })
               .catch(() => {
@@ -279,7 +289,7 @@ const MyEvents = () => {
                   </div>
                 )}
                 {isNameClickedOn ? (
-                  <AddSuggestions />
+                  <AddSuggestions nameToAddSuggestion={nameToAddSuggestion} />
                 ) : (
                   <div className="event-data-card">
                     <h4 className="event-data-tag">Participants:</h4>
@@ -287,11 +297,15 @@ const MyEvents = () => {
                       usersTakingPart.map((item) => (
                         <button
                           className="like-container"
-                          key={item}
+                          key={item.firstName}
                           type="button"
-                          onClick={() => setIsNameClickedOn(true)}
+                          onClick={() => {
+                            setIsNameClickedOn(true);
+                            console.log("ITEM BEFORE PASSED AS PROP", item);
+                            setNameToAddSuggestion(item);
+                          }}
                         >
-                          {item}
+                          {item.firstName}
                         </button>
                       ))}
                   </div>
