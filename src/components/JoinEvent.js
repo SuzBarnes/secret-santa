@@ -77,7 +77,6 @@ const JoinEvent = () => {
       .get(`http://localhost:3000/events/${eventCode}`)
       .then(({ data }) => {
         if (data[0].drawn) {
-          console.log("event already drawn");
           setAlert({
             message:
               "Sorry, this event has already been drawn and can no longer be joined",
@@ -106,42 +105,67 @@ const JoinEvent = () => {
   };
 
   const chooseName = (item) => {
-    if (item) {
-      const newNameList = eventInvite.names
-        .split(", ")
-        .filter((name) => name !== item)
-        .join(", ");
-      setEventInvite({ ...eventInvite, names: newNameList });
-      console.log({ eventInvite, alert });
-      axios
-        .patch(`http://localhost:3000/events/${eventInvite.eventId}`, {
-          participants: newNameList,
-        })
-        .then(() => {
-          console.log("You have been added to the event!");
-        })
-        .catch(() => {
+    let isJoined = false;
+    axios
+      .get(`${MY_EVENTS_URL}/eventid/${eventInvite.eventId}/userid/${userId}`)
+      .then(({ data }) => {
+        if (data.length === 0) {
+          isJoined = false;
+        } else if (data.length > 0) {
+          isJoined = true;
           setAlert({
-            message: "Server error, please try again later",
+            message: "You have already joined this event!",
             isSuccess: false,
           });
-        });
-    }
-    axios
-      .post(MY_EVENTS_URL, {
-        UserId: userId,
-        BuyForId: null,
-        EventId: eventInvite.eventId,
+        }
+        if (isJoined === false) {
+          if (item) {
+            const newNameList = eventInvite.names
+              .split(", ")
+              .filter((name) => name !== item)
+              .join(", ");
+            setEventInvite({ ...eventInvite, names: newNameList });
+            axios
+              .patch(`http://localhost:3000/events/${eventInvite.eventId}`, {
+                participants: newNameList,
+              })
+              .then(() => {
+                setAlert({
+                  message: "You have been added to the event!!",
+                  isSuccess: false,
+                });
+              })
+              .catch(() => {
+                setAlert({
+                  message: "Server error, please try again later",
+                  isSuccess: false,
+                });
+              });
+          }
+          axios
+            .post(MY_EVENTS_URL, {
+              UserId: userId,
+              BuyForId: null,
+              EventId: eventInvite.eventId,
+            })
+            .then(() => {
+              componentWillRedirect();
+            })
+            .catch(() => {
+              setAlert({
+                message: "Server error, please try again later",
+                isSuccess: false,
+              });
+            });
+        }
       })
-      .then(() => {
-        componentWillRedirect();
-      })
-      .catch(() => {
+
+      .catch(
         setAlert({
           message: "Server error, please try again later",
           isSuccess: false,
-        });
-      });
+        })
+      );
   };
 
   return (
@@ -154,7 +178,7 @@ const JoinEvent = () => {
           </div>
           <p>Click your name to join in the fun!</p>
           <button type="button" onClick={() => chooseName("")}>
-            click here if your name is not in the list
+            Forgotten?
           </button>
           {eventInvite.names &&
             eventInvite.names.split(", ").map((item) => (
