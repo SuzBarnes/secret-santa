@@ -3,7 +3,6 @@
 .login {
   background-color: $main-color;
   color: $font-color;
-  // width: 100%;
   height: 100%;
   padding: 12px 20px;
   margin: 0px;
@@ -12,22 +11,36 @@
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+
   .switch-register,
   .form-div,
   .description-div {
     margin: $margin-fields;
   }
+
+  .login-heading {
+    padding: 10px;
+  }
+
+  li,
+  p {
+    font-size: 16px;
+    margin: 10px 0;
+  }
+
   .form-div {
     .login-form {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+
       .password-div,
       .email-div {
         margin: $margin-fields;
         width: 100%;
       }
+
       .email-div {
         input {
           width: 100%;
@@ -35,6 +48,7 @@
       }
     }
   }
+
   input,
   button {
     border: 2px solid white;
@@ -42,6 +56,14 @@
     padding: 5px;
     color: white;
     background-color: transparent;
+    font-size: 16px;
+  }
+
+  .eye-button,
+  .login-button {
+    background-color: $font-color;
+    color: $main-color;
+    font-size: 16px;
   }
 
   input::placeholder {

@@ -70,11 +70,16 @@ const Login = () => {
   return (
     <div className="login">
       <div className="description-div">
-        <h2>
-          Secret Santa...with a <i>twist</i>.
-        </h2>
-        With 5 simple steps, you could be joining the millions playing Secret
-        Santa today!
+        <div className="login-heading">
+          <h2>
+            Secret Santa...with a <i>twist</i>.
+          </h2>
+        </div>
+        <p>
+          With 5 simple steps, you could be joining the millions playing Secret
+          Santa today!
+        </p>
+
         <ol>
           <li>Login or Register,</li>
           <li>
@@ -112,7 +117,11 @@ const Login = () => {
               onChange={handleLoginChange}
               required
             />
-            <button type="button" onClick={togglePassword}>
+            <button
+              type="button"
+              className="eye-button"
+              onClick={togglePassword}
+            >
               {!passwordShown ? (
                 <FontAwesomeIcon icon={faEye} className="font-awesome" />
               ) : (
@@ -121,7 +130,9 @@ const Login = () => {
             </button>
           </div>
           <div>
-            <button type="submit">Log in</button>
+            <button type="submit" className="login-button">
+              Log in
+            </button>
           </div>
         </form>
       </div>
