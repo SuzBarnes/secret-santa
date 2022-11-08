@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import "../styles/navbartop.scss";
-import secretSantLogo from "../images/SS-logo.png";
+import secretSantLogo from "../images/SantaDrawsLogo.png";
 import { useAuthContext } from "../contexts/AuthProvider";
 import Logout from "./Logout";
 
