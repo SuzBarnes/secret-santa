@@ -29,10 +29,12 @@ const MyEvents = () => {
   const [buyForId, setBuyForId] = useState("");
   const [buyForLikes, setBuyForLikes] = useState("");
   const [buyForDislikes, setBuyForDislikes] = useState("");
+  const [buyForSuggestions, setBuyForSuggestions] = useState("");
   const [usersTakingPart, setUsersTakingPart] = useState([]);
   const [editEvent, setEditEvent] = useState(false);
   const [userEventId, setUserEventId] = useState("");
   const [isSure, setIsSure] = useState(false);
+  const [isRevealed, setIsRevealed] = useState(false);
   const [isNameClickedOn, setIsNameClickedOn] = useState(false);
   const [nameToAddSuggestion, setNameToAddSuggestion] = useState({
     userId: "",
@@ -55,6 +57,7 @@ const MyEvents = () => {
           setUserEventId(data[0].id);
           if (data[0].BuyFor) {
             setBuyForId(data[0].BuyFor.first_name);
+            setBuyForSuggestions(data[0].BuyFor.suggestions);
             console.log("BUYFOR", data[0].BuyFor.first_name);
           }
           if (data[0].EventId) {
@@ -102,6 +105,7 @@ const MyEvents = () => {
       setCurrentIndex(nextEventIndex);
       if (dataArray[nextEventIndex].BuyFor) {
         setBuyForId(dataArray[nextEventIndex].BuyFor.first_name);
+        setBuyForSuggestions(dataArray[nextEventIndex].BuyFor.suggestions);
         console.log("BUYFOR", dataArray[nextEventIndex].BuyFor.first_name);
         setBuyForLikes(dataArray[nextEventIndex].BuyFor.likes);
         setBuyForDislikes(dataArray[nextEventIndex].BuyFor.dislikes);
@@ -153,6 +157,7 @@ const MyEvents = () => {
         setCurrentIndex(prevEventIndex);
         if (dataArray[prevEventIndex].BuyFor) {
           setBuyForId(dataArray[prevEventIndex].BuyFor.first_name);
+          setBuyForSuggestions(dataArray[prevEventIndex].BuyFor.suggestions);
           console.log("BUYFOR", dataArray[prevEventIndex].BuyFor.first_name);
           setBuyForLikes(dataArray[prevEventIndex].BuyFor.likes);
           setBuyForDislikes(dataArray[prevEventIndex].BuyFor.dislikes);
@@ -281,7 +286,23 @@ const MyEvents = () => {
                     <h4>You are buying for...</h4>
                     <div className="buy-for">{buyForId}</div>
                     <br />
-                    <h4>Suggestions from them</h4>
+                    <div>
+                      <div>suggestions from other</div>
+                      <button
+                        type="button"
+                        onClick={() => setIsRevealed(!isRevealed)}
+                      >
+                        {isRevealed ? "hide" : "show"}
+                      </button>
+                      {isRevealed && (
+                        <ul>
+                          {buyForSuggestions.split(", ").map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                    <h4>Ideas from them</h4>
                     <div className="field-tag">likes</div>
                     {buyForLikes &&
                       buyForLikes.split(", ").map((item) => (
