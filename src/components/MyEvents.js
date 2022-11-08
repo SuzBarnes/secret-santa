@@ -300,9 +300,10 @@ const MyEvents = () => {
                       </button>
                       {isRevealed && (
                         <ul>
-                          {buyForSuggestions.split(", ").map((item) => (
-                            <li key={item}>{item}</li>
-                          ))}
+                          {buyForSuggestions &&
+                            buyForSuggestions
+                              .split(", ")
+                              .map((item) => <li key={item}>{item}</li>)}
                         </ul>
                       )}
                     </div>

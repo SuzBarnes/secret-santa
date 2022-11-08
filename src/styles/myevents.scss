@@ -41,13 +41,14 @@
   }
   .field-card {
     position: fixed;
-    left: 0px;
+    left: 20px;
     bottom: 20vh;
     display: flex;
+    flex-direction: column;
   }
   .next{
     position: fixed;
-    right: 30px;
+    right: 20px;
     bottom: 20vh;
   }
   .event-button {
@@ -56,7 +57,7 @@
   }
   .edit-button{
     position: fixed;
-    left: 0px;
+    left: 20px;
     top: 20vh;
   }
   input,
