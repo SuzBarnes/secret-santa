@@ -2,7 +2,17 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faEye,
+  faEyeSlash,
+  faFloppyDisk,
+  faMinus,
+  faPlus,
+  faTrashCan,
+  faUserPen,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Alert from "./Alert";
 import "../styles/accountdetails.scss";
@@ -187,7 +197,6 @@ const AccountDetails = () => {
   };
 
   const handleChangeOfDetails = () => {
-    console.log("detils changed");
     axios
       .patch(`${ACCOUNT_DETAILS_URL}/${userId}`, {
         first_name: fields.first_name,
@@ -256,23 +265,13 @@ const AccountDetails = () => {
 
   return (
     <div className="account-details-container">
-      <Alert message={alert.message} success={alert.isSuccess} />
+      <Alert
+        className="alert-message"
+        message={alert.message}
+        success={alert.isSuccess}
+      />
       <div className="account-details-title">
-        <h1>Account Details</h1>
-        {notEditable ? (
-          <button type="submit" onClick={() => setNotEditable(false)}>
-            edit
-          </button>
-        ) : (
-          <button type="submit" onClick={handleChangeOfDetails}>
-            save
-          </button>
-        )}
-        {!notEditable && (
-          <button type="button" onClick={onCancel}>
-            cancel
-          </button>
-        )}
+        <h1>Your Details</h1>
       </div>
       <div className="fields-container">
         <div className="field-card">
@@ -318,7 +317,7 @@ const AccountDetails = () => {
                 className="field-value"
                 name="checkPassword"
                 type={passwordShown ? "text" : "password"}
-                placeholder="current password"
+                placeholder="Current password"
                 value={password.checkPassword}
                 onChange={(event) =>
                   setPassword({
@@ -331,7 +330,7 @@ const AccountDetails = () => {
                 className="field-value"
                 name="newPassword"
                 type={passwordShown ? "text" : "password"}
-                placeholder="new password"
+                placeholder="New password"
                 value={password.newPassword}
                 onChange={(event) =>
                   setPassword({
@@ -344,7 +343,7 @@ const AccountDetails = () => {
                 className="field-value"
                 name="retypeNewPassword"
                 type={passwordShown ? "text" : "password"}
-                placeholder="retype new password"
+                placeholder="Confirm new password"
                 value={password.retypeNewPassword}
                 onChange={(event) =>
                   setPassword({
@@ -354,10 +353,18 @@ const AccountDetails = () => {
                 }
               />
             </div>
-            <button type="submit" onClick={handlePasswordChange}>
-              change password
+            <button
+              type="submit"
+              className="password-button-text"
+              onClick={handlePasswordChange}
+            >
+              Change Password
             </button>
-            <button type="button" onClick={togglePassword}>
+            <button
+              type="button"
+              className="password-button-image"
+              onClick={togglePassword}
+            >
               {!passwordShown ? (
                 <FontAwesomeIcon
                   icon={faEye}
@@ -371,7 +378,7 @@ const AccountDetails = () => {
           </div>
         )}
         <div className="field-card">
-          <div className="field-tag">likes</div>
+          <div className="field-tag">Likes:</div>
           {fields.likes &&
             fields.likes.split(", ").map((item, index) => (
               <div className="like-container" key={item}>
@@ -390,7 +397,7 @@ const AccountDetails = () => {
                     type="submit"
                     onClick={() => handleListDelete(item, "likes")}
                   >
-                    -
+                    <FontAwesomeIcon icon={faMinus} className="font-awesome" />
                   </button>
                 )}
               </div>
@@ -400,7 +407,7 @@ const AccountDetails = () => {
               <input
                 className="field-value"
                 name="likes"
-                placeholder=""
+                placeholder="Add like.."
                 type="text"
                 value={newLike}
                 onChange={handleLikeChange}
@@ -412,14 +419,14 @@ const AccountDetails = () => {
                   type="submit"
                   onClick={handleLikeAdd}
                 >
-                  +
+                  <FontAwesomeIcon icon={faPlus} className="font-awesome" />
                 </button>
               )}
             </div>
           )}
         </div>
         <div className="field-card">
-          <div className="field-tag">dislikes</div>
+          <div className="field-tag">Dislikes:</div>
           {fields.dislikes &&
             fields.dislikes.split(", ").map((item, index) => (
               <div className="like-container" key={item}>
@@ -437,7 +444,7 @@ const AccountDetails = () => {
                     type="submit"
                     onClick={() => handleListDelete(item, "dislikes")}
                   >
-                    -
+                    <FontAwesomeIcon icon={faMinus} className="font-awesome" />
                   </button>
                 )}
               </div>
@@ -447,7 +454,7 @@ const AccountDetails = () => {
               <input
                 className="field-value"
                 name="dislikes"
-                placeholder=""
+                placeholder="Add dislike..."
                 type="text"
                 value={newDislike}
                 onChange={handleDislikeChange}
@@ -459,7 +466,7 @@ const AccountDetails = () => {
                   type="submit"
                   onClick={handleDislikeAdd}
                 >
-                  +
+                  <FontAwesomeIcon icon={faPlus} className="font-awesome" />
                 </button>
               )}
             </div>
@@ -469,19 +476,52 @@ const AccountDetails = () => {
           <div className="field-card">
             {isSure && (
               <div className="delete-confirm-message">
-                Are you sure? Your account will not be able to be retrieved upon
-                deletion
+                Are you sure? Your account will be permanently deleted.
               </div>
             )}
-            <button type="submit" onClick={handleDeleteAccount}>
-              {isSure ? "confirm" : "delete account"}
+            <button
+              type="submit"
+              className="delete-button"
+              onClick={handleDeleteAccount}
+            >
+              {isSure ? (
+                <FontAwesomeIcon icon={faCheck} className="font-awesome" />
+              ) : (
+                <FontAwesomeIcon icon={faTrashCan} className="font-awesome" />
+              )}
             </button>
             {isSure && (
-              <button type="button" onClick={() => setIsSure(false)}>
-                cancel
+              <button
+                type="button"
+                className="cancel-button"
+                onClick={() => setIsSure(false)}
+              >
+                <FontAwesomeIcon icon={faXmark} className="font-awesome" />
               </button>
             )}
           </div>
+        )}
+        {notEditable ? (
+          <button
+            type="submit"
+            className="edit-button"
+            onClick={() => setNotEditable(false)}
+          >
+            <FontAwesomeIcon icon={faUserPen} className="font-awesome" />
+          </button>
+        ) : (
+          <button
+            type="submit"
+            className="save-button"
+            onClick={handleChangeOfDetails}
+          >
+            <FontAwesomeIcon icon={faFloppyDisk} className="font-awesome" />
+          </button>
+        )}
+        {!notEditable && !isSure && (
+          <button type="button" className="cancel-button" onClick={onCancel}>
+            <FontAwesomeIcon icon={faXmark} className="font-awesome" />
+          </button>
         )}
       </div>
     </div>

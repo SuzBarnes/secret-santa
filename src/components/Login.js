@@ -47,7 +47,7 @@ const Login = () => {
           localStorage.setItem("user", JSON.stringify(res.data));
         }
         setUserId(res.data.id);
-        console.log(res.data.accessToken);
+        // console.log(res.data.accessToken);
         setAlert({
           message: `${res.data.message}`,
           isSuccess: true,
