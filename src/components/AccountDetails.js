@@ -353,30 +353,36 @@ const AccountDetails = () => {
                 }
               />
             </div>
-            <button
-              type="submit"
-              className="password-button-text"
-              onClick={handlePasswordChange}
-            >
-              Change Password
-            </button>
-            <button
-              type="button"
-              className="password-button-image"
-              onClick={togglePassword}
-            >
-              {!passwordShown ? (
-                <FontAwesomeIcon
-                  icon={faEye}
-                  className="eye-icon"
-                  data-testid="eye-icon"
-                />
-              ) : (
-                <FontAwesomeIcon icon={faEyeSlash} className="slash-eye-icon" />
-              )}
-            </button>
+            <div className="changepwd-div">
+              <button
+                type="submit"
+                className="password-button-text"
+                onClick={handlePasswordChange}
+              >
+                Change Password
+              </button>
+              <button
+                type="button"
+                className="password-button-image"
+                onClick={togglePassword}
+              >
+                {!passwordShown ? (
+                  <FontAwesomeIcon
+                    icon={faEye}
+                    className="eye-icon"
+                    data-testid="eye-icon"
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faEyeSlash}
+                    className="slash-eye-icon"
+                  />
+                )}
+              </button>
+            </div>
           </div>
         )}
+
         <div className="field-card">
           <div className="field-tag">Likes:</div>
           {fields.likes &&
