@@ -3,7 +3,6 @@
 .register {
   background-color: $main-color;
   color: $font-color;
-  // width: 100%;
   height: 100%;
   padding: 12px 20px;
   margin: 0px;
@@ -12,36 +11,76 @@
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+
   .switch-register,
   .form-div,
   .description-div {
     margin: $margin-fields;
   }
-  .form-div {
-    .register-form {
+
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .name-div,
+    .email-div {
+      margin: $margin-fields;
+      // width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .password-div {
       display: flex;
       flex-direction: column;
+    }
+
+    .eye-button {
+      border: 2px solid $main-color;
+      border-radius: 3px;
+      padding: 5px;
+      color: $main-color;
+      background-color: $font-color;
+      width: 15%;
+      font-size: 16px;
+    }
+
+    .register-div {
+      display: flex;
       justify-content: center;
-      align-items: center;
-      .name-div,
-      .password-div,
-      .email-div {
-        margin: $margin-fields;
-        width: 100%;
-      }
-      .email-div {
-        input {
-          width: 100%;
-        }
-      }
+    }
+
+    .register-button {
+      border: 2px solid $main-color;
+      border-radius: 3px;
+      padding: 5px;
+      color: $main-color;
+      background-color: $font-color;
+      width: 80%;
+      font-size: 16px;
     }
   }
-  input,
-  button {
-    border: 2px solid white;
-    border-radius: 3px;
-    padding: 5px;
-    color: white;
-    background-color: transparent;
-  }
+}
+
+input,
+button {
+  border: 2px solid white;
+  border-radius: 3px;
+  padding: 5px;
+  color: white;
+  background-color: transparent;
+  font-size: 16px;
+  align-items: center;
+}
+
+.button-div {
+  background-color: $font-color;
+  color: $main-color;
+  font-size: 16px;
+}
+
+input::placeholder {
+  color: white;
 }
