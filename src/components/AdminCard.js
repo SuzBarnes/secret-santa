@@ -250,8 +250,8 @@ const AdminCard = ({ eventId, usersTakingPart }) => {
                 </div>
                 {usersTakingPart &&
                   usersTakingPart.map((item) => (
-                    <div className="like-container" key={item}>
-                      {item}
+                    <div className="like-container" key={item.firstName}>
+                      {item.firstName}
                     </div>
                   ))}
               </div>
