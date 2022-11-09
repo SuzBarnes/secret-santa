@@ -158,12 +158,12 @@ const AdminCard = ({ eventId, usersTakingPart }) => {
 
       <div>
         <div className="admin-card-title">
-          <h1>Edit Event</h1>
+          <h1>Edit {eventData.title}</h1>
         </div>
 
         <div className="event-data-container">
-          Title
           <div className="event-data-card">
+            Title
             <input
               className="event-data-value"
               id="title"
