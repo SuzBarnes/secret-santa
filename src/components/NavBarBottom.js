@@ -14,11 +14,11 @@ const NavBarBottom = () => {
       <div className="list-container">
         <ul className="navbarbottom-links">
           <li>
-            <Link className="navbarbottom-link-item" to="/">
+            <Link className="navbarbottom-link-item" to="joinevent">
               <div>
-                <FontAwesomeIcon icon={faGift} className="font-awesome" />
+                <FontAwesomeIcon icon={faPlus} className="font-awesome" />
               </div>
-              <div>My Events</div>
+              <div>Join</div>
             </Link>
           </li>
           <li>
@@ -33,11 +33,11 @@ const NavBarBottom = () => {
             </Link>
           </li>
           <li>
-            <Link className="navbarbottom-link-item" to="joinevent">
+            <Link className="navbarbottom-link-item" to="/">
               <div>
-                <FontAwesomeIcon icon={faPlus} className="font-awesome" />
+                <FontAwesomeIcon icon={faGift} className="font-awesome" />
               </div>
-              <div>Join</div>
+              <div>My Events</div>
             </Link>
           </li>
         </ul>
