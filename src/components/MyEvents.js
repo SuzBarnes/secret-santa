@@ -241,7 +241,7 @@ const MyEvents = () => {
     setTimeout(() => {
       console.log("test");
       setReveal(true);
-    }, 300);
+    }, 500);
   };
 
   return (

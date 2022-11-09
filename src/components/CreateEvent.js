@@ -94,7 +94,8 @@ const CreateEvent = () => {
 
   const regesterURL = "http://localhost:3001/register";
   const greeting = `
-  Hi!\rYou've been invited to join ${fields.title}.
+  Hi!\r
+  You've been invited to join ${fields.title}.
   Sign Up here: ${regesterURL}
   Once logged in, use code ${eventCode} to join!`;
 

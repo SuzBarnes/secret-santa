@@ -101,10 +101,6 @@
     background-color: transparent;
   }
 
-  .field-value-date::-webkit-calendar-picker-indicator {
-    filter: invert(1);
-  }
-
   .no-events-div {
     display: flex;
     flex-direction: column;
@@ -121,7 +117,7 @@
       border: none;
       font-size: 30px;
       cursor: pointer;
-      transition-duration: 400ms;
+      transition-duration: 500ms;
     }
 
     .buy-for {

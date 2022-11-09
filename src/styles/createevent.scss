@@ -62,11 +62,12 @@
   .event-created {
     color: $font-color;
     text-align: center;
-
-    div {
-      margin: 30px;
+    .copy-button {
+      padding: 15px;
     }
-
+    div {
+      margin: 15px;
+    }
     a:visited {
       color: $font-color;
     }
