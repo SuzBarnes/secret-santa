@@ -72,7 +72,8 @@
   .leave-button,
   .cancel-button {
     position: fixed;
-    left: 38%;
+    left: 50%;
+    transform: translate(-50%);
     width: 90px;
     margin: 4px;
     font-size: 20px;
