@@ -94,16 +94,16 @@ const CreateEvent = () => {
 
   const regesterURL = "http://localhost:3001/register";
   const greeting = `
-  Hi! You've been invited to join ${fields.title}
-  Click here to Sign Up ${regesterURL}
-  Once Logged in use code ${eventCode} to Join`;
+  Hi!\rYou've been invited to join ${fields.title}.
+  Sign Up here: ${regesterURL}
+  Once logged in, use code ${eventCode} to join!`;
 
   return (
     <div className="create-event-container">
       {eventCreated ? (
         <div className="event-created">
           <div>
-            <h1>{fields.title} Created</h1>
+            <h1>{fields.title} was created!</h1>
           </div>
           <div className="share-link">
             <button
@@ -113,7 +113,8 @@ const CreateEvent = () => {
                 navigator.clipboard.writeText(greeting);
               }}
             >
-              Click here to copy invite
+              Click here to copy invite:
+              <div>{greeting}</div>
             </button>
           </div>
           <div>Join Event Code: {eventCode}</div>
@@ -162,7 +163,7 @@ const CreateEvent = () => {
               className="field-value-budget"
               name="budget"
               type="number"
-              placeholder="Budget"
+              placeholder="£ Budget"
               onChange={handleChange}
             />
           </div>

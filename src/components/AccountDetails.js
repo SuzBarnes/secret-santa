@@ -271,7 +271,7 @@ const AccountDetails = () => {
         success={alert.isSuccess}
       />
       <div className="account-details-title">
-        <h1>Your Details</h1>
+        <h1>My Details</h1>
       </div>
       <div className="fields-container">
         <div className="field-card">
