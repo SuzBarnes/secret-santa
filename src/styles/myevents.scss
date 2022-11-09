@@ -2,7 +2,7 @@
   padding: 0.5rem;
 }
 
-.events>.item {
+.events > .item {
   display: inline-block;
   padding: 0.5rem;
   box-sizing: border-box;
@@ -60,13 +60,13 @@
     position: fixed;
     right: 20px;
     bottom: 17%;
-    font-size: 20px
+    font-size: 20px;
   }
 
   .event-button {
     width: 90px;
     margin: 4px;
-    font-size: 20px
+    font-size: 20px;
   }
 
   .leave-button,
@@ -75,7 +75,7 @@
     left: 38%;
     width: 90px;
     margin: 4px;
-    font-size: 20px
+    font-size: 20px;
   }
 
   .leave-button {
@@ -127,5 +127,9 @@
     .buy-for {
       padding: 5px;
     }
+  }
+
+  .font-awesome-icon {
+    font-size: 30px;
   }
 }

@@ -11,6 +11,8 @@ import {
   faCheck,
   faTrashCan,
   faXmark,
+  faGifts,
+  faSleigh,
 } from "@fortawesome/free-solid-svg-icons";
 import Alert from "./Alert";
 import AdminCard from "./AdminCard";
@@ -431,6 +433,13 @@ const MyEvents = () => {
             <div className="no-events-div">
               <h1>Slow down Rudolph!</h1>
               <p>You need to Create or Join an event first!</p>
+              <div className="font-awesome-icon">
+                <FontAwesomeIcon
+                  className="font-awesome-icon"
+                  icon={faSleigh}
+                />
+                <FontAwesomeIcon className="font-awesome-icon" icon={faGifts} />
+              </div>
             </div>
           )}
         </div>
