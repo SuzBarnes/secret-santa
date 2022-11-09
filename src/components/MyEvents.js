@@ -321,12 +321,12 @@ const MyEvents = () => {
                     </div>
 
                     <div>
-                      <div>suggestions from other</div>
+                      <div>Suggestions from others:</div>
                       <button
                         type="button"
                         onClick={() => setIsRevealed(!isRevealed)}
                       >
-                        {isRevealed ? "hide" : "show"}
+                        {isRevealed ? "Hide" : "Show"}
                       </button>
                       {isRevealed && (
                         <ul>

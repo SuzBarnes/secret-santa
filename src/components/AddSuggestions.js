@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/addsuggestions.scss";
 import PropTypes from "prop-types";
 import axios from "axios";
 
@@ -54,18 +55,17 @@ const AddSuggestions = ({ nameToAddSuggestion }) => {
 
   return (
     <div>
-      add suggestions for {firstName}
       <form onSubmit={handleSubmit}>
         <input
           className="suggestions"
           id="suggestions"
           name="suggestions"
-          placeholder="add suggestion"
+          placeholder={`Enter your ideas for ${firstName}!`}
           type="text"
           value={suggestionsToAdd}
           onChange={handleChange}
         />
-        <button type="submit">submit</button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
