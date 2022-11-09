@@ -71,6 +71,8 @@ const MyEvents = () => {
             setBuyForId(data[0].BuyFor.first_name);
             setBuyForSuggestions(data[0].BuyFor.suggestions);
             console.log("BUYFOR", data[0].BuyFor.first_name);
+            setBuyForLikes(data[0].BuyFor.likes);
+            setBuyForDislikes(data[0].BuyFor.dislikes);
           }
           if (data[0].EventId) {
             axios
