@@ -59,13 +59,15 @@
     color: $font-color;
   }
 
-  .event-created{
+  .event-created {
     color: $font-color;
     text-align: center;
-    div{
+
+    div {
       margin: 30px;
     }
-    a:visited{
+
+    a:visited {
       color: $font-color;
     }
   }

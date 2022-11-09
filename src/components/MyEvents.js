@@ -8,6 +8,9 @@ import {
   faRightLong,
   faLeftLong,
   faGift,
+  faCheck,
+  faTrashCan,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import Alert from "./Alert";
 import AdminCard from "./AdminCard";
@@ -274,11 +277,11 @@ const MyEvents = () => {
           <Alert message={alert.message} success={alert.isSuccess} />
           {eventId ? (
             <div>
-              <div className="my-events-title">
-                <h1>My Events</h1>
-              </div>
+              <div className="my-events-title">{/* <h1>My Events</h1> */}</div>
               <div className="event-data-container">
-                <div className="event-data-card">{eventData.title}</div>
+                <div className="event-data-card">
+                  <h1>{eventData.title}</h1>
+                </div>
                 <div className="event-data-card">
                   Exchange Date
                   <input
@@ -376,20 +379,36 @@ const MyEvents = () => {
                   </div>
                 )}
               </div>
+              {isSure && (
+                <div className="delete-confirm-message">
+                  Are you sure you want to leave this event?
+                </div>
+              )}
               <div className="field-card">
-                {isSure && (
-                  <div className="delete-confirm-message">
-                    Are you sure you want to leave this event?
-                  </div>
-                )}
                 <button
-                  className="event-button"
+                  className="event-button leave-button"
                   type="submit"
                   onClick={handleLeaveEvent}
                   disabled={eventData.drawn}
                 >
-                  {isSure ? "confirm" : "leave event"}
+                  {isSure ? (
+                    <FontAwesomeIcon icon={faCheck} className="font-awesome" />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      className="font-awesome"
+                    />
+                  )}
                 </button>
+                {isSure && (
+                  <button
+                    type="button"
+                    className="cancel-button"
+                    onClick={() => setIsSure(false)}
+                  >
+                    <FontAwesomeIcon icon={faXmark} className="font-awesome" />
+                  </button>
+                )}
                 <button
                   className="event-button previous"
                   type="button"
@@ -409,7 +428,10 @@ const MyEvents = () => {
               </button>
             </div>
           ) : (
-            <div>no events</div>
+            <div className="no-events-div">
+              <h1>Slow down Rudolph!</h1>
+              <p>You need to Create or Join an event first!</p>
+            </div>
           )}
         </div>
       )}

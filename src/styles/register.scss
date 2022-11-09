@@ -1,5 +1,10 @@
 @import "config";
 
+h1 {
+  font-family: $header-font;
+  font-size: 50px;
+}
+
 .register {
   background-color: $main-color;
   color: $font-color;
