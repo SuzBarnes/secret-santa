@@ -120,12 +120,21 @@ const Login = () => {
             <button
               type="button"
               className="eye-button"
+              data-testid="togglePasswordButton"
               onClick={togglePassword}
             >
               {!passwordShown ? (
-                <FontAwesomeIcon icon={faEye} className="font-awesome" />
+                <FontAwesomeIcon
+                  icon={faEye}
+                  className="font-awesome"
+                  title="eyePassword"
+                />
               ) : (
-                <FontAwesomeIcon icon={faEyeSlash} className="font-awesome" />
+                <FontAwesomeIcon
+                  icon={faEyeSlash}
+                  className="font-awesome"
+                  title="eyeSlash"
+                />
               )}
             </button>
           </div>

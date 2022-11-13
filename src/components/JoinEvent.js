@@ -203,7 +203,7 @@ const JoinEvent = () => {
               onChange={handleCodeChange}
             />
           </label>
-          <button type="submit" onClick={handleCodeEnter}>
+          <button type="submit" onClick={handleCodeEnter} data-testid="join">
             Join!
           </button>
           <Alert message={alert.message} isSuccess={alert.isSuccess} />
