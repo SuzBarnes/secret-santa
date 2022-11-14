@@ -374,10 +374,7 @@ const AccountDetails = () => {
                     title="eyeIcon"
                   />
                 ) : (
-                  <FontAwesomeIcon
-                    icon={faEye}
-                    className="slash-eye-icon"
-                  />
+                  <FontAwesomeIcon icon={faEye} className="slash-eye-icon" />
                 )}
               </button>
             </div>
