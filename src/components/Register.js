@@ -141,15 +141,15 @@ const Register = () => {
               >
                 {!passwordShown ? (
                   <FontAwesomeIcon
-                    icon={faEye}
-                    className="font-awesome"
-                    title="eye"
-                  />
-                ) : (
-                  <FontAwesomeIcon
                     icon={faEyeSlash}
                     className="font-awesome"
                     title="eyeSlash"
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faEye}
+                    className="font-awesome"
+                    title="eye"
                   />
                 )}
               </button>

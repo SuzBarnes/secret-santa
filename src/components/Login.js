@@ -125,15 +125,15 @@ const Login = () => {
             >
               {!passwordShown ? (
                 <FontAwesomeIcon
-                  icon={faEye}
-                  className="font-awesome"
-                  title="eyePassword"
-                />
-              ) : (
-                <FontAwesomeIcon
                   icon={faEyeSlash}
                   className="font-awesome"
                   title="eyeSlash"
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon={faEye}
+                  className="font-awesome"
+                  title="eyePassword"
                 />
               )}
             </button>

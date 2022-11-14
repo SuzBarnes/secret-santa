@@ -42,7 +42,7 @@ describe("Register", () => {
     expect(registerButton).toBeInstanceOf(HTMLButtonElement);
   });
   it("renders the toggle password button correctly", () => {
-    const toggleButton = screen.getByTitle(/eye/i);
+    const toggleButton = screen.getByTitle(/eyeSlash/i);
     expect(toggleButton).toBeInstanceOf(SVGTitleElement);
   });
 
@@ -51,10 +51,10 @@ describe("Register", () => {
     fireEvent.click(registerButton);
   });
 });
-xit("displays an error message on email already existing", () => {});
+xit("displays an error message on email already existing", () => { });
 it("toggle password works", () => {
   const toggleButton = screen.getByTestId("togglePasswordButton");
   fireEvent.click(toggleButton);
-  expect(screen.getByTitle(/eyeSlash/i)).toBeInstanceOf(SVGTitleElement);
+  expect(screen.getByTitle(/eye/i)).toBeInstanceOf(SVGTitleElement);
 });
-xit("when 'Sign In' is clicked, the page is redirected to /login", () => {});
+xit("when 'Sign In' is clicked, the page is redirected to /login", () => { });

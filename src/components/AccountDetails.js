@@ -368,13 +368,14 @@ const AccountDetails = () => {
               >
                 {!passwordShown ? (
                   <FontAwesomeIcon
-                    icon={faEye}
+                    icon={faEyeSlash}
                     className="eye-icon"
                     data-testid="eye-icon"
+                    title="eyeIcon"
                   />
                 ) : (
                   <FontAwesomeIcon
-                    icon={faEyeSlash}
+                    icon={faEye}
                     className="slash-eye-icon"
                   />
                 )}
@@ -387,7 +388,7 @@ const AccountDetails = () => {
           <div className="field-tag">Likes:</div>
           {fields.likes &&
             fields.likes.split(", ").map((item, index) => (
-              <div className="like-container" key={item}>
+              <div className="like-container" key={item} data-testid="likes">
                 <input
                   className="field-value"
                   data-testid="likes"
