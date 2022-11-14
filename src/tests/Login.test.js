@@ -49,10 +49,10 @@ describe("Login", () => {
     fireEvent.click(loginButton);
   });
 });
-xit("displays an error message on username / password  being incorrect", () => { });
+xit("displays an error message on username / password  being incorrect", () => {});
 it("toggle password works", () => {
   const toggleButton = screen.getByTestId("togglePasswordButton");
   fireEvent.click(toggleButton);
   expect(screen.getByTitle(/eyePassword/i)).toBeInstanceOf(SVGTitleElement);
 });
-xit("when 'sign up' is clicked, the page is redirected to /register", () => { });
+xit("when 'sign up' is clicked, the page is redirected to /register", () => {});
