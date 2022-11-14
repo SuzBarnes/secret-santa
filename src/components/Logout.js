@@ -39,6 +39,7 @@ const Logout = () => {
         <FontAwesomeIcon
           icon={faPersonWalkingArrowRight}
           className="font-awesome"
+          data-testid="logout"
         />
       </button>
     </div>

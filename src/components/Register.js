@@ -125,7 +125,11 @@ const Register = () => {
               required
             />
             <div className="register-div">
-              <button type="submit" className="button-div register-button">
+              <button
+                type="submit"
+                className="button-div register-button"
+                data-testid="register"
+              >
                 Register
               </button>
 
@@ -133,11 +137,20 @@ const Register = () => {
                 type="button"
                 className="button-div eye-button"
                 onClick={togglePassword}
+                data-testid="togglePasswordButton"
               >
                 {!passwordShown ? (
-                  <FontAwesomeIcon icon={faEye} className="font-awesome" />
+                  <FontAwesomeIcon
+                    icon={faEyeSlash}
+                    className="font-awesome"
+                    title="eyeSlash"
+                  />
                 ) : (
-                  <FontAwesomeIcon icon={faEyeSlash} className="font-awesome" />
+                  <FontAwesomeIcon
+                    icon={faEye}
+                    className="font-awesome"
+                    title="eye"
+                  />
                 )}
               </button>
             </div>

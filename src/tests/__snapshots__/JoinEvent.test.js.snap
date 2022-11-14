@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JoinEvent renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="join-event"
+  >
+    <div>
+      <p>
+        Enter your invite code to join your friends:
+      </p>
+      <label
+        for="code"
+      >
+        <input
+          class="code"
+          id="code"
+          name="code"
+          placeholder="Event Code"
+          type="text"
+          value=""
+        />
+      </label>
+      <button
+        data-testid="join"
+        type="submit"
+      >
+        Join!
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
