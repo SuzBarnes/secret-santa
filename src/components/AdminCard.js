@@ -286,7 +286,12 @@ const AdminCard = ({ eventId, usersTakingPart }) => {
 
 AdminCard.propTypes = {
   eventId: PropTypes.number.isRequired,
-  usersTakingPart: PropTypes.arrayOf(PropTypes.string).isRequired,
+  usersTakingPart: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      firstName: PropTypes.string,
+    })
+  ).isRequired,
 };
 
 export default AdminCard;
