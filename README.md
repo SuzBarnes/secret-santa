@@ -42,6 +42,7 @@ The app will allow you to:
 
 - Created by bootstrapping the Create React App (https://github.com/facebook/create-react-app).
 - Uses React, JavaScript, JSX and SASS.
+- Find the backend repo [here](https://github.com/LCHeffernan/backend-secret-santa).
 
 ---
 
