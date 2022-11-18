@@ -13,9 +13,7 @@ The app will allow you to:
 - Allow you to add your likes and dislikes, or a wishlist of your own,
 - Let other gift-givers send you tips and links to present ideas for the person you have drawn, anonymously!
 
-<img src="/src/images/SD_login.png" width="193" height="413" alt="Santa draws login page" title="Santa draws login page"/>
-<img src="/src/images/SD_create_event.png" width="193" height="413" alt="Santa draws create event page" title="Santa draws create event page"/>
-<img src="/src/images/SD_event.png" width="193" height="413" alt="Santa draws display event page" title="Santa draws display event page"/>
+<img src="/src/images/SD_login.png" width="193" height="413" alt="Santa draws login page" title="Santa draws login page"/><img src="/src/images/SD_create_event.png" width="193" height="413" alt="Santa draws create event page" title="Santa draws create event page"/><img src="/src/images/SD_event.png" width="193" height="413" alt="Santa draws display event page" title="Santa draws display event page"/>
 ---
 
 ### Installation Instructions
