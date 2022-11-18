@@ -1,5 +1,9 @@
 # Secret Santa App
 
+This is the frontend for the Santa Draws app [backend repo here](https://github.com/LCHeffernan/backend-secret-santa). This was a group project that was part of the Manchester Codes bootcamp course. You can view the presentation explaining this app [here](https://www.youtube.com/watch?app=desktop&v=CUrmqMA-IB0&feature=youtu.be).
+
+### Decsription
+
 An app for all the family! Christmas present budget getting out of control? Sick of pulling names out of a hat and having to redraw when you pick yourself? Try our app!
 
 The app will allow you to:
@@ -35,14 +39,18 @@ The app will allow you to:
 ---
 
 ### How to use:
+- First you must register for an account and then login.
+- Then you can create your own secret Santa event (you are the admin for this event) and send the invitation to everyone, or you can join an event someone else has already created.
+- You can change your account details and update your likes and dislikes so the person who gets drawn your name has ideas of what to buy you.
+- Once everyone had joined your event, you (the admin of the event) can click the draw names button which will assign everyone a name. 
+- You can view your events in the my events page and add suggestions anonymously for anyone else in the event.
 
 ---
 
 ### Technologies
 
-- Created by bootstrapping the Create React App (https://github.com/facebook/create-react-app).
+- Created by bootstrapping the [Create React App](https://github.com/facebook/create-react-app).
 - Uses React, JavaScript, JSX and SASS.
-- Find the backend repo [here](https://github.com/LCHeffernan/backend-secret-santa).
 
 ---
 
