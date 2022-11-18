@@ -47,7 +47,13 @@ The app will allow you to:
 
 ### Further time
 
-If we had further time we would...
+In the future we would like to include more tests for better coverage and to refactor the code to be DRY. Additional features we would like to add include:
+- Change the event invite code to be either a string of words or a larger number with a expiration time on it.
+- Add postal address field for worldwide Secret Draws use,
+- Send a notification to users when the names have been drawn,
+- Expand it for different events by adding other themes to app using useContext hook.
+We would also like to deploy the app.
+
 
 ### Authors
 
