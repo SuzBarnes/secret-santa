@@ -13,6 +13,9 @@ The app will allow you to:
 - Allow you to add your likes and dislikes, or a wishlist of your own,
 - Let other gift-givers send you tips and links to present ideas for the person you have drawn, anonymously!
 
+<img src="/src/images/SD_login.png" width="193" height="413" alt="Santa draws login page" title="Santa draws login page"/>
+<img src="/src/images/SD_create_event.png" width="193" height="413" alt="Santa draws create event page" title="Santa draws create event page"/>
+<img src="/src/images/SD_event.png" width="193" height="413" alt="Santa draws display event page" title="Santa draws display event page"/>
 ---
 
 ### Installation Instructions
@@ -40,7 +43,7 @@ The app will allow you to:
 ### Technologies
 
 - Created by bootstrapping the Create React App (https://github.com/facebook/create-react-app).
-- Uses React, JavaScript, JSX, CSS, Sequelize.
+- Uses React, JavaScript, JSX and SASS.
 
 ---
 
@@ -48,4 +51,10 @@ The app will allow you to:
 
 If we had further time we would...
 
-Created by Lisa Hefferman, Alex Bradley and Suzannah Barnes 2022
+### Authors
+
+|Social| Alex Bradley | Suzannah Barnes | Lisa Heffernan |
+| ------ | ------ | ------ | ------ |
+|GitHub|[@AlexPBradley](https://github.com/AlexPBradley)|[@SuzBarnes](https://github.com/SuzBarnes)|[@LCHeffernan](https://github.com/LCHeffernan)|
+|LinkedIn|[Alex Bradley](https://www.linkedin.com/in/alexpbradley/)|[Suzannah Barnes](https://www.linkedin.com/in/suzannah-barnes/)|[Lisa Heffernan](https://www.linkedin.com/in/lisa-heffernan-54b61312a)|
+|Twitter| | |[@Iisaheffernan](https://twitter.com/Iisaheffernan)|
