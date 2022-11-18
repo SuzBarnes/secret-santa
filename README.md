@@ -1,6 +1,9 @@
-# Secret Santa App
+# Secret Draws App
+___
 
 This is the frontend for the Santa Draws app [backend repo here](https://github.com/LCHeffernan/backend-secret-santa). This was a group project that was part of the Manchester Codes bootcamp course. You can view the presentation explaining this app [here](https://www.youtube.com/watch?app=desktop&v=CUrmqMA-IB0&feature=youtu.be).
+
+---
 
 ### Decsription
 
